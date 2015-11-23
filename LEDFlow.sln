@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoowooTech.LEDFlow.Server", "LoowooTech.LEDFlow.Server\LoowooTech.LEDFlow.Server.csproj", "{3A20FDDA-4606-46AB-A2D7-1A40CD6D07CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoowooTech.LEDFlow.Client", "LoowooTech.LEDFlow.Client\LoowooTech.LEDFlow.Client.csproj", "{724360BC-F3D1-4D92-AAAA-A5D310F1F5AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoowooTech.LEDFlow.Model", "LoowooTech.LEDFlow.Model\LoowooTech.LEDFlow.Model.csproj", "{D710794B-69DA-4B5F-AA7D-3DF947E12F0C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3A20FDDA-4606-46AB-A2D7-1A40CD6D07CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A20FDDA-4606-46AB-A2D7-1A40CD6D07CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A20FDDA-4606-46AB-A2D7-1A40CD6D07CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A20FDDA-4606-46AB-A2D7-1A40CD6D07CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{724360BC-F3D1-4D92-AAAA-A5D310F1F5AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{724360BC-F3D1-4D92-AAAA-A5D310F1F5AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{724360BC-F3D1-4D92-AAAA-A5D310F1F5AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{724360BC-F3D1-4D92-AAAA-A5D310F1F5AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D710794B-69DA-4B5F-AA7D-3DF947E12F0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D710794B-69DA-4B5F-AA7D-3DF947E12F0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D710794B-69DA-4B5F-AA7D-3DF947E12F0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D710794B-69DA-4B5F-AA7D-3DF947E12F0C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
