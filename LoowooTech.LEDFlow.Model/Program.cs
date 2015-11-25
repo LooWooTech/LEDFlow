@@ -18,6 +18,6 @@ namespace LoowooTech.LEDFlow.Model
 
         public int PlayTimes { get; set; }
 
-        public TextStyle? Style { get; set; }
+        public TextStyle Style { get; set; }
     }
 }

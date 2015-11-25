@@ -62,12 +62,14 @@
             this.btnUser.Name = "btnUser";
             this.btnUser.Size = new System.Drawing.Size(69, 24);
             this.btnUser.Text = "用户管理";
+            this.btnUser.Click += new System.EventHandler(this.btnUser_Click);
             // 
             // btnLogout
             // 
             this.btnLogout.Name = "btnLogout";
             this.btnLogout.Size = new System.Drawing.Size(41, 24);
             this.btnLogout.Text = "退出";
+            this.btnLogout.Click += new System.EventHandler(this.btnLogout_Click);
             // 
             // toolStripSeparator1
             // 
@@ -82,6 +84,7 @@
             this.btnLED.Name = "btnLED";
             this.btnLED.Size = new System.Drawing.Size(69, 24);
             this.btnLED.Text = "屏幕监控";
+            this.btnLED.Click += new System.EventHandler(this.btnLED_Click);
             // 
             // toolStripSeparator3
             // 
@@ -96,6 +99,7 @@
             this.btnProgram.Name = "btnProgram";
             this.btnProgram.Size = new System.Drawing.Size(69, 24);
             this.btnProgram.Text = "节目管理";
+            this.btnProgram.Click += new System.EventHandler(this.btnProgram_Click);
             // 
             // toolStrip1
             // 
