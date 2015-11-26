@@ -32,19 +32,19 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnAdd = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnEdit = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.btnDelete = new System.Windows.Forms.ToolStripButton();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Content = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PlayTimes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StartDay = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StartTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PlayMode = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PlayTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FontFamily = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FontSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TextAlignment = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TextAnimation = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnEdit = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -76,6 +76,21 @@
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
+            // btnEdit
+            // 
+            this.btnEdit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnEdit.Image = ((System.Drawing.Image)(resources.GetObject("btnEdit.Image")));
+            this.btnEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnEdit.Name = "btnEdit";
+            this.btnEdit.Size = new System.Drawing.Size(36, 22);
+            this.btnEdit.Text = "修改";
+            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
             // btnDelete
             // 
             this.btnDelete.Name = "btnDelete";
@@ -94,8 +109,8 @@
             this.ID,
             this.Content,
             this.PlayTimes,
-            this.StartDay,
-            this.StartTime,
+            this.PlayMode,
+            this.PlayTime,
             this.FontFamily,
             this.FontSize,
             this.TextAlignment,
@@ -131,17 +146,17 @@
             this.PlayTimes.Name = "PlayTimes";
             this.PlayTimes.ReadOnly = true;
             // 
-            // StartDay
+            // PlayMode
             // 
-            this.StartDay.HeaderText = "播放日期";
-            this.StartDay.Name = "StartDay";
-            this.StartDay.ReadOnly = true;
+            this.PlayMode.HeaderText = "播放方式";
+            this.PlayMode.Name = "PlayMode";
+            this.PlayMode.ReadOnly = true;
             // 
-            // StartTime
+            // PlayTime
             // 
-            this.StartTime.HeaderText = "播放时间";
-            this.StartTime.Name = "StartTime";
-            this.StartTime.ReadOnly = true;
+            this.PlayTime.HeaderText = "播放时间";
+            this.PlayTime.Name = "PlayTime";
+            this.PlayTime.ReadOnly = true;
             // 
             // FontFamily
             // 
@@ -167,21 +182,6 @@
             this.TextAnimation.Name = "TextAnimation";
             this.TextAnimation.ReadOnly = true;
             // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
-            // 
-            // btnEdit
-            // 
-            this.btnEdit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnEdit.Image = ((System.Drawing.Image)(resources.GetObject("btnEdit.Image")));
-            this.btnEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(36, 22);
-            this.btnEdit.Text = "修改";
-            this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
-            // 
             // ProgramTab
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -205,17 +205,17 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripButton btnDelete;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.ToolStripButton btnEdit;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Content;
         private System.Windows.Forms.DataGridViewTextBoxColumn PlayTimes;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StartDay;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StartTime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PlayMode;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PlayTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn FontFamily;
         private System.Windows.Forms.DataGridViewTextBoxColumn FontSize;
         private System.Windows.Forms.DataGridViewTextBoxColumn TextAlignment;
         private System.Windows.Forms.DataGridViewTextBoxColumn TextAnimation;
-        private System.Windows.Forms.ToolStripButton btnEdit;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
 
     }
 }

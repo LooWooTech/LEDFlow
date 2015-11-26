@@ -29,15 +29,10 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbxPlayMode = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.txtPlayTimes = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.cbxStartMinute = new System.Windows.Forms.ComboBox();
-            this.cbxStartHour = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.dtpStartDay = new System.Windows.Forms.DateTimePicker();
-            this.label2 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.cbxTextAnimation = new System.Windows.Forms.ComboBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -51,6 +46,7 @@
             this.txtContent = new System.Windows.Forms.TextBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.playTimeControl1 = new LoowooTech.LEDFlow.Server.UserControls.PlayTimeControl();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -58,15 +54,11 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.playTimeControl1);
+            this.groupBox1.Controls.Add(this.cbxPlayMode);
+            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.txtPlayTimes);
             this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.cbxStartMinute);
-            this.groupBox1.Controls.Add(this.cbxStartHour);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.dtpStartDay);
-            this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Location = new System.Drawing.Point(22, 160);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(240, 163);
@@ -74,9 +66,28 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "播放设置";
             // 
+            // cbxPlayMode
+            // 
+            this.cbxPlayMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbxPlayMode.FormattingEnabled = true;
+            this.cbxPlayMode.Location = new System.Drawing.Point(83, 23);
+            this.cbxPlayMode.Name = "cbxPlayMode";
+            this.cbxPlayMode.Size = new System.Drawing.Size(121, 20);
+            this.cbxPlayMode.TabIndex = 22;
+            this.cbxPlayMode.SelectedIndexChanged += new System.EventHandler(this.cbxPlayMode_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(19, 23);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(53, 12);
+            this.label1.TabIndex = 21;
+            this.label1.Text = "播放方式";
+            // 
             // txtPlayTimes
             // 
-            this.txtPlayTimes.Location = new System.Drawing.Point(83, 125);
+            this.txtPlayTimes.Location = new System.Drawing.Point(83, 56);
             this.txtPlayTimes.Name = "txtPlayTimes";
             this.txtPlayTimes.Size = new System.Drawing.Size(52, 21);
             this.txtPlayTimes.TabIndex = 19;
@@ -84,110 +95,11 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(19, 129);
+            this.label6.Location = new System.Drawing.Point(19, 60);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(53, 12);
             this.label6.TabIndex = 18;
             this.label6.Text = "播放次数";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(213, 82);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(17, 12);
-            this.label5.TabIndex = 17;
-            this.label5.Text = "分";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(132, 82);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(17, 12);
-            this.label4.TabIndex = 16;
-            this.label4.Text = "时";
-            // 
-            // cbxStartMinute
-            // 
-            this.cbxStartMinute.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxStartMinute.FormattingEnabled = true;
-            this.cbxStartMinute.Items.AddRange(new object[] {
-            "00",
-            "05",
-            "10",
-            "15",
-            "20",
-            "25",
-            "30",
-            "35",
-            "40",
-            "45",
-            "50",
-            "55"});
-            this.cbxStartMinute.Location = new System.Drawing.Point(161, 78);
-            this.cbxStartMinute.Name = "cbxStartMinute";
-            this.cbxStartMinute.Size = new System.Drawing.Size(46, 20);
-            this.cbxStartMinute.TabIndex = 15;
-            // 
-            // cbxStartHour
-            // 
-            this.cbxStartHour.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxStartHour.FormattingEnabled = true;
-            this.cbxStartHour.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10",
-            "11",
-            "12",
-            "13",
-            "14",
-            "15",
-            "16",
-            "17",
-            "18",
-            "19",
-            "20",
-            "21",
-            "22",
-            "23"});
-            this.cbxStartHour.Location = new System.Drawing.Point(83, 78);
-            this.cbxStartHour.Name = "cbxStartHour";
-            this.cbxStartHour.Size = new System.Drawing.Size(46, 20);
-            this.cbxStartHour.TabIndex = 14;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(19, 82);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(53, 12);
-            this.label3.TabIndex = 13;
-            this.label3.Text = "开始时间";
-            // 
-            // dtpStartDay
-            // 
-            this.dtpStartDay.Location = new System.Drawing.Point(83, 26);
-            this.dtpStartDay.Name = "dtpStartDay";
-            this.dtpStartDay.Size = new System.Drawing.Size(129, 21);
-            this.dtpStartDay.TabIndex = 12;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(19, 26);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 12);
-            this.label2.TabIndex = 11;
-            this.label2.Text = "开始日期";
             // 
             // groupBox2
             // 
@@ -315,6 +227,13 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // playTimeControl1
+            // 
+            this.playTimeControl1.Location = new System.Drawing.Point(16, 79);
+            this.playTimeControl1.Name = "playTimeControl1";
+            this.playTimeControl1.Size = new System.Drawing.Size(213, 62);
+            this.playTimeControl1.TabIndex = 23;
+            // 
             // EditProgramForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -347,13 +266,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox txtPlayTimes;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox cbxStartMinute;
-        private System.Windows.Forms.ComboBox cbxStartHour;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.DateTimePicker dtpStartDay;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.ComboBox cbxTextAnimation;
         private System.Windows.Forms.Label label10;
@@ -367,6 +279,9 @@
         private System.Windows.Forms.TextBox txtContent;
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.ComboBox cbxPlayMode;
+        private System.Windows.Forms.Label label1;
+        private UserControls.PlayTimeControl playTimeControl1;
 
     }
 }

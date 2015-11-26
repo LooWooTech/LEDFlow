@@ -32,8 +32,18 @@ namespace LoowooTech.LEDFlow.Server.UserControls
             var row = dataGridView1.Rows[rowIndex];
             row.Cells["ID"].Value = model.ID;
             row.Cells["Content"].Value = model.Content;
-            row.Cells["StartDay"].Value = model.StartDay.HasValue ? model.StartDay.Value.ToShortDateString() : null;
-            row.Cells["StartTime"].Value = model.StartTime;
+            row.Cells["PlayMode"].Value = model.PlayMode.ToString();
+            switch(model.PlayMode)
+            {
+                case Model.PlayMode.立即开始:
+                    break;
+                case Model.PlayMode.定点轮播:
+                    row.Cells["PlayTime"].Value = model.PlayTime.Value.ToString("HH:mm");
+                    break;
+                case Model.PlayMode.定点开始:
+                    row.Cells["PlayTime"].Value = model.PlayTime.Value.ToString();
+                    break;
+            }
             row.Cells["PlayTimes"].Value = model.PlayTimes;
             if (model.Style != null)
             {
@@ -61,6 +71,7 @@ namespace LoowooTech.LEDFlow.Server.UserControls
         {
             var editForm = new EditProgramForm();
             editForm.BindData(programId);
+            editForm.ShowDialog();
             BindData();
         }
 

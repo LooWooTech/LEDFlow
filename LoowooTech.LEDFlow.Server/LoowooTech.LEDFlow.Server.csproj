@@ -70,6 +70,12 @@
     <Compile Include="UserControls\LEDScreenTab.Designer.cs">
       <DependentUpon>LEDScreenTab.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\PlayTimeControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\PlayTimeControl.Designer.cs">
+      <DependentUpon>PlayTimeControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ProgramTab.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -99,6 +105,9 @@
     </Compile>
     <EmbeddedResource Include="UserControls\LEDScreenTab.resx">
       <DependentUpon>LEDScreenTab.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\PlayTimeControl.resx">
+      <DependentUpon>PlayTimeControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\ProgramTab.resx">
       <DependentUpon>ProgramTab.cs</DependentUpon>

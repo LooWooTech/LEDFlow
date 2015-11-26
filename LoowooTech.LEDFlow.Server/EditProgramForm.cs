@@ -14,6 +14,7 @@ namespace LoowooTech.LEDFlow.Server
         public EditProgramForm()
         {
             InitializeComponent();
+
         }
 
         private int _programId;
@@ -22,26 +23,12 @@ namespace LoowooTech.LEDFlow.Server
         {
             var model = ProgramManager.GetModel(_programId) ?? new Model.Program();
             model.Content = txtContent.Text;
-            if (!string.IsNullOrEmpty(dtpStartDay.Text))
-            { 
-                DateTime startDay = DateTime.MinValue;
-                if (DateTime.TryParse(dtpStartDay.Text, out startDay))
-                {
-                    model.StartDay = startDay;
-                }
-            }
-            var startHour = 0;
-            var startMinute = 0;
-            if (int.TryParse(cbxStartHour.Text, out startHour))
-            {
-                int.TryParse(cbxStartMinute.Text, out startMinute);
-                model.StartTime = new TimeSpan(startHour, startMinute, 0);
-            }
 
             var playTimes = 0;
             int.TryParse(txtPlayTimes.Text, out playTimes);
             model.PlayTimes = playTimes;
-
+            model.PlayTime = playTimeControl1.GetValue();
+            model.PlayMode = ParseEnum<Model.PlayMode>(cbxPlayMode.Text);
             if (!string.IsNullOrEmpty(cbxFontFamily.Text)
                 || !string.IsNullOrEmpty(txtFontSize.Text)
                 || !string.IsNullOrEmpty(cbxTextAlignment.Text)
@@ -54,9 +41,7 @@ namespace LoowooTech.LEDFlow.Server
                 var fontSize = 0;
                 int.TryParse(txtFontSize.Text,out fontSize);
                 model.Style.FontSize = fontSize;
-
                 model.Style.TextAlignment = ParseEnum<Model.TextAlignment>(cbxTextAlignment.Text);
-
                 model.Style.TextAnimation = ParseEnum<Model.TextAnimation>(cbxTextAnimation.Text);
             }
 
@@ -82,18 +67,17 @@ namespace LoowooTech.LEDFlow.Server
         internal void BindData(int programId = 0)
         {
             _programId = programId;
-            cbxFontFamily.DataSource = Enum.GetNames(typeof(Model.FontFamily));
-            cbxTextAlignment.DataSource = Enum.GetNames(typeof(Model.TextAlignment));
-            cbxTextAnimation.DataSource = Enum.GetNames(typeof(Model.TextAnimation));
+            cbxPlayMode.DataSource = Enum.GetNames(typeof(Model.PlayMode));
+            cbxFontFamily.DataSource = GetNullableDataSource<Model.FontFamily>();
+            cbxTextAlignment.DataSource = GetNullableDataSource<Model.TextAlignment>();
+            cbxTextAnimation.DataSource = GetNullableDataSource<Model.TextAnimation>();
             if (programId > 0)
             {
                 var model = ProgramManager.GetModel(programId);
                 if (model != null)
                 {
                     txtContent.Text = model.Content;
-                    dtpStartDay.Text = model.StartDay.HasValue ? model.StartDay.Value.ToShortDateString() : null;
-                    cbxStartHour.Text = model.StartTime.HasValue ? model.StartTime.Value.Hours.ToString() : null;
-                    cbxStartMinute.Text = model.StartTime.HasValue ? model.StartTime.Value.Minutes.ToString() : null;
+                    playTimeControl1.SetValue(model.PlayTime);
                     txtPlayTimes.Text = model.PlayTimes.ToString();
 
                     if (model.Style != null)
@@ -105,6 +89,21 @@ namespace LoowooTech.LEDFlow.Server
                     }
                 }
             }
+        }
+
+        private List<string> GetNullableDataSource<T>()
+        {
+            var arr = Enum.GetNames(typeof(T));
+            var list = new List<string>();
+            list.Add(string.Empty);
+            list.AddRange(arr);
+            return list;
+        }
+
+        private void cbxPlayMode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var mode = (Model.PlayMode)Enum.Parse(typeof(Model.PlayMode),cbxPlayMode.Text);
+            playTimeControl1.SetPlayMode(mode);
         }
     }
 }
