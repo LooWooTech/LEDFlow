@@ -22,7 +22,29 @@ namespace LoowooTech.LEDFlow.Server
         private void btnOK_Click(object sender, EventArgs e)
         {
             var model = ProgramManager.GetModel(_programId) ?? new Model.Program();
-            model.Content = txtContent.Text;
+            model.Messages.Clear();
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                var content = string.Empty;
+                if (row.Cells["Content"].Value != null)
+                {
+                    content = row.Cells["Content"].Value.ToString();
+                }
+                else
+                {
+                    continue;
+                }
+                var duration = 0;
+                if (row.Cells["Duration"].Value != null)
+                {
+                    int.TryParse(row.Cells["Duration"].Value.ToString(), out duration);
+                }
+                model.Messages.Add(new Model.Message
+                {
+                    Content = content,
+                    Duration = duration
+                });
+            }
 
             var playTimes = 0;
             int.TryParse(txtPlayTimes.Text, out playTimes);
@@ -37,19 +59,20 @@ namespace LoowooTech.LEDFlow.Server
             {
                 model.Style = new Model.TextStyle();
                 model.Style.FontFamily = ParseEnum<Model.FontFamily>(cbxFontFamily.Text);
-                
+
                 var fontSize = 0;
-                int.TryParse(txtFontSize.Text,out fontSize);
+                int.TryParse(txtFontSize.Text, out fontSize);
                 model.Style.FontSize = fontSize;
                 model.Style.TextAlignment = ParseEnum<Model.TextAlignment>(cbxTextAlignment.Text);
                 model.Style.TextAnimation = ParseEnum<Model.TextAnimation>(cbxTextAnimation.Text);
             }
 
             ProgramManager.Save(model);
+            this.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.Close();
         }
 
-        private T ParseEnum<T>(string text) where T :struct
+        private T ParseEnum<T>(string text) where T : struct
         {
             var result = Enum.Parse(typeof(T), text);
             return (T)result;
@@ -57,6 +80,7 @@ namespace LoowooTech.LEDFlow.Server
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
+            this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             //if (MessageBox.Show("确定关闭吗?", "提醒", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
             {
                 this.Close();
@@ -68,15 +92,23 @@ namespace LoowooTech.LEDFlow.Server
         {
             _programId = programId;
             cbxPlayMode.DataSource = Enum.GetNames(typeof(Model.PlayMode));
-            cbxFontFamily.DataSource = GetNullableDataSource<Model.FontFamily>();
-            cbxTextAlignment.DataSource = GetNullableDataSource<Model.TextAlignment>();
-            cbxTextAnimation.DataSource = GetNullableDataSource<Model.TextAnimation>();
+            cbxFontFamily.DataSource = Enum.GetNames(typeof(Model.FontFamily));
+            cbxTextAlignment.DataSource = Enum.GetNames(typeof(Model.TextAlignment));
+            cbxTextAnimation.DataSource = Enum.GetNames(typeof(Model.TextAnimation));
+            cbxFontFamily.SelectedIndex = cbxTextAlignment.SelectedIndex = cbxTextAnimation.SelectedIndex = -1;
             if (programId > 0)
             {
                 var model = ProgramManager.GetModel(programId);
                 if (model != null)
                 {
-                    txtContent.Text = model.Content;
+                    foreach (var msg in model.Messages)
+                    {
+                        var rowIndex = dataGridView1.Rows.Add();
+                        var row = dataGridView1.Rows[rowIndex];
+                        row.Cells["Content"].Value = msg.Content;
+                        row.Cells["Duration"].Value = msg.Duration;
+                    }
+
                     playTimeControl1.SetValue(model.PlayTime);
                     txtPlayTimes.Text = model.PlayTimes.ToString();
 
@@ -91,18 +123,9 @@ namespace LoowooTech.LEDFlow.Server
             }
         }
 
-        private List<string> GetNullableDataSource<T>()
-        {
-            var arr = Enum.GetNames(typeof(T));
-            var list = new List<string>();
-            list.Add(string.Empty);
-            list.AddRange(arr);
-            return list;
-        }
-
         private void cbxPlayMode_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var mode = (Model.PlayMode)Enum.Parse(typeof(Model.PlayMode),cbxPlayMode.Text);
+            var mode = (Model.PlayMode)Enum.Parse(typeof(Model.PlayMode), cbxPlayMode.Text);
             playTimeControl1.SetPlayMode(mode);
         }
     }

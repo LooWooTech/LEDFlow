@@ -31,9 +31,20 @@ namespace LoowooTech.LEDFlow.Server.UserControls
             var rowIndex = dataGridView1.Rows.Add();
             var row = dataGridView1.Rows[rowIndex];
             row.Cells["ID"].Value = model.ID;
-            row.Cells["Content"].Value = model.Content;
+            var content = string.Empty;
+            for (var i = 0; i < model.Messages.Count; i++)
+            {
+                var msg = model.Messages[i];
+                content += msg.Content + "(" + msg.Duration + ")";
+                if (i + 1 < model.Messages.Count)
+                {
+                    content += "\r\n";
+                }
+            }
+
+            row.Cells["Content"].Value = content;
             row.Cells["PlayMode"].Value = model.PlayMode.ToString();
-            switch(model.PlayMode)
+            switch (model.PlayMode)
             {
                 case Model.PlayMode.立即开始:
                     break;
@@ -71,8 +82,10 @@ namespace LoowooTech.LEDFlow.Server.UserControls
         {
             var editForm = new EditProgramForm();
             editForm.BindData(programId);
-            editForm.ShowDialog();
-            BindData();
+            if (editForm.ShowDialog() == DialogResult.OK)
+            {
+                BindData();
+            }
         }
 
 

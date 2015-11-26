@@ -6,6 +6,11 @@ namespace LoowooTech.LEDFlow.Model
 {
     public class Program
     {
+        public Program()
+        {
+            Messages = new List<Message>();
+        }
+
         public int ID { get; set; }
 
         /// <summary>
@@ -13,7 +18,7 @@ namespace LoowooTech.LEDFlow.Model
         /// </summary>
         public string ClientID { get; set; }
 
-        public string Content { get; set; }
+        public List<Message> Messages { get; set; }
         /// <summary>
         /// 播放时间（轮播则只获取小时和分钟，定点则获取日期全部）
         /// </summary>
@@ -30,6 +35,13 @@ namespace LoowooTech.LEDFlow.Model
         /// 播放方式
         /// </summary>
         public PlayMode PlayMode { get; set; }
+    }
+
+    public class Message
+    {
+        public string Content { get; set; }
+
+        public int Duration { get; set; }
     }
 
     public enum PlayMode
