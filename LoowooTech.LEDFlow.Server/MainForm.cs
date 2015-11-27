@@ -15,6 +15,7 @@ namespace LoowooTech.LEDFlow.Server
         public MainForm()
         {
             InitializeComponent();
+            btnProgram_Click(null, null);
         }
 
         private delegate void Action();
@@ -63,6 +64,11 @@ namespace LoowooTech.LEDFlow.Server
         private void btnLogout_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnClient_Click(object sender, EventArgs e)
+        {
+            AddContainer<ClientTab>();
         }
     }
 }

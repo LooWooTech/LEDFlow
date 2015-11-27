@@ -8,20 +8,11 @@ using System.Windows.Forms;
 
 namespace LoowooTech.LEDFlow.Server.UserControls
 {
-    public partial class LEDScreenTab : UserControl, ITabControl
+    public partial class LEDScreenControl : UserControl
     {
-        public LEDScreenTab()
+        public LEDScreenControl()
         {
             InitializeComponent();
-        }
-
-        public void BindData()
-        {
-        }
-
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

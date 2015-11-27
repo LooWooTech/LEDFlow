@@ -17,5 +17,8 @@ namespace LoowooTech.LEDFlow.Model
         public DateTime? LastUpdateTime { get; set; }
 
         public TextStyle DefaultStyle { get; set; }
+
+        [Newtonsoft.Json.JsonIgnore]
+        public Program CurrentProgram { get; set; }
     }
 }

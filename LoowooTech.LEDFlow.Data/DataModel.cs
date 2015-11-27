@@ -53,6 +53,7 @@ namespace LoowooTech.LEDFlow.Data
     {
         Program,
         LEDScreen,
+        Client,
         Admin
     }
 }

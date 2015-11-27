@@ -38,6 +38,8 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.btnProgram = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.btnClient = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -110,6 +112,8 @@
             this.toolStripSeparator3,
             this.btnLED,
             this.toolStripSeparator1,
+            this.btnClient,
+            this.toolStripSeparator2,
             this.btnUser,
             this.toolStripSeparator5,
             this.btnLogout});
@@ -118,6 +122,21 @@
             this.toolStrip1.Size = new System.Drawing.Size(794, 27);
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
+            // 
+            // btnClient
+            // 
+            this.btnClient.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnClient.Image = ((System.Drawing.Image)(resources.GetObject("btnClient.Image")));
+            this.btnClient.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnClient.Name = "btnClient";
+            this.btnClient.Size = new System.Drawing.Size(83, 24);
+            this.btnClient.Text = "客户端管理";
+            this.btnClient.Click += new System.EventHandler(this.btnClient_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 27);
             // 
             // MainForm
             // 
@@ -146,6 +165,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton btnProgram;
         private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripButton btnClient;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
     }
 }
 
