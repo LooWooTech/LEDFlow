@@ -1,4 +1,5 @@
 ﻿using LoowooTech.LEDFlow.Data;
+using LoowooTech.LEDFlow.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -46,11 +47,9 @@ namespace LoowooTech.LEDFlow.Server
                 });
             }
 
-            var playTimes = 0;
-            int.TryParse(txtPlayTimes.Text, out playTimes);
-            model.PlayTimes = playTimes;
+            model.PlayTimes = StringHelper.ToInt(txtPlayTimes.Text);
             model.PlayTime = playTimeControl1.GetValue();
-            model.PlayMode = ParseEnum<Model.PlayMode>(cbxPlayMode.Text);
+            model.PlayMode = StringHelper.ToEnum<Model.PlayMode>(cbxPlayMode.Text);
             if (!string.IsNullOrEmpty(cbxFontFamily.Text)
                 || !string.IsNullOrEmpty(txtFontSize.Text)
                 || !string.IsNullOrEmpty(cbxTextAlignment.Text)
@@ -58,24 +57,18 @@ namespace LoowooTech.LEDFlow.Server
                 )
             {
                 model.Style = new Model.TextStyle();
-                model.Style.FontFamily = ParseEnum<Model.FontFamily>(cbxFontFamily.Text);
+                model.Style.FontFamily = StringHelper.ToEnum<Model.FontFamily>(cbxFontFamily.Text);
 
                 var fontSize = 0;
                 int.TryParse(txtFontSize.Text, out fontSize);
                 model.Style.FontSize = fontSize;
-                model.Style.TextAlignment = ParseEnum<Model.TextAlignment>(cbxTextAlignment.Text);
-                model.Style.TextAnimation = ParseEnum<Model.TextAnimation>(cbxTextAnimation.Text);
+                model.Style.TextAlignment = StringHelper.ToEnum<Model.TextAlignment>(cbxTextAlignment.Text);
+                model.Style.TextAnimation = StringHelper.ToEnum<Model.TextAnimation>(cbxTextAnimation.Text);
             }
 
             ProgramManager.Save(model);
             this.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.Close();
-        }
-
-        private T ParseEnum<T>(string text) where T : struct
-        {
-            var result = Enum.Parse(typeof(T), text);
-            return (T)result;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -96,29 +89,26 @@ namespace LoowooTech.LEDFlow.Server
             cbxTextAlignment.DataSource = Enum.GetNames(typeof(Model.TextAlignment));
             cbxTextAnimation.DataSource = Enum.GetNames(typeof(Model.TextAnimation));
             cbxFontFamily.SelectedIndex = cbxTextAlignment.SelectedIndex = cbxTextAnimation.SelectedIndex = -1;
-            if (programId > 0)
+            var model = ProgramManager.GetModel(programId);
+            if (model != null)
             {
-                var model = ProgramManager.GetModel(programId);
-                if (model != null)
+                foreach (var msg in model.Messages)
                 {
-                    foreach (var msg in model.Messages)
-                    {
-                        var rowIndex = dataGridView1.Rows.Add();
-                        var row = dataGridView1.Rows[rowIndex];
-                        row.Cells["Content"].Value = msg.Content;
-                        row.Cells["Duration"].Value = msg.Duration;
-                    }
+                    var rowIndex = dataGridView1.Rows.Add();
+                    var row = dataGridView1.Rows[rowIndex];
+                    row.Cells["Content"].Value = msg.Content;
+                    row.Cells["Duration"].Value = msg.Duration;
+                }
 
-                    playTimeControl1.SetValue(model.PlayTime);
-                    txtPlayTimes.Text = model.PlayTimes.ToString();
+                playTimeControl1.SetValue(model.PlayTime);
+                txtPlayTimes.Text = model.PlayTimes.ToString();
 
-                    if (model.Style != null)
-                    {
-                        cbxFontFamily.Text = model.Style.FontFamily.ToString();
-                        txtFontSize.Text = model.Style.FontSize.ToString();
-                        cbxTextAlignment.Text = model.Style.TextAlignment.ToString();
-                        cbxTextAnimation.Text = model.Style.TextAnimation.ToString();
-                    }
+                if (model.Style != null)
+                {
+                    cbxFontFamily.Text = model.Style.FontFamily.ToString();
+                    txtFontSize.Text = model.Style.FontSize.ToString();
+                    cbxTextAlignment.Text = model.Style.TextAlignment.ToString();
+                    cbxTextAnimation.Text = model.Style.TextAnimation.ToString();
                 }
             }
         }

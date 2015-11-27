@@ -17,11 +17,17 @@ namespace LoowooTech.LEDFlow.Server.UserControls
 
         public void BindData()
         {
+
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-
+            var form = new EditLEDScreenForm();
+            form.BindData();
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                BindData();
+            }
         }
     }
 }

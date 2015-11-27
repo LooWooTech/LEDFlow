@@ -230,6 +230,7 @@
             this.btnCancel.TabIndex = 17;
             this.btnCancel.Text = "取消";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnOK
             // 
@@ -239,6 +240,7 @@
             this.btnOK.TabIndex = 16;
             this.btnOK.Text = "确定";
             this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
             // EditLEDScreenForm
             // 

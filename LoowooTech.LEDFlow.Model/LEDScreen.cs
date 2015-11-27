@@ -6,9 +6,14 @@ namespace LoowooTech.LEDFlow.Model
 {
     public class LEDScreen
     {
+        public LEDScreen()
+        {
+            DefaultStyle = new TextStyle();
+        }
+
         public int ID { get; set; }
 
-        public string Name { get; set;}
+        public string Name { get; set; }
 
         public int Width { get; set; }
 
@@ -20,5 +25,7 @@ namespace LoowooTech.LEDFlow.Model
 
         [Newtonsoft.Json.JsonIgnore]
         public Program CurrentProgram { get; set; }
+
+        public string ClientID { get; set; }
     }
 }
