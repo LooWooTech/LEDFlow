@@ -22,7 +22,14 @@ namespace LoowooTech.LEDFlow.Server
         public void BindData(int ledId =0)
         {
             _ledId = ledId;
-            cbxClient.DataSource = DataManager.Instance.GetList<Model.Client>();
+
+            var clients = DataManager.Instance.GetList<Model.Client>();
+            var clientDataSource = new List<string>();
+            foreach (var c in clients)
+            {
+                clientDataSource.Add(c.Name);
+            }
+            cbxClient.DataSource = clientDataSource;
             cbxFontFamily.DataSource = Enum.GetNames(typeof(Model.FontFamily));
             cbxTextAlignment.DataSource = Enum.GetNames(typeof(Model.TextAlignment));
             cbxTextAnimation.DataSource = Enum.GetNames(typeof(Model.TextAnimation));

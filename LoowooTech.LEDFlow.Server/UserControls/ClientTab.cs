@@ -51,25 +51,39 @@ namespace LoowooTech.LEDFlow.Server.UserControls
 
         private void dataGridView1_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
         {
-            var name = e.Row.Cells["ClientName"].Value;
-            if (name == null)
-            {
-                return;
-            }
             var list = DataManager.Instance.GetList<Model.Client>();
-            var index = list.FindIndex(delegate(Model.Client c) { return c.Name == name.ToString(); });
-            list.RemoveAt(index);
+            foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+            {
+                var name = row.Cells["ClientName"].Value;
+                if (name == null)
+                {
+                    return;
+                }
+                var index = list.FindIndex(delegate(Model.Client c) { return c.Name == name.ToString(); });
+                list.RemoveAt(index);
+            }
             DataManager.Instance.Save(list);
         }
 
+        private bool _userTrigger = false;
         public void BindData()
         {
+            _userTrigger = false;
             var list = DataManager.Instance.GetList<Model.Client>();
             foreach (var item in list)
             {
                 var rowIndex = dataGridView1.Rows.Add();
                 var row = dataGridView1.Rows[rowIndex];
                 row.Cells["ClientName"].Value = item.Name;
+            }
+            _userTrigger = true;
+        }
+
+        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            if (_userTrigger)
+            {
+                SaveData();
             }
         }
         

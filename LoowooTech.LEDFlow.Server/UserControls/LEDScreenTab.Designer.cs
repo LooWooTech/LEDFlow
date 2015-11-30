@@ -83,6 +83,7 @@
             this.Controls.Add(this.toolStrip1);
             this.Name = "LEDScreenTab";
             this.Size = new System.Drawing.Size(733, 464);
+            this.ParentChanged += new System.EventHandler(this.LEDScreenTab_ParentChanged);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);

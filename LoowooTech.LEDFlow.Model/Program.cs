@@ -35,6 +35,20 @@ namespace LoowooTech.LEDFlow.Model
         /// 播放方式
         /// </summary>
         public PlayMode PlayMode { get; set; }
+
+        [Newtonsoft.Json.JsonIgnore]
+        public int Duration
+        {
+            get
+            {
+                var result = 0;
+                foreach (var msg in Messages)
+                {
+                    result += msg.Duration;
+                }
+                return result * PlayTimes;
+            }
+        }
     }
 
     public class Message
@@ -45,7 +59,7 @@ namespace LoowooTech.LEDFlow.Model
     }
 
     public enum PlayMode
-    { 
+    {
         立即开始,
         定点轮播,
         定点开始,

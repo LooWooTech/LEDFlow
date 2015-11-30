@@ -12,69 +12,12 @@ namespace LoowooTech.LEDFlow.Data
         { }
 
         public readonly static DataManager Instance = new DataManager();
-        private readonly static string ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["DbConnection"].ConnectionString;
-
-        private SQLiteConnection GetConn()
-        {
-            return new SQLiteConnection("Data Source=" + System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ConnectionString));
-        }
-
-        private int ExecuteSql(string sql, params SQLiteParameter[] parameters)
-        {
-            using (var conn = GetConn())
-            {
-                conn.Open();
-                var cmd = new SQLiteCommand(sql, conn);
-                if (parameters != null)
-                {
-                    cmd.Parameters.AddRange(parameters);
-                }
-                var result = cmd.ExecuteNonQuery();
-                conn.Close();
-                return result;
-            }
-        }
-
-        private object ExecuteScalar(string sql, params SQLiteParameter[] parameters)
-        {
-            using (var conn = GetConn())
-            {
-                conn.Open();
-                var cmd = new SQLiteCommand(sql, conn);
-                if (parameters != null)
-                {
-                    cmd.Parameters.AddRange(parameters);
-                }
-                var result = cmd.ExecuteScalar();
-                conn.Close();
-                return result;
-            }
-        }
-
-        private DataTable GetDataTable(string sql, params SQLiteParameter[] parameters)
-        {
-            using (var conn = GetConn())
-            {
-                conn.Open();
-                var cmd = new SQLiteCommand(sql, conn);
-                if (parameters != null)
-                {
-                    cmd.Parameters.AddRange(parameters);
-                }
-                var da = new SQLiteDataAdapter(cmd);
-                var ds = new DataSet();
-                da.Fill(ds);
-                conn.Close();
-                return ds.Tables[0];
-            }
-        }
-
 
         private void SaveDataModel(Data model)
         {
             if (model.ID == 0)
             {
-                ExecuteSql("INSERT INTO Data (Type,CreateTime,Data) VALUES (@Type,@CreateTime,@Data)",
+                DbHelper.ExecuteSql("INSERT INTO Data (Type,CreateTime,Data) VALUES (@Type,@CreateTime,@Data)",
                     new SQLiteParameter("@Type", (int)model.Type),
                     new SQLiteParameter("@CreateTime", model.CreateTime),
                     new SQLiteParameter("@Data", model.DataJson)
@@ -82,7 +25,7 @@ namespace LoowooTech.LEDFlow.Data
             }
             else
             {
-                ExecuteSql("UPDATE Data SET Data = @Data WHERE Type=@Type",
+                DbHelper.ExecuteSql("UPDATE Data SET Data = @Data WHERE Type=@Type",
                     new SQLiteParameter("@Type", (int)model.Type),
                     new SQLiteParameter("@Data", model.DataJson)
                 );
@@ -93,7 +36,7 @@ namespace LoowooTech.LEDFlow.Data
         private Data GetDataModel<T>()
         {
             var type = GetType<T>();
-            var dt = GetDataTable(string.Format("SELECT * FROM [Data] WHERE Type = {0} LIMIT 0,1", (int)type));
+            var dt = DbHelper.GetDataTable(string.Format("SELECT * FROM [Data] WHERE Type = {0} LIMIT 0,1", (int)type));
             if (dt.Rows.Count > 0)
             {
                 var dr = dt.Rows[0];

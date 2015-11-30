@@ -47,7 +47,9 @@
   <ItemGroup>
     <Compile Include="DataManager.cs" />
     <Compile Include="DataModel.cs" />
+    <Compile Include="DbHelper.cs" />
     <Compile Include="LEDManager.cs" />
+    <Compile Include="PlayLogManager.cs" />
     <Compile Include="ProgramManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

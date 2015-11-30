@@ -19,12 +19,7 @@ namespace LoowooTech.LEDFlow.Model
 
         public int Height { get; set; }
 
-        public DateTime? LastUpdateTime { get; set; }
-
         public TextStyle DefaultStyle { get; set; }
-
-        [Newtonsoft.Json.JsonIgnore]
-        public Program CurrentProgram { get; set; }
 
         public string ClientID { get; set; }
     }

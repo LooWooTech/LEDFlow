@@ -18,8 +18,6 @@ namespace LoowooTech.LEDFlow.Server
             btnProgram_Click(null, null);
         }
 
-        private delegate void Action();
-
         private void AddContainer<T>() where T : UserControl, UserControls.ITabControl, new()
         {
             new Thread(() =>
@@ -69,6 +67,12 @@ namespace LoowooTech.LEDFlow.Server
         private void btnClient_Click(object sender, EventArgs e)
         {
             AddContainer<ClientTab>();
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            container.Controls.Clear();
+            base.OnClosed(e);
         }
     }
 }

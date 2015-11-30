@@ -4,6 +4,10 @@ using System.Windows.Forms;
 
 namespace LoowooTech.LEDFlow.Server
 {
+    public delegate void Action();
+
+    public delegate void Action<T>(T t);
+
     static class Program
     {
         /// <summary>
