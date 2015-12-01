@@ -74,5 +74,10 @@ namespace LoowooTech.LEDFlow.Server
             container.Controls.Clear();
             base.OnClosed(e);
         }
+
+        private void btnSchedule_Click(object sender, EventArgs e)
+        {
+            AddContainer<ScheduleTab>();
+        }
     }
 }

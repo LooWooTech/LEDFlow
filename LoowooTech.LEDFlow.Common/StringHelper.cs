@@ -16,6 +16,16 @@ namespace LoowooTech.LEDFlow.Common
             return defaultValue;
         }
 
+        public static double ToDouble(string str, double defaultValue = 0)
+        {
+            double result = 0;
+            if (double.TryParse(str, out result))
+            {
+                return result;
+            }
+            return defaultValue;
+        }
+
         public static T ToEnum<T>(string str) where T : struct
         {
             try

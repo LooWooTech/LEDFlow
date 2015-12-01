@@ -61,6 +61,12 @@
     <Compile Include="EditProgramForm.Designer.cs">
       <DependentUpon>EditProgramForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="EditScheduleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EditScheduleForm.Designer.cs">
+      <DependentUpon>EditScheduleForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -106,11 +112,20 @@
     <Compile Include="UserControls\AdminTab.Designer.cs">
       <DependentUpon>AdminTab.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ScheduleTab.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\ScheduleTab.Designer.cs">
+      <DependentUpon>ScheduleTab.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="EditLEDScreenForm.resx">
       <DependentUpon>EditLEDScreenForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditProgramForm.resx">
       <DependentUpon>EditProgramForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EditScheduleForm.resx">
+      <DependentUpon>EditScheduleForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -141,6 +156,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\AdminTab.resx">
       <DependentUpon>AdminTab.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\ScheduleTab.resx">
+      <DependentUpon>ScheduleTab.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config" />
     <Content Include="data.db">

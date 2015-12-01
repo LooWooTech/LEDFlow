@@ -43,26 +43,6 @@ namespace LoowooTech.LEDFlow.Server.UserControls
             }
 
             row.Cells["Content"].Value = content;
-            row.Cells["PlayMode"].Value = model.PlayMode.ToString();
-            switch (model.PlayMode)
-            {
-                case Model.PlayMode.立即开始:
-                    break;
-                case Model.PlayMode.定点轮播:
-                    row.Cells["PlayTime"].Value = model.PlayTime.Value.ToString("HH:mm");
-                    break;
-                case Model.PlayMode.定点开始:
-                    row.Cells["PlayTime"].Value = model.PlayTime.Value.ToString();
-                    break;
-            }
-            row.Cells["PlayTimes"].Value = model.PlayTimes;
-            if (model.Style != null)
-            {
-                row.Cells["FontFamily"].Value = model.Style.FontFamily;
-                row.Cells["FontSize"].Value = model.Style.FontSize;
-                row.Cells["TextAlignment"].Value = model.Style.TextAlignment;
-                row.Cells["TextAnimation"].Value = model.Style.TextAnimation;
-            }
         }
 
         private DataGridViewRow GetSelectedRow()
@@ -73,9 +53,18 @@ namespace LoowooTech.LEDFlow.Server.UserControls
                 return null;
             }
 
-            var row = rows[0];
+            return rows[0];
+        }
 
-            return row;
+        private int GetSelectedProgramId()
+        {
+            var row = GetSelectedRow();
+            if (row == null)
+            {
+                MessageBox.Show("请先选中一行再点修改或直接双击该行");
+                return 0;
+            }
+            return (int)(row.Cells["ID"].Value);
         }
 
         private void EditProgram(int programId = 0)
@@ -96,21 +85,25 @@ namespace LoowooTech.LEDFlow.Server.UserControls
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            var row = GetSelectedRow();
-            if (row == null)
-            {
-                MessageBox.Show("请先选中一行再点修改或直接双击该行");
-                return;
-            }
-            var id = (int)(row.Cells["ID"].Value);
+            var id = GetSelectedProgramId();
+            if (id == 0) return;
             EditProgram(id);
         }
 
         private void dataGridView1_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            var row = GetSelectedRow();
-            var id = (int)(row.Cells["ID"].Value);
+            var id = GetSelectedProgramId();
+            if (id == 0) return;
             EditProgram(id);
+        }
+
+        private void btnSchedule_Click(object sender, EventArgs e)
+        {
+            var id = GetSelectedProgramId();
+            if (id == 0) return;
+            var form = new EditScheduleForm();
+            form.BindData(id);
+            form.ShowDialog();
         }
     }
 }

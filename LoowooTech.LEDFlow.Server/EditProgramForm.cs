@@ -47,24 +47,21 @@ namespace LoowooTech.LEDFlow.Server
                 });
             }
 
-            model.PlayTimes = StringHelper.ToInt(txtPlayTimes.Text);
-            model.PlayTime = playTimeControl1.GetValue();
-            model.PlayMode = StringHelper.ToEnum<Model.PlayMode>(cbxPlayMode.Text);
-            if (!string.IsNullOrEmpty(cbxFontFamily.Text)
-                || !string.IsNullOrEmpty(txtFontSize.Text)
-                || !string.IsNullOrEmpty(cbxTextAlignment.Text)
-                || !string.IsNullOrEmpty(cbxTextAnimation.Text)
-                )
-            {
-                model.Style = new Model.TextStyle();
-                model.Style.FontFamily = StringHelper.ToEnum<Model.FontFamily>(cbxFontFamily.Text);
+            //if (!string.IsNullOrEmpty(cbxFontFamily.Text)
+            //    || !string.IsNullOrEmpty(txtFontSize.Text)
+            //    || !string.IsNullOrEmpty(cbxTextAlignment.Text)
+            //    || !string.IsNullOrEmpty(cbxTextAnimation.Text)
+            //    )
+            //{
+            //    model.Style = new Model.TextStyle();
+            //    model.Style.FontFamily = StringHelper.ToEnum<Model.FontFamily>(cbxFontFamily.Text);
 
-                var fontSize = 0;
-                int.TryParse(txtFontSize.Text, out fontSize);
-                model.Style.FontSize = fontSize;
-                model.Style.TextAlignment = StringHelper.ToEnum<Model.TextAlignment>(cbxTextAlignment.Text);
-                model.Style.TextAnimation = StringHelper.ToEnum<Model.TextAnimation>(cbxTextAnimation.Text);
-            }
+            //    var fontSize = 0;
+            //    int.TryParse(txtFontSize.Text, out fontSize);
+            //    model.Style.FontSize = fontSize;
+            //    model.Style.TextAlignment = StringHelper.ToEnum<Model.TextAlignment>(cbxTextAlignment.Text);
+            //    model.Style.TextAnimation = StringHelper.ToEnum<Model.TextAnimation>(cbxTextAnimation.Text);
+            //}
 
             ProgramManager.Save(model);
             this.DialogResult = System.Windows.Forms.DialogResult.OK;
@@ -84,11 +81,10 @@ namespace LoowooTech.LEDFlow.Server
         internal void BindData(int programId = 0)
         {
             _programId = programId;
-            cbxPlayMode.DataSource = Enum.GetNames(typeof(Model.PlayMode));
-            cbxFontFamily.DataSource = Enum.GetNames(typeof(Model.FontFamily));
-            cbxTextAlignment.DataSource = Enum.GetNames(typeof(Model.TextAlignment));
-            cbxTextAnimation.DataSource = Enum.GetNames(typeof(Model.TextAnimation));
-            cbxFontFamily.SelectedIndex = cbxTextAlignment.SelectedIndex = cbxTextAnimation.SelectedIndex = -1;
+            //cbxFontFamily.DataSource = Enum.GetNames(typeof(Model.FontFamily));
+            //cbxTextAlignment.DataSource = Enum.GetNames(typeof(Model.TextAlignment));
+            //cbxTextAnimation.DataSource = Enum.GetNames(typeof(Model.TextAnimation));
+            //cbxFontFamily.SelectedIndex = cbxTextAlignment.SelectedIndex = cbxTextAnimation.SelectedIndex = -1;
             var model = ProgramManager.GetModel(programId);
             if (model != null)
             {
@@ -100,23 +96,14 @@ namespace LoowooTech.LEDFlow.Server
                     row.Cells["Duration"].Value = msg.Duration;
                 }
 
-                playTimeControl1.SetValue(model.PlayTime);
-                txtPlayTimes.Text = model.PlayTimes.ToString();
-
-                if (model.Style != null)
-                {
-                    cbxFontFamily.Text = model.Style.FontFamily.ToString();
-                    txtFontSize.Text = model.Style.FontSize.ToString();
-                    cbxTextAlignment.Text = model.Style.TextAlignment.ToString();
-                    cbxTextAnimation.Text = model.Style.TextAnimation.ToString();
-                }
+                //if (model.Style != null)
+                //{
+                //    cbxFontFamily.Text = model.Style.FontFamily.ToString();
+                //    txtFontSize.Text = model.Style.FontSize.ToString();
+                //    cbxTextAlignment.Text = model.Style.TextAlignment.ToString();
+                //    cbxTextAnimation.Text = model.Style.TextAnimation.ToString();
+                //}
             }
-        }
-
-        private void cbxPlayMode_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            var mode = (Model.PlayMode)Enum.Parse(typeof(Model.PlayMode), cbxPlayMode.Text);
-            playTimeControl1.SetPlayMode(mode);
         }
     }
 }

@@ -80,7 +80,7 @@ namespace LoowooTech.LEDFlow.Server.UserControls
             }
         }
 
-        public DateTime? GetValue()
+        public DateTime GetValue()
         {
             var year = int.Parse(cbxYear.Text);
             var month = int.Parse(cbxMonth.Text);
@@ -96,7 +96,7 @@ namespace LoowooTech.LEDFlow.Server.UserControls
                     return new DateTime(DateTime.MinValue.Year, DateTime.MinValue.Month, DateTime.MinValue.Day, hour, minute, 0);
                 case PlayMode.立即开始:
                 default:
-                    return null;
+                    return DateTime.Now.AddSeconds(1);
             }
         }
 

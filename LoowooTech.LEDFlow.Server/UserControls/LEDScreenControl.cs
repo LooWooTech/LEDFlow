@@ -35,7 +35,7 @@ namespace LoowooTech.LEDFlow.Server.UserControls
             {
                 while (true)
                 {
-                    var program = PlayLogManager.GetCurrentProgram(LEDID);
+                    var program = ScheduleManager.GetCurrentProgram(LEDID);
                     if (program != null)
                     {
                         PlayProgram(program);
