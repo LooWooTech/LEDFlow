@@ -50,7 +50,7 @@
             this.container.Dock = System.Windows.Forms.DockStyle.Fill;
             this.container.Location = new System.Drawing.Point(0, 27);
             this.container.Name = "container";
-            this.container.Size = new System.Drawing.Size(794, 548);
+            this.container.Size = new System.Drawing.Size(604, 312);
             this.container.TabIndex = 3;
             // 
             // toolStripSeparator5
@@ -123,7 +123,7 @@
             this.btnLogout});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(794, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(604, 27);
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -161,7 +161,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(794, 575);
+            this.ClientSize = new System.Drawing.Size(604, 339);
             this.Controls.Add(this.container);
             this.Controls.Add(this.toolStrip1);
             this.Name = "MainForm";

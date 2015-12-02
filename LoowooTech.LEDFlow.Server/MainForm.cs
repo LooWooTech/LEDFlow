@@ -15,6 +15,11 @@ namespace LoowooTech.LEDFlow.Server
         public MainForm()
         {
             InitializeComponent();
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
             btnProgram_Click(null, null);
         }
 

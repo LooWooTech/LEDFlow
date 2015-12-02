@@ -1,4 +1,5 @@
-﻿using LoowooTech.LEDFlow.Model;
+﻿using LoowooTech.LEDFlow.Common;
+using LoowooTech.LEDFlow.Model;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -33,8 +34,8 @@ where ID = @ID
             {
                 DbHelper.ExecuteSql(@"
 insert into Schedule 
-(LedIds,ProgramID,CreateTime,PlayMode,PlayTime,PlayTimes) values
-(@LedIds,@ProgramID,@CreateTime,@PlayMode,@PlayTime,@PlayTimes)",
+(LedIds,ProgramID,CreateTime,PlayMode,BeginTime,EndTime,PlayTimes) values
+(@LedIds,@ProgramID,@CreateTime,@PlayMode,@BeginTime,@EndTime,@PlayTimes)",
                     new SQLiteParameter("@LedIds", "," + string.Join(",", model.LedIds)),
                     new SQLiteParameter("@ProgramID", model.ProgramID),
                     new SQLiteParameter("@CreateTime", model.CreateTime),
@@ -49,7 +50,7 @@ insert into Schedule
         public static List<Schedule> GetList(int pageIndex, int pageSize, out int recordCount)
         {
             recordCount = int.Parse(DbHelper.ExecuteScalar("select count(1) from Schedule").ToString());
-            var dt = DbHelper.GetDataTable(string.Format("select * from Schedule  order by id desc limit {0},{1}", pageIndex, pageSize));
+            var dt = DbHelper.GetDataTable(string.Format("select * from Schedule  order by id desc limit {0},{1}", pageIndex - 1, pageSize));
             var list = new List<Schedule>();
             foreach (DataRow row in dt.Rows)
             {
@@ -63,9 +64,7 @@ insert into Schedule
         /// </summary>
         private static List<Schedule> GetLedList(int ledId)
         {
-            var dt = DbHelper.GetDataTable("select * from Schedule where LedIds like '%,@LedIds%'",
-                new SQLiteParameter("@LedIds", ledId)
-                );
+            var dt = DbHelper.GetDataTable("select * from Schedule where LedIds like '%," + ledId + "'");
 
             var list = new List<Schedule>();
             foreach (DataRow row in dt.Rows)
@@ -81,13 +80,14 @@ insert into Schedule
         {
             return new Schedule
             {
-                ID = (int)row["ID"],
+                ID = int.Parse(row["ID"].ToString()),
                 LedIds = row["LedIds"].ToString().Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries),
-                CreateTime = (DateTime)row["CreateTime"],
-                PlayMode = (PlayMode)((int)row["PlayMode"]),
-                PlayTimes = (int)row["PlayTimes"],
-                BeginTime = (DateTime)row["PlayTime"],
-                ProgramID = (int)row["ProgramID"]
+                CreateTime = DateTime.Parse(row["CreateTime"].ToString()),
+                PlayMode = StringHelper.ToEnum<PlayMode>(row["PlayMode"].ToString()),
+                PlayTimes = int.Parse(row["PlayTimes"].ToString()),
+                BeginTime = DateTime.Parse(row["BeginTime"].ToString()),
+                EndTime = DateTime.Parse(row["EndTime"].ToString()),
+                ProgramID = int.Parse(row["ProgramID"].ToString())
             };
         }
 

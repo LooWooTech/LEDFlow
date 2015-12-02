@@ -35,7 +35,7 @@ namespace LoowooTech.LEDFlow.Server.UserControls
             for (var i = 0; i < model.Messages.Count; i++)
             {
                 var msg = model.Messages[i];
-                content += msg.Content + "(" + msg.Duration + ")";
+                content += "【" + (i+1) + "】" + msg.Content + "  （" + msg.Duration + "s）";
                 if (i + 1 < model.Messages.Count)
                 {
                     content += "\r\n";
@@ -102,7 +102,7 @@ namespace LoowooTech.LEDFlow.Server.UserControls
             var id = GetSelectedProgramId();
             if (id == 0) return;
             var form = new EditScheduleForm();
-            form.BindData(id);
+            form.BindData(0, id);
             form.ShowDialog();
         }
     }

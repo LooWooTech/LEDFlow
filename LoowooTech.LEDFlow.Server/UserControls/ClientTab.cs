@@ -44,31 +44,8 @@ namespace LoowooTech.LEDFlow.Server.UserControls
             DataManager.Instance.Save(list);
         }
 
-        private void dataGridView1_UserAddedRow(object sender, DataGridViewRowEventArgs e)
-        {
-            SaveData();
-        }
-
-        private void dataGridView1_UserDeletedRow(object sender, DataGridViewRowEventArgs e)
-        {
-            var list = DataManager.Instance.GetList<Model.Client>();
-            foreach (DataGridViewRow row in dataGridView1.SelectedRows)
-            {
-                var name = row.Cells["ClientName"].Value;
-                if (name == null)
-                {
-                    return;
-                }
-                var index = list.FindIndex(delegate(Model.Client c) { return c.Name == name.ToString(); });
-                list.RemoveAt(index);
-            }
-            DataManager.Instance.Save(list);
-        }
-
-        private bool _userTrigger = false;
         public void BindData()
         {
-            _userTrigger = false;
             var list = DataManager.Instance.GetList<Model.Client>();
             foreach (var item in list)
             {
@@ -76,16 +53,33 @@ namespace LoowooTech.LEDFlow.Server.UserControls
                 var row = dataGridView1.Rows[rowIndex];
                 row.Cells["ClientName"].Value = item.Name;
             }
-            _userTrigger = true;
         }
 
-        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private void btnAdd_Click(object sender, EventArgs e)
         {
-            if (_userTrigger)
+            var index = dataGridView1.Rows.Add();
+            dataGridView1.Rows[index].Selected = true;
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            SaveData();
+            MessageBox.Show("保存成功");
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedRows.Count > 0)
             {
-                SaveData();
+                if (MessageBox.Show("你确定要删除吗？", "提醒", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+                    {
+                        dataGridView1.Rows.Remove(row);
+                    }
+                    SaveData();
+                }
             }
         }
-        
     }
 }
