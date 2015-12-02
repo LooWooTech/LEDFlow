@@ -38,6 +38,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.SQLite, Version=1.0.98.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
       <HintPath>..\..\..\local\tmp\packages\System.Data.SQLite.Core.1.0.98.1\lib\net20\System.Data.SQLite.dll</HintPath>
@@ -45,10 +46,23 @@
     </Reference>
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FontSettingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FontSettingForm.Designer.cs">
+      <DependentUpon>FontSettingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LEDScreenControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="LEDScreenControl.Designer.cs">
+      <DependentUpon>LEDScreenControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -57,6 +71,15 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FontSettingForm.resx">
+      <DependentUpon>FontSettingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LEDScreenControl.resx">
+      <DependentUpon>LEDScreenControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -65,7 +88,12 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <Content Include="data.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -76,6 +104,20 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LoowooTech.LEDFlow.Common\LoowooTech.LEDFlow.Common.csproj">
+      <Project>{b7a6490f-70b8-4911-b14c-7cb62c16d920}</Project>
+      <Name>LoowooTech.LEDFlow.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LoowooTech.LEDFlow.Data\LoowooTech.LEDFlow.Data.csproj">
+      <Project>{af9d7d8b-b2df-4093-b397-7601c25c5365}</Project>
+      <Name>LoowooTech.LEDFlow.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LoowooTech.LEDFlow.Model\LoowooTech.LEDFlow.Model.csproj">
+      <Project>{d710794b-69da-4b5f-aa7d-3df947e12f0c}</Project>
+      <Name>LoowooTech.LEDFlow.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\..\local\tmp\packages\System.Data.SQLite.Core.1.0.98.1\build\net20\System.Data.SQLite.Core.targets" Condition="Exists('..\..\..\local\tmp\packages\System.Data.SQLite.Core.1.0.98.1\build\net20\System.Data.SQLite.Core.targets')" />

@@ -39,6 +39,7 @@ namespace LoowooTech.LEDFlow.Server.UserControls
             form.BindData();
             if (form.ShowDialog() == DialogResult.OK)
             {
+                LEDScreenTab_ParentChanged(null, null);
                 var list = LEDManager.GetList();
                 var last = list[list.Count - 1];
                 AddControl(last);

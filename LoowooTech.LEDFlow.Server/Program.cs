@@ -1,5 +1,11 @@
-﻿using System;
+﻿using LoowooTech.LEDFlow.Data;
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Remoting;
+using System.Runtime.Remoting.Channels;
+using System.Runtime.Remoting.Channels.Tcp;
+using System.Text;
 using System.Windows.Forms;
 
 namespace LoowooTech.LEDFlow.Server
@@ -16,9 +22,40 @@ namespace LoowooTech.LEDFlow.Server
         [STAThread]
         static void Main()
         {
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+            OpenService();
+            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
         }
+
+        private static void OpenService()
+        {
+            var servicePort = 0;
+            if (!int.TryParse(System.Configuration.ConfigurationManager.AppSettings["ServicePort"], out servicePort))
+            {
+                servicePort = 8080;
+            }
+            var channel = new TcpServerChannel(servicePort);
+            ChannelServices.RegisterChannel(channel, true);
+            RemotingConfiguration.RegisterWellKnownServiceType(typeof(LEDService), "LEDService", WellKnownObjectMode.SingleCall);
+        }
+
+        static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            var ex = e.ExceptionObject as Exception;
+            var logPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs");
+            if (!Directory.Exists(logPath))
+            {
+                Directory.CreateDirectory(logPath);
+            }
+            var content = new StringBuilder();
+            content.AppendLine(ex.Message);
+            content.AppendLine(ex.StackTrace);
+            File.WriteAllText(Path.Combine(logPath, ex.GetType().Name + DateTime.Now.Ticks.ToString() + ".txt"), content.ToString());
+        }
+
     }
+
 }

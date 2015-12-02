@@ -4,6 +4,7 @@ using System.Text;
 
 namespace LoowooTech.LEDFlow.Model
 {
+    [Serializable]
     public class LEDScreen
     {
         public LEDScreen()
@@ -21,6 +22,6 @@ namespace LoowooTech.LEDFlow.Model
 
         public TextStyle DefaultStyle { get; set; }
 
-        public string ClientID { get; set; }
+        public string[] Clients { get; set; }
     }
 }

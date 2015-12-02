@@ -55,6 +55,7 @@ namespace LoowooTech.LEDFlow.Server.UserControls
             form.BindData(LEDID);
             if (form.ShowDialog() == DialogResult.OK)
             {
+                this.Stop();
                 var model = LEDManager.GetModel(LEDID);
                 BindData(model);
             }

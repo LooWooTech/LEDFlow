@@ -4,6 +4,7 @@ using System.Text;
 
 namespace LoowooTech.LEDFlow.Model
 {
+    [Serializable]
     public class Program
     {
         public Program()

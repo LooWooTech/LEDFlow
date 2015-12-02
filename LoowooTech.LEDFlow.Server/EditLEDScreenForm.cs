@@ -19,7 +19,7 @@ namespace LoowooTech.LEDFlow.Server
 
         private int _ledId;
 
-        public void BindData(int ledId =0)
+        public void BindData(int ledId = 0)
         {
             _ledId = ledId;
 
@@ -29,7 +29,9 @@ namespace LoowooTech.LEDFlow.Server
             {
                 clientDataSource.Add(c.Name);
             }
-            cbxClient.DataSource = clientDataSource;
+
+            lstClient.DataSource = clientDataSource;
+
             cbxFontFamily.DataSource = Enum.GetNames(typeof(Model.FontFamily));
             cbxTextAlignment.DataSource = Enum.GetNames(typeof(Model.TextAlignment));
             cbxTextAnimation.DataSource = Enum.GetNames(typeof(Model.TextAnimation));
@@ -42,6 +44,21 @@ namespace LoowooTech.LEDFlow.Server
             txtFontSize.Text = model.DefaultStyle.FontSize.ToString();
             cbxTextAlignment.Text = model.DefaultStyle.TextAlignment.ToString();
             cbxTextAnimation.Text = model.DefaultStyle.TextAnimation.ToString();
+            if (model.Clients != null)
+            {
+                for (var i = 0; i < lstClient.Items.Count; i++)
+                {
+                    lstClient.SetSelected(i, false);
+                    var item = lstClient.Items[i].ToString();
+                    foreach (var name in model.Clients)
+                    {
+                        if(name == item)
+                        {
+                            lstClient.SetSelected(i, true);
+                        }
+                    }
+                }
+            }
         }
 
         private void btnOK_Click(object sender, EventArgs e)
@@ -55,7 +72,7 @@ namespace LoowooTech.LEDFlow.Server
             }
 
             model.Width = StringHelper.ToInt(txtWidth.Text);
-            if (model.Width ==0)
+            if (model.Width == 0)
             {
                 txtWidth.Focus();
                 return;
@@ -67,7 +84,17 @@ namespace LoowooTech.LEDFlow.Server
                 txtHeight.Focus();
                 return;
             }
-            model.ClientID = cbxClient.Text;
+            var clients = new List<string>();
+            foreach(var item in lstClient.SelectedItems)
+            {
+                clients.Add(item.ToString());
+            }
+            if(clients.Count == 0)
+            {
+                MessageBox.Show("没有指定客户端");
+                return;
+            }
+            model.Clients = clients.ToArray();
             model.DefaultStyle.FontFamily = StringHelper.ToEnum<Model.FontFamily>(cbxFontFamily.Text);
             model.DefaultStyle.FontSize = StringHelper.ToInt(txtFontSize.Text);
             if (model.DefaultStyle.FontSize == 0)

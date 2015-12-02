@@ -4,6 +4,7 @@ using System.Text;
 
 namespace LoowooTech.LEDFlow.Model
 {
+    [Serializable]
     public class TextStyle
     {
         public FontFamily FontFamily { get; set; }
