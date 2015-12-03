@@ -35,7 +35,7 @@ namespace LoowooTech.LEDFlow.Server.UserControls
             for (var i = 0; i < model.Messages.Count; i++)
             {
                 var msg = model.Messages[i];
-                content += "【" + (i+1) + "】" + msg.Content + "  （" + msg.Duration + "s）";
+                content += "【" + (i + 1) + "】" + msg.Content + "  （" + msg.Duration + "s）";
                 if (i + 1 < model.Messages.Count)
                 {
                     content += "\r\n";
@@ -104,6 +104,18 @@ namespace LoowooTech.LEDFlow.Server.UserControls
             var form = new EditScheduleForm();
             form.BindData(0, id);
             form.ShowDialog();
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            var id = GetSelectedProgramId();
+            if (id == 0) return;
+            if (MessageBox.Show("你确定要删除该节目吗？\n同时会删除该节目的所有排期！", "提醒", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            {
+                ProgramManager.Delete(id);
+                MessageBox.Show("已删除");
+                BindData();
+            }
         }
     }
 }

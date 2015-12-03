@@ -10,6 +10,7 @@ namespace LoowooTech.LEDFlow.Model
         public Program()
         {
             Messages = new List<Message>();
+            CreateTime = DateTime.Now;
         }
 
         public int ID { get; set; }
@@ -20,6 +21,10 @@ namespace LoowooTech.LEDFlow.Model
         public string ClientID { get; set; }
 
         public List<Message> Messages { get; set; }
+
+        public DateTime CreateTime { get; set; }
+
+        public bool Deleted { get; set; }
 
         //public TextStyle Style { get; set; }
 

@@ -36,7 +36,9 @@ namespace LoowooTech.LEDFlow.Server
             cbxTextAlignment.DataSource = Enum.GetNames(typeof(Model.TextAlignment));
             cbxTextAnimation.DataSource = Enum.GetNames(typeof(Model.TextAnimation));
 
-            var model = LEDManager.GetModel(ledId) ?? new Model.LEDScreen();
+            var model = LEDManager.GetModel(ledId);
+            if (model == null) return;
+            txtID.Text = model.ID.ToString();
             txtName.Text = model.Name;
             txtWidth.Text = model.Width.ToString();
             txtHeight.Text = model.Height.ToString();
@@ -64,6 +66,7 @@ namespace LoowooTech.LEDFlow.Server
         private void btnOK_Click(object sender, EventArgs e)
         {
             var model = LEDManager.GetModel(_ledId) ?? new Model.LEDScreen();
+            model.ID = StringHelper.ToInt(txtID.Text);
             model.Name = txtName.Text;
             if (string.IsNullOrEmpty(model.Name))
             {

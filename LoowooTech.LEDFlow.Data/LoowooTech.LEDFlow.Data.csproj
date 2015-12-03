@@ -64,6 +64,10 @@
       <Project>{b7a6490f-70b8-4911-b14c-7cb62c16d920}</Project>
       <Name>LoowooTech.LEDFlow.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\LoowooTech.LEDFlow.Driver\LoowooTech.LEDFlow.Driver.csproj">
+      <Project>{b8ab4559-350b-4722-8d6c-4e95eea5ee64}</Project>
+      <Name>LoowooTech.LEDFlow.Driver</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LoowooTech.LEDFlow.Model\LoowooTech.LEDFlow.Model.csproj">
       <Project>{d710794b-69da-4b5f-aa7d-3df947e12f0c}</Project>
       <Name>LoowooTech.LEDFlow.Model</Name>

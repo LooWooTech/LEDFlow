@@ -16,23 +16,14 @@ namespace LoowooTech.LEDFlow.Data
         public static void Save(LEDScreen model)
         {
             var list = DataManager.Instance.GetList<LEDScreen>();
-            if (model.ID == 0)
+            var index = list.FindIndex(delegate(LEDScreen e) { return e.ID == model.ID; });
+            if(index>-1)
             {
-                if (list.Count > 0)
-                {
-                    var last = list[list.Count - 1];
-                    model.ID = last.ID + 1;
-                }
-                else
-                {
-                    model.ID = 1;
-                }
-                list.Add(model);
+                list[index] = model;
             }
             else
             {
-                var index = list.FindIndex(delegate(LEDScreen e) { return e.ID == model.ID; });
-                list[index] = model;
+                list.Add(model);
             }
             DataManager.Instance.Save(list);
         }

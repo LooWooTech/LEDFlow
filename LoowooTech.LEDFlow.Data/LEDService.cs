@@ -7,7 +7,9 @@ namespace LoowooTech.LEDFlow.Data
 {
     public class LEDService : MarshalByRefObject
     {
-        public List<LEDScreen> GetLeds(string client)
+        private static readonly LEDFlow.Driver.LEDAdapter LEDAdapter = new Driver.LEDAdapter();
+
+        public List<LEDScreen> GetLEDs(string client)
         {
             var result = new List<LEDScreen>();
             var list = LEDManager.GetList();
@@ -26,9 +28,45 @@ namespace LoowooTech.LEDFlow.Data
             return result;
         }
 
-        public void SendProgram(Program program, TextStyle style = null)
+        public void PlayProgram(int ledId, TextStyle style = null)
         {
+            var led = LEDManager.GetModel(ledId);
+            if (led == null)
+            {
+                return;
+            }
+            if (style == null)
+            {
+                style = led.DefaultStyle;
+            }
+            var program = ScheduleManager.GetCurrentProgram(ledId);
+            if (program != null)
+            {
+                var windowId = LEDAdapter.CreateWindow(0, 0, led.Width, led.Height, led.ID);
+                foreach (var msg in program.Messages)
+                {
+                    LEDAdapter.SendContent(msg.Content, (int)style.TextAnimation, msg.Duration, windowId);
+                }
+            }
+        }
 
+        public void SendProgram(int ledId, Program program, TextStyle style = null)
+        {
+            //客户端发送的节目
+            if (program.ID == 0 && !string.IsNullOrEmpty(program.ClientID))
+            {
+                ProgramManager.Save(program);
+            }
+            var schedule = new Schedule
+            {
+                LedIds = new string[] { ledId.ToString() },
+                BeginTime = DateTime.Now,
+                PlayTimes = 1,
+                EndTime = DateTime.Now.AddSeconds(program.GetPlayDuration(1)),
+                PlayMode = PlayMode.立即开始,
+                ProgramID = program.ID,
+            };
+            ScheduleManager.Save(schedule);
         }
     }
 }

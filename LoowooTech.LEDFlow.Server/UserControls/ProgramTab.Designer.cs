@@ -95,6 +95,7 @@
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(41, 24);
             this.btnDelete.Text = "删除";
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // toolStripSeparator2
             // 

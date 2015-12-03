@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.GroupBox panel1;
+            this.lstClient = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txtHeight = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -47,15 +48,41 @@
             this.label10 = new System.Windows.Forms.Label();
             this.cbxTextAnimation = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.lstClient = new System.Windows.Forms.ListBox();
+            this.txtID = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             panel1 = new System.Windows.Forms.GroupBox();
+            panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            panel1.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(this.lstClient);
+            panel1.Location = new System.Drawing.Point(238, 27);
+            panel1.Name = "panel1";
+            panel1.Size = new System.Drawing.Size(208, 179);
+            panel1.TabIndex = 14;
+            panel1.TabStop = false;
+            panel1.Text = "授权客户端";
+            // 
+            // lstClient
+            // 
+            this.lstClient.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lstClient.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstClient.Font = new System.Drawing.Font("Microsoft YaHei", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lstClient.FormattingEnabled = true;
+            this.lstClient.ItemHeight = 20;
+            this.lstClient.Location = new System.Drawing.Point(3, 17);
+            this.lstClient.Name = "lstClient";
+            this.lstClient.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
+            this.lstClient.Size = new System.Drawing.Size(202, 159);
+            this.lstClient.TabIndex = 0;
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.txtID);
+            this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.txtHeight);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.txtWidth);
@@ -64,7 +91,7 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(19, 23);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(208, 135);
+            this.groupBox1.Size = new System.Drawing.Size(208, 183);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "LED设置";
@@ -72,7 +99,7 @@
             // txtHeight
             // 
             this.txtHeight.Font = new System.Drawing.Font("Microsoft YaHei", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txtHeight.Location = new System.Drawing.Point(70, 91);
+            this.txtHeight.Location = new System.Drawing.Point(61, 139);
             this.txtHeight.Name = "txtHeight";
             this.txtHeight.Size = new System.Drawing.Size(51, 26);
             this.txtHeight.TabIndex = 13;
@@ -80,7 +107,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(29, 96);
+            this.label3.Location = new System.Drawing.Point(20, 144);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(29, 12);
             this.label3.TabIndex = 12;
@@ -89,7 +116,7 @@
             // txtWidth
             // 
             this.txtWidth.Font = new System.Drawing.Font("Microsoft YaHei", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txtWidth.Location = new System.Drawing.Point(70, 57);
+            this.txtWidth.Location = new System.Drawing.Point(61, 105);
             this.txtWidth.Name = "txtWidth";
             this.txtWidth.Size = new System.Drawing.Size(51, 26);
             this.txtWidth.TabIndex = 11;
@@ -97,7 +124,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(29, 63);
+            this.label2.Location = new System.Drawing.Point(20, 111);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(29, 12);
             this.label2.TabIndex = 10;
@@ -106,7 +133,7 @@
             // txtName
             // 
             this.txtName.Font = new System.Drawing.Font("Microsoft YaHei", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txtName.Location = new System.Drawing.Point(70, 22);
+            this.txtName.Location = new System.Drawing.Point(61, 68);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(121, 26);
             this.txtName.TabIndex = 9;
@@ -114,7 +141,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(29, 26);
+            this.label1.Location = new System.Drawing.Point(20, 72);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(29, 12);
             this.label1.TabIndex = 8;
@@ -122,7 +149,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(369, 287);
+            this.btnCancel.Location = new System.Drawing.Point(374, 336);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 17;
@@ -132,7 +159,7 @@
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(274, 287);
+            this.btnOK.Location = new System.Drawing.Point(279, 336);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 16;
@@ -224,41 +251,35 @@
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.cbxFontFamily);
             this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Location = new System.Drawing.Point(19, 168);
+            this.groupBox2.Location = new System.Drawing.Point(22, 223);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(427, 107);
             this.groupBox2.TabIndex = 13;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "默认字体";
             // 
-            // panel1
+            // txtID
             // 
-            panel1.Controls.Add(this.lstClient);
-            panel1.Location = new System.Drawing.Point(238, 27);
-            panel1.Name = "panel1";
-            panel1.Size = new System.Drawing.Size(208, 135);
-            panel1.TabIndex = 14;
-            panel1.TabStop = false;
-            panel1.Text = "授权客户端";
+            this.txtID.Font = new System.Drawing.Font("Microsoft YaHei", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtID.Location = new System.Drawing.Point(61, 28);
+            this.txtID.Name = "txtID";
+            this.txtID.Size = new System.Drawing.Size(51, 26);
+            this.txtID.TabIndex = 15;
             // 
-            // lstClient
+            // label4
             // 
-            this.lstClient.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.lstClient.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstClient.Font = new System.Drawing.Font("Microsoft YaHei", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lstClient.FormattingEnabled = true;
-            this.lstClient.ItemHeight = 20;
-            this.lstClient.Location = new System.Drawing.Point(3, 17);
-            this.lstClient.Name = "lstClient";
-            this.lstClient.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.lstClient.Size = new System.Drawing.Size(202, 115);
-            this.lstClient.TabIndex = 0;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(20, 34);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(29, 12);
+            this.label4.TabIndex = 14;
+            this.label4.Text = "编号";
             // 
             // EditLEDScreenForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(458, 321);
+            this.ClientSize = new System.Drawing.Size(457, 371);
             this.Controls.Add(panel1);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
@@ -267,11 +288,11 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "EditLEDScreenForm";
             this.Text = "LED屏幕设置";
+            panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -297,5 +318,7 @@
         private System.Windows.Forms.ComboBox cbxTextAnimation;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.ListBox lstClient;
+        private System.Windows.Forms.TextBox txtID;
+        private System.Windows.Forms.Label label4;
     }
 }

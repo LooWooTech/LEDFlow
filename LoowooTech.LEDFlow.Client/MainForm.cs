@@ -22,10 +22,9 @@ namespace LoowooTech.LEDFlow.Client
             InitializeComponent();
         }
 
-        private readonly string ClientId = System.Configuration.ConfigurationManager.AppSettings["Client"];
-        private Thread _bindDataThread;
+        private readonly string ClientId = System.Configuration.ConfigurationManager.AppSettings["ClientId"];
 
-        private TextStyle _textStyle;
+        private Thread _bindDataThread;
 
         private LEDService GetServiceClient()
         {
@@ -38,7 +37,7 @@ namespace LoowooTech.LEDFlow.Client
             ChannelServices.RegisterChannel(new TcpClientChannel(), true);
             if (string.IsNullOrEmpty(ClientId))
             {
-                MessageBox.Show("请在App.config里配置Client，再启动软件。");
+                MessageBox.Show("请在App.config里配置ClientId，再启动软件。");
                 Application.Exit();
                 return;
             }
@@ -72,7 +71,7 @@ namespace LoowooTech.LEDFlow.Client
         public void BindData()
         {
             var client = GetServiceClient();
-            var leds = client.GetLeds(ClientId);
+            var leds = client.GetLEDs(ClientId);
             if (leds.Count == 0)
             {
                 MessageBox.Show("你没有可用的LED屏幕，请确认Client配置正确或与主控管理员联系");
@@ -93,7 +92,7 @@ namespace LoowooTech.LEDFlow.Client
             ((LEDScreenControl)flowLayoutPanel1.Controls[0]).Select();
         }
 
-        private int GetSelectedLed()
+        private int GetSelectedLEDID()
         {
             foreach (LEDScreenControl c in flowLayoutPanel1.Controls)
             {
@@ -158,9 +157,11 @@ namespace LoowooTech.LEDFlow.Client
                     Content = content.ToString(),
                     Duration = duration == null ? 10 : int.Parse(duration.ToString())
                 });
+                program.ClientID = ClientId;
             }
             var client = GetServiceClient();
-            client.SendProgram(program, FontSettingForm.GetTextStyle(GetSelectedLed()));
+            var ledId = GetSelectedLEDID();
+            client.SendProgram(ledId, program, FontSettingForm.GetTextStyle(ledId));
         }
 
         private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
@@ -189,7 +190,7 @@ namespace LoowooTech.LEDFlow.Client
 
         private void btnFont_Click(object sender, EventArgs e)
         {
-            var form = new FontSettingForm(GetSelectedLed());
+            var form = new FontSettingForm(GetSelectedLEDID());
             if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
 
