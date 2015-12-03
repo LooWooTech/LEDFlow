@@ -14,7 +14,7 @@
     <NuGetPackageImportStamp>d9b296f2</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -185,6 +185,10 @@
     <ProjectReference Include="..\LoowooTech.LEDFlow.Data\LoowooTech.LEDFlow.Data.csproj">
       <Project>{af9d7d8b-b2df-4093-b397-7601c25c5365}</Project>
       <Name>LoowooTech.LEDFlow.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LoowooTech.LEDFlow.Driver\LoowooTech.LEDFlow.Driver.csproj">
+      <Project>{b8ab4559-350b-4722-8d6c-4e95eea5ee64}</Project>
+      <Name>LoowooTech.LEDFlow.Driver</Name>
     </ProjectReference>
     <ProjectReference Include="..\LoowooTech.LEDFlow.Model\LoowooTech.LEDFlow.Model.csproj">
       <Project>{d710794b-69da-4b5f-aa7d-3df947e12f0c}</Project>

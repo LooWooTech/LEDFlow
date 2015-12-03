@@ -39,6 +39,7 @@ namespace LoowooTech.LEDFlow.Model
         }
     }
 
+    [Serializable]
     public class Message
     {
         public string Content { get; set; }

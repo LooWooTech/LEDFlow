@@ -165,7 +165,7 @@
             this.Controls.Add(this.container);
             this.Controls.Add(this.toolStrip1);
             this.Name = "MainForm";
-            this.Text = "Form1";
+            this.Text = "LED主控系统";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);

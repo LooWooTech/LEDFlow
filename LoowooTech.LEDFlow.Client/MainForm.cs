@@ -1,15 +1,7 @@
 ﻿using LoowooTech.LEDFlow.Common;
 using LoowooTech.LEDFlow.Data;
-using LoowooTech.LEDFlow.Model;
 using Newtonsoft.Json.Serialization;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Runtime.Remoting.Channels;
-using System.Runtime.Remoting.Channels.Tcp;
-using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -17,24 +9,17 @@ namespace LoowooTech.LEDFlow.Client
 {
     public partial class MainForm : Form
     {
+        private readonly string ClientId = System.Configuration.ConfigurationManager.AppSettings["ClientId"];
+        private Thread _bindDataThread;
+
         public MainForm()
         {
             InitializeComponent();
         }
 
-        private readonly string ClientId = System.Configuration.ConfigurationManager.AppSettings["ClientId"];
-
-        private Thread _bindDataThread;
-
-        private LEDService GetServiceClient()
+        protected override void OnShown(EventArgs e)
         {
-            return (LEDService)Activator.GetObject(typeof(LEDService), System.Configuration.ConfigurationManager.AppSettings["ServiceUrl"]);
-        }
-
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
-            ChannelServices.RegisterChannel(new TcpClientChannel(), true);
+            base.OnShown(e);
             if (string.IsNullOrEmpty(ClientId))
             {
                 MessageBox.Show("请在App.config里配置ClientId，再启动软件。");
@@ -46,14 +31,17 @@ namespace LoowooTech.LEDFlow.Client
             {
                 while (true)
                 {
-                    try
+                    this.BeginInvoke(new Action(() =>
                     {
-                        this.BeginInvoke(new Action(BindData));
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
+                        try
+                        {
+                            BindData();
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+                    }));
                     Thread.Sleep(1000 * 60);
                 }
 
@@ -64,13 +52,20 @@ namespace LoowooTech.LEDFlow.Client
         protected override void OnClosed(EventArgs e)
         {
             base.OnClosed(e);
-            _bindDataThread.Abort();
-            _bindDataThread = null;
+            if (_bindDataThread != null)
+            {
+                _bindDataThread.Abort();
+                _bindDataThread = null;
+            }
+            foreach(LEDScreenControl c in flowLayoutPanel1.Controls)
+            {
+                c.Stop();
+            }
         }
 
         public void BindData()
         {
-            var client = GetServiceClient();
+            var client = Program.GetServiceClient();
             var leds = client.GetLEDs(ClientId);
             if (leds.Count == 0)
             {
@@ -142,6 +137,8 @@ namespace LoowooTech.LEDFlow.Client
             {
                 MessageBox.Show("请先选中需要发送的信息行");
             }
+            btnSend.Text = "发送中";
+            btnSend.Enabled = false;
             var program = new Model.Program();
             foreach (DataGridViewRow row in dataGridView1.SelectedRows)
             {
@@ -159,9 +156,25 @@ namespace LoowooTech.LEDFlow.Client
                 });
                 program.ClientID = ClientId;
             }
-            var client = GetServiceClient();
-            var ledId = GetSelectedLEDID();
-            client.SendProgram(ledId, program, FontSettingForm.GetTextStyle(ledId));
+            new Thread(() =>
+            {
+                try
+                {
+                    var client = Program.GetServiceClient();
+                    var ledId = GetSelectedLEDID();
+                    client.SendProgram(ledId, program, FontSettingForm.GetTextStyle(ledId));
+                    client.GetCurrentProgram(ledId);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("调用主机出错：\n" + ex.Message);
+                }
+                this.BeginInvoke(new Action(() =>
+                {
+                    btnSend.Text = "发送消息";
+                    btnSend.Enabled = true;
+                }));
+            }).Start();
         }
 
         private void dataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)

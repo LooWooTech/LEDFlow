@@ -24,7 +24,7 @@ namespace LoowooTech.LEDFlow.Server
         {
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             OpenService();
-            
+            LEDService.OpenLeds();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());

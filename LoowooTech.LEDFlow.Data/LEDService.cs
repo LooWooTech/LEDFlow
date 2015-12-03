@@ -28,6 +28,14 @@ namespace LoowooTech.LEDFlow.Data
             return result;
         }
 
+        public static void OpenLeds()
+        {
+            foreach(var led in LEDManager.GetList())
+            {
+                LEDAdapter.Open(led.ID, led.Width, led.Height);
+            }
+        }
+
         public void PlayProgram(int ledId, TextStyle style = null)
         {
             var led = LEDManager.GetModel(ledId);
@@ -42,11 +50,14 @@ namespace LoowooTech.LEDFlow.Data
             var program = ScheduleManager.GetCurrentProgram(ledId);
             if (program != null)
             {
-                var windowId = LEDAdapter.CreateWindow(0, 0, led.Width, led.Height, led.ID);
                 foreach (var msg in program.Messages)
                 {
-                    LEDAdapter.SendContent(msg.Content, (int)style.TextAnimation, msg.Duration, windowId);
+                    LEDAdapter.SendContent(msg.Content, (int)style.TextAnimation, msg.Duration, ledId);
                 }
+            }
+            else
+            {
+                throw new Exception("没有找到可以播放的节目");
             }
         }
 
@@ -66,7 +77,14 @@ namespace LoowooTech.LEDFlow.Data
                 PlayMode = PlayMode.立即开始,
                 ProgramID = program.ID,
             };
+
             ScheduleManager.Save(schedule);
+            PlayProgram(ledId, style);
+        }
+
+        public Program GetCurrentProgram(int ledId)
+        {
+            return ScheduleManager.GetCurrentProgram(ledId);
         }
     }
 }
