@@ -64,7 +64,11 @@ insert into Schedule
         /// </summary>
         private static List<Schedule> GetLedList(int ledId)
         {
-            var dt = DbHelper.GetDataTable("select * from Schedule where LedIds like '%," + ledId + "'");
+            
+            var maxObj = DbHelper.ExecuteScalar("select max(id) from Schedule where LedIds like '%," + ledId + "' and PlayMode =0 and EndTime < @EndTime", new SQLiteParameter("@EndTime", DateTime.Now.AddHours(-4)));
+            var maxId = StringHelper.ToInt(maxObj.ToString());
+
+            var dt = DbHelper.GetDataTable("select * from Schedule where ((PlayMode == 0 and id>" + maxId + ") or (PlayMode <> 0)) and LedIds like '%," + ledId + "' order by id desc");
 
             var list = new List<Schedule>();
             foreach (DataRow row in dt.Rows)

@@ -38,6 +38,7 @@ namespace LoowooTech.LEDFlow.Server.UserControls
             foreach (var item in list)
             {
                 var program = programs.Find(delegate(Model.Program p) { return p.ID == item.ProgramID; });
+                if (program == null) continue;
                 //var messages = new StringBuilder();
                 //foreach (var msg in program.Messages)
                 //{

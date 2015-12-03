@@ -73,7 +73,11 @@ namespace LoowooTech.LEDFlow.Client
                 btnSend.Enabled = false;
                 return;
             }
-
+            foreach (LEDScreenControl c in flowLayoutPanel1.Controls)
+            {
+                c.Stop();
+            }
+            flowLayoutPanel1.Controls.Clear();
             this.Width = flowLayoutPanel1.Width * leds.Count;
             foreach (var led in leds)
             {
