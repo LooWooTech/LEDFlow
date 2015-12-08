@@ -71,11 +71,10 @@
             // txtUpdateTime
             // 
             this.txtUpdateTime.AutoSize = true;
-            this.txtUpdateTime.Location = new System.Drawing.Point(19, 10);
+            this.txtUpdateTime.Location = new System.Drawing.Point(17, 10);
             this.txtUpdateTime.Name = "txtUpdateTime";
-            this.txtUpdateTime.Size = new System.Drawing.Size(119, 12);
+            this.txtUpdateTime.Size = new System.Drawing.Size(0, 12);
             this.txtUpdateTime.TabIndex = 2;
-            this.txtUpdateTime.Text = "2015-12-01 12:12:12";
             this.txtUpdateTime.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // panel1

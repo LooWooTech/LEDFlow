@@ -58,21 +58,21 @@ namespace LoowooTech.LEDFlow.Data
         public static void Save(Program model)
         {
             var messages = new StringBuilder();
-            foreach(var msg in model.Messages)
+            foreach (var msg in model.Messages)
             {
                 messages.Append(msg.Content + ":" + msg.Duration);
                 messages.Append('\n');
             }
-            if(model.ID>0)
+            if (model.ID > 0)
             {
                 var sql = "update Program set Messages = @Messages Where ID = @ID";
-                DbHelper.ExecuteSql(sql, new SQLiteParameter("@Message", messages), new SQLiteParameter("@ID", model.ID));
+                DbHelper.ExecuteSql(sql, new SQLiteParameter("@Messages", messages), new SQLiteParameter("@ID", model.ID));
             }
             else
             {
                 var sql = @"insert into Program(ClientID,CreateTime,Deleted,Messages)Values(@ClientID,@CreateTime,0,@Messages);
 select last_insert_rowid();";
-                var newId = DbHelper.ExecuteScalar(sql, 
+                var newId = DbHelper.ExecuteScalar(sql,
                     new SQLiteParameter("@ClientID", model.ClientID),
                     new SQLiteParameter("@CreateTime", model.CreateTime),
                     new SQLiteParameter("@Messages", messages)
@@ -86,9 +86,9 @@ select last_insert_rowid();";
             //会删除相关的排期
             var sql = @"
 update Program set Deleted=1 where ID =@ID;
-delete schedule where ProgramID = @ID;
+delete from Schedule where ProgramID = @ID;
 ";
-            DbHelper.ExecuteSql(sql);
+            DbHelper.ExecuteSql(sql, new SQLiteParameter("@ID", id));
         }
 
         public static List<Program> GetList()
@@ -96,7 +96,7 @@ delete schedule where ProgramID = @ID;
             var sql = "select * from Program where deleted=0 and clientId is null";
             var dt = DbHelper.GetDataTable(sql);
             var list = new List<Program>();
-            foreach(DataRow dr in dt.Rows)
+            foreach (DataRow dr in dt.Rows)
             {
                 list.Add(ConvertToModel(dr));
             }

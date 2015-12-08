@@ -24,7 +24,7 @@ PlayTimes = @PlayTimes
 where ID = @ID
 ",
                     new SQLiteParameter("@ID", model.ID),
-                    new SQLiteParameter("@LedIds", "," + string.Join(",", model.LedIds)),
+                    new SQLiteParameter("@LedIds", "," + string.Join(",", model.LedIds) + ","),
                     new SQLiteParameter("@PlayMode", (int)model.PlayMode),
                     new SQLiteParameter("@BeginTime", model.BeginTime),
                     new SQLiteParameter("@EndTime", model.EndTime),
@@ -36,7 +36,7 @@ where ID = @ID
 insert into Schedule 
 (LedIds,ProgramID,CreateTime,PlayMode,BeginTime,EndTime,PlayTimes) values
 (@LedIds,@ProgramID,@CreateTime,@PlayMode,@BeginTime,@EndTime,@PlayTimes)",
-                    new SQLiteParameter("@LedIds", "," + string.Join(",", model.LedIds)),
+                    new SQLiteParameter("@LedIds", "," + string.Join(",", model.LedIds) + ","),
                     new SQLiteParameter("@ProgramID", model.ProgramID),
                     new SQLiteParameter("@CreateTime", model.CreateTime),
                     new SQLiteParameter("@PlayMode", (int)model.PlayMode),
@@ -64,11 +64,11 @@ insert into Schedule
         /// </summary>
         private static List<Schedule> GetLedList(int ledId)
         {
-            
-            var maxObj = DbHelper.ExecuteScalar("select max(id) from Schedule where LedIds like '%," + ledId + "' and PlayMode =0 and EndTime < @EndTime", new SQLiteParameter("@EndTime", DateTime.Now.AddHours(-4)));
+
+            var maxObj = DbHelper.ExecuteScalar("select max(id) from Schedule where LedIds like '%," + ledId + ",%' and PlayMode =0 and EndTime < @EndTime", new SQLiteParameter("@EndTime", DateTime.Now.AddHours(-4)));
             var maxId = StringHelper.ToInt(maxObj.ToString());
 
-            var dt = DbHelper.GetDataTable("select * from Schedule where ((PlayMode == 0 and id>" + maxId + ") or (PlayMode <> 0)) and LedIds like '%," + ledId + "' order by id desc");
+            var dt = DbHelper.GetDataTable("select * from Schedule where ((PlayMode == 0 and id>" + maxId + ") or (PlayMode <> 0)) and LedIds like '%," + ledId + ",%' order by id desc");
 
             var list = new List<Schedule>();
             foreach (DataRow row in dt.Rows)
@@ -128,7 +128,7 @@ insert into Schedule
 
         public static void Delete(int id)
         {
-            DbHelper.ExecuteSql("delete Schedule where ID=@ID", new SQLiteParameter("@ID", id));
+            DbHelper.ExecuteSql("delete from Schedule where ID=@ID", new SQLiteParameter("@ID", id));
         }
     }
 }

@@ -22,8 +22,11 @@ namespace LoowooTech.LEDFlow.Server.UserControls
 
         public void Stop()
         {
-            _playThread.Abort();
-            _playThread = null;
+            if (_playThread != null)
+            {
+                _playThread.Abort();
+                _playThread = null;
+            }
         }
 
         public void BindData(Model.LEDScreen model)

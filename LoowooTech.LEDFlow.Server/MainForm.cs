@@ -1,4 +1,5 @@
-﻿using LoowooTech.LEDFlow.Server.UserControls;
+﻿using LoowooTech.LEDFlow.Data;
+using LoowooTech.LEDFlow.Server.UserControls;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,6 +22,13 @@ namespace LoowooTech.LEDFlow.Server
         {
             base.OnLoad(e);
             btnProgram_Click(null, null);
+        }
+
+        protected override void OnShown(EventArgs e)
+        {
+            base.OnShown(e);
+            var admin = AdminManager.GetCurrentUser();
+            btnLED.Visible = btnUser.Visible = btnClient.Visible = admin.Role == Model.Role.系统管理员;
         }
 
         private void AddContainer<T>() where T : UserControl, UserControls.ITabControl, new()
@@ -64,9 +72,21 @@ namespace LoowooTech.LEDFlow.Server
             AddContainer<AdminTab>();
         }
 
+        private void Logout()
+        {
+            AdminManager.Logout();
+            foreach (Form form in Application.OpenForms)
+            {
+                if (form is LoginForm)
+                {
+                    form.Show();
+                }
+            }
+        }
+
         private void btnLogout_Click(object sender, EventArgs e)
         {
-
+            this.Close();
         }
 
         private void btnClient_Click(object sender, EventArgs e)
@@ -77,6 +97,7 @@ namespace LoowooTech.LEDFlow.Server
         protected override void OnClosed(EventArgs e)
         {
             container.Controls.Clear();
+            Logout();
             base.OnClosed(e);
         }
 

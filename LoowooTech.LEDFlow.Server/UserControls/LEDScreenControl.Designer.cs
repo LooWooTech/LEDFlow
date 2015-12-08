@@ -50,7 +50,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(254, 38);
+            this.panel1.Size = new System.Drawing.Size(296, 38);
             this.panel1.TabIndex = 0;
             // 
             // btnEdit
@@ -93,9 +93,9 @@
             this.panel2.Controls.Add(this.txtUpdateTime);
             this.panel2.Controls.Add(this.label2);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 186);
+            this.panel2.Location = new System.Drawing.Point(0, 100);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(254, 32);
+            this.panel2.Size = new System.Drawing.Size(296, 32);
             this.panel2.TabIndex = 1;
             // 
             // txtUpdateTime
@@ -122,7 +122,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(0, 38);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(254, 148);
+            this.panel3.Size = new System.Drawing.Size(296, 62);
             this.panel3.TabIndex = 2;
             // 
             // txtMessage
@@ -133,7 +133,7 @@
             this.txtMessage.ForeColor = System.Drawing.Color.Red;
             this.txtMessage.Location = new System.Drawing.Point(0, 0);
             this.txtMessage.Name = "txtMessage";
-            this.txtMessage.Size = new System.Drawing.Size(254, 148);
+            this.txtMessage.Size = new System.Drawing.Size(296, 62);
             this.txtMessage.TabIndex = 0;
             this.txtMessage.Text = "没有节目";
             this.txtMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -146,7 +146,7 @@
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "LEDScreenControl";
-            this.Size = new System.Drawing.Size(254, 218);
+            this.Size = new System.Drawing.Size(296, 132);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);

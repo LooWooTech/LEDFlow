@@ -1,4 +1,5 @@
 ﻿using LoowooTech.LEDFlow.Data;
+using LoowooTech.LEDFlow.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -27,7 +28,8 @@ namespace LoowooTech.LEDFlow.Server
             LEDService.OpenLeds();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+
+            Application.Run(new LoginForm());
         }
 
         private static void OpenService()

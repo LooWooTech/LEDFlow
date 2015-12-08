@@ -45,6 +45,10 @@ namespace LoowooTech.LEDFlow.Client
                                 txtUpdateTime.Text = DateTime.Now.ToString();
                             }));
                             Thread.Sleep(msg.Duration * 1000);
+                            txtMessage.Invoke(new Action(() =>
+                            {
+                                txtMessage.Text = null;
+                            }));
                         }
                     }
                 }
