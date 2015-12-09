@@ -57,7 +57,7 @@ namespace LoowooTech.LEDFlow.Client
                 _bindDataThread.Abort();
                 _bindDataThread = null;
             }
-            foreach(LEDScreenControl c in flowLayoutPanel1.Controls)
+            foreach (LEDScreenControl c in flowLayoutPanel1.Controls)
             {
                 c.Stop();
             }
@@ -158,7 +158,6 @@ namespace LoowooTech.LEDFlow.Client
                     Content = content.ToString(),
                     Duration = duration == null ? 10 : int.Parse(duration.ToString())
                 });
-                program.ClientID = ClientId;
             }
             new Thread(() =>
             {
@@ -166,7 +165,7 @@ namespace LoowooTech.LEDFlow.Client
                 {
                     var client = Program.GetServiceClient();
                     var ledId = GetSelectedLEDID();
-                    client.SendProgram(ledId, program, FontSettingForm.GetTextStyle(ledId));
+                    client.SendProgram(ledId, ClientId, program, FontSettingForm.GetTextStyle(ledId));
                     client.GetCurrentProgram(ledId);
                 }
                 catch (Exception ex)

@@ -16,7 +16,9 @@ namespace LoowooTech.LEDFlow.Driver
         /// </summary>
         /// <param name="ledIndex">屏幕的序号，从1开始</param>
         /// <returns></returns>
-        bool Open(int ledIndex, int width, int height);
+        bool Open(int ledIndex);
+
+        void Init(int ledIndex, int width, int height);
 
         /// <summary>
         /// 关闭LED屏

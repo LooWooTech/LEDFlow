@@ -22,16 +22,34 @@ namespace LoowooTech.LEDFlow.Driver
         /// </summary>
         /// <param name="ledIndex">屏幕的序号，从1开始</param>
         /// <returns></returns>
-        public bool Open(int ledIndex, int width, int height)
+        public bool Open(int ledIndex)
         {
-            if (windows.ContainsKey(ledIndex)) return true;
+            return LedAPI.User_OpenScreen(ledIndex);
+        }
 
+        /// <summary>
+        /// 在屏幕上创建一个虚拟窗口
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="width">宽度</param>
+        /// <param name="height">高度</param>
+        /// <param name="ledIndex">屏幕的序号，从1开始</param>
+        /// <returns>返回虚拟窗口id，小于0表示创建失败</returns>
+        public void Init(int ledIndex, int width, int height)
+        {
             lock (syncRoot)
             {
                 var win = Window.CreateWindow(ledIndex, 0, 0, height, width);
-                windows.Add(win.LedIndex, win);
+                if (windows.ContainsKey(ledIndex))
+                {
+                    windows[ledIndex] = win;
+                }
+                else
+                {
+                    windows.Add(win.LedIndex, win);
+                }
             }
-            return LedAPI.User_OpenScreen(ledIndex);
         }
 
         /// <summary>
@@ -161,6 +179,6 @@ namespace LoowooTech.LEDFlow.Driver
             text.PartInfo = win.Frame;
             LedAPI.User_AddText(win.LedIndex, ref text, programId);
             LedAPI.User_SendToScreen(win.LedIndex);
-        }        
+        }
     }
 }

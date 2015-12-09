@@ -58,7 +58,7 @@
             this.btnEdit.BackColor = System.Drawing.Color.White;
             this.btnEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEdit.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.btnEdit.Location = new System.Drawing.Point(158, 8);
+            this.btnEdit.Location = new System.Drawing.Point(194, 8);
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(45, 23);
             this.btnEdit.TabIndex = 2;
@@ -71,7 +71,7 @@
             this.btnDelete.BackColor = System.Drawing.Color.White;
             this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDelete.ForeColor = System.Drawing.Color.Red;
-            this.btnDelete.Location = new System.Drawing.Point(204, 8);
+            this.btnDelete.Location = new System.Drawing.Point(240, 8);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(45, 23);
             this.btnDelete.TabIndex = 1;
@@ -103,9 +103,9 @@
             this.txtUpdateTime.AutoSize = true;
             this.txtUpdateTime.Location = new System.Drawing.Point(66, 10);
             this.txtUpdateTime.Name = "txtUpdateTime";
-            this.txtUpdateTime.Size = new System.Drawing.Size(119, 12);
+            this.txtUpdateTime.Size = new System.Drawing.Size(89, 12);
             this.txtUpdateTime.TabIndex = 1;
-            this.txtUpdateTime.Text = "2015-11-28 14:00:00";
+            this.txtUpdateTime.Text = " - / - / - -:-";
             // 
             // label2
             // 

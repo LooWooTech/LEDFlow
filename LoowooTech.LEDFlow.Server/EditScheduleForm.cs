@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using LoowooTech.LEDFlow.Common;
 using LoowooTech.LEDFlow.Data;
 using LoowooTech.LEDFlow.Model;
+using System.Threading;
 
 namespace LoowooTech.LEDFlow.Server
 {
@@ -18,15 +19,12 @@ namespace LoowooTech.LEDFlow.Server
             InitializeComponent();
         }
 
-        public int ScheduleID { get; private set; }
-
         public int ProgramID { get; private set; }
 
-        public void BindData(int scheduleId, int programId = 0)
+        public void BindData(int programId)
         {
             cbxPlayMode.DataSource = Enum.GetNames(typeof(Model.PlayMode));
             ProgramID = programId;
-            ScheduleID = scheduleId;
             var leds = LEDManager.GetList();
             foreach (var led in leds)
             {
@@ -61,18 +59,12 @@ namespace LoowooTech.LEDFlow.Server
             var playTimes = StringHelper.ToInt(txtPlayTimes.Text);
             var duration = StringHelper.ToDouble(txtDuration.Text);
             var beginTime = playTimeControl1.GetValue();
-            DateTime endTime = DateTime.MinValue;
-            if (playTimes == 0 && duration == 0)
-            {
-                MessageBox.Show("播放次数和播放时长必须有一个有值");
-                return;
-            }
-            //如果设置了无限循环，则播放时长必须有值
-            if (playTimes == 0)
+            DateTime? endTime = null;
+            if (duration > 0)
             {
                 endTime = beginTime.AddMinutes(60 * duration);
             }
-            else
+            else if (playTimes > 0) //如果设置了播放次数，则不能设置播放时长
             {
                 var program = ProgramManager.GetModel(ProgramID);
                 duration = program.GetPlayDuration(playTimes);
@@ -85,18 +77,24 @@ namespace LoowooTech.LEDFlow.Server
                 ledIds.Add(row.Cells["ID"].Value.ToString());
             }
 
-            var model = ScheduleManager.GetModel(ScheduleID) ?? new Schedule()
+            new Thread(() =>
             {
-                ProgramID = ProgramID,
-                LedIds = ledIds.ToArray(),
-                PlayMode = playMode,
-                BeginTime = beginTime,
-                EndTime = endTime,
-                PlayTimes = playTimes,
-            };
+                var model = new Schedule()
+                {
+                    ProgramID = ProgramID,
+                    LedIds = ledIds.ToArray(),
+                    PlayMode = playMode,
+                    BeginTime = beginTime,
+                    EndTime = endTime,
+                    PlayTimes = playTimes,
+                };
 
-            ScheduleManager.Save(model);
-
+                ScheduleManager.Save(model);
+                if (model.PlayMode == PlayMode.立即开始)
+                {
+                    LEDService.PlaySchedule(model);
+                }
+            }).Start();
             this.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.Close();
         }

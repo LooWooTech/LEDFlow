@@ -42,6 +42,7 @@
             this.btnSchedule = new System.Windows.Forms.ToolStripButton();
             this.btnClient = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnPlayLog = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -50,7 +51,7 @@
             this.container.Dock = System.Windows.Forms.DockStyle.Fill;
             this.container.Location = new System.Drawing.Point(0, 27);
             this.container.Name = "container";
-            this.container.Size = new System.Drawing.Size(604, 312);
+            this.container.Size = new System.Drawing.Size(714, 392);
             this.container.TabIndex = 3;
             // 
             // toolStripSeparator5
@@ -112,6 +113,7 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnProgram,
             this.toolStripSeparator4,
+            this.btnPlayLog,
             this.btnSchedule,
             this.toolStripSeparator3,
             this.btnLED,
@@ -123,7 +125,7 @@
             this.btnLogout});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(604, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(714, 27);
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -140,6 +142,7 @@
             this.btnSchedule.Name = "btnSchedule";
             this.btnSchedule.Size = new System.Drawing.Size(69, 24);
             this.btnSchedule.Text = "节目排期";
+            this.btnSchedule.Visible = false;
             this.btnSchedule.Click += new System.EventHandler(this.btnSchedule_Click);
             // 
             // btnClient
@@ -157,11 +160,21 @@
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 27);
             // 
+            // btnPlayLog
+            // 
+            this.btnPlayLog.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.btnPlayLog.Image = ((System.Drawing.Image)(resources.GetObject("btnPlayLog.Image")));
+            this.btnPlayLog.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnPlayLog.Name = "btnPlayLog";
+            this.btnPlayLog.Size = new System.Drawing.Size(69, 24);
+            this.btnPlayLog.Text = "播放记录";
+            this.btnPlayLog.Click += new System.EventHandler(this.btnPlayLog_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(604, 339);
+            this.ClientSize = new System.Drawing.Size(714, 419);
             this.Controls.Add(this.container);
             this.Controls.Add(this.toolStrip1);
             this.Name = "MainForm";
@@ -188,6 +201,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripButton btnSchedule;
+        private System.Windows.Forms.ToolStripButton btnPlayLog;
     }
 }
 

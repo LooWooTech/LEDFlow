@@ -105,5 +105,10 @@ namespace LoowooTech.LEDFlow.Server
         {
             AddContainer<ScheduleTab>();
         }
+
+        private void btnPlayLog_Click(object sender, EventArgs e)
+        {
+            AddContainer<PlayLogTab>();
+        }
     }
 }

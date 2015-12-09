@@ -61,6 +61,7 @@ namespace LoowooTech.LEDFlow.Server.UserControls
                 this.Stop();
                 var model = LEDManager.GetModel(LEDID);
                 BindData(model);
+                LEDService.OpenLED(model);
             }
         }
 

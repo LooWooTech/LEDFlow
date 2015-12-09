@@ -28,43 +28,69 @@ namespace LoowooTech.LEDFlow.Data
             return result;
         }
 
-        public static void OpenLeds()
+        public static void OpenLED(LEDScreen led)
         {
-            foreach(var led in LEDManager.GetList())
-            {
-                LEDAdapter.Open(led.ID, led.Width, led.Height);
-            }
+            LEDAdapter.Open(led.ID);
+            LEDAdapter.Init(led.ID, led.Width, led.Height);
         }
 
-        public void PlayProgram(int ledId, TextStyle style = null)
+        //public static void PlayAllLED()
+        //{
+        //    var list = DataManager.Instance.GetList<LEDScreen>();
+        //    foreach (var led in list)
+        //    {
+        //        LEDService.PlayLED(led.ID);
+        //    }
+        //}
+
+        //public static void PlayLED(int ledId, TextStyle style = null)
+        //{
+        //    var led = LEDManager.GetModel(ledId);
+        //    if (led == null)
+        //    {
+        //        return;
+        //    }
+        //    if (style == null)
+        //    {
+        //        style = led.DefaultStyle;
+        //    }
+        //    var program = ScheduleManager.GetCurrentProgram(ledId);
+        //    if (program != null)
+        //    {
+        //        foreach (var msg in program.Messages)
+        //        {
+        //            LEDAdapter.SendContent(msg.Content, (int)style.TextAnimation, msg.Duration / 10, ledId);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        throw new Exception("没有找到可以播放的节目");
+        //    }
+        //}
+
+        public static void PlaySchedule(Schedule schedule, TextStyle style = null)
         {
-            var led = LEDManager.GetModel(ledId);
-            if (led == null)
+            var program = ProgramManager.GetModel(schedule.ProgramID);
+            var ledList = LEDManager.GetList();
+            foreach (var id in schedule.LedIds)
             {
-                return;
-            }
-            if (style == null)
-            {
-                style = led.DefaultStyle;
-            }
-            var program = ScheduleManager.GetCurrentProgram(ledId);
-            if (program != null)
-            {
+                var ledId = int.Parse(id);
+                if(style == null)
+                {
+                    var led = ledList.Find(delegate(LEDScreen e) { return e.ID == ledId; });
+                    style = led.DefaultStyle;
+                }
                 foreach (var msg in program.Messages)
                 {
-                    LEDAdapter.SendContent(msg.Content, (int)style.TextAnimation, msg.Duration, ledId);
+                    LEDAdapter.SendContent(msg.Content, (int)style.TextAnimation, msg.Duration / 10, ledId);
                 }
-            }
-            else
-            {
-                throw new Exception("没有找到可以播放的节目");
             }
         }
 
-        public void SendProgram(int ledId, Program program, TextStyle style = null)
+        public void SendProgram(int ledId, string clientId, Program program, TextStyle style = null)
         {
             //客户端发送的节目
-            if (program.ID == 0 && !string.IsNullOrEmpty(program.ClientID))
+            if (program.ID == 0 && !string.IsNullOrEmpty(clientId))
             {
                 ProgramManager.Save(program);
             }
@@ -73,13 +99,17 @@ namespace LoowooTech.LEDFlow.Data
                 LedIds = new string[] { ledId.ToString() },
                 BeginTime = DateTime.Now,
                 PlayTimes = 1,
-                EndTime = DateTime.Now.AddSeconds(program.GetPlayDuration(1)),
                 PlayMode = PlayMode.立即开始,
                 ProgramID = program.ID,
             };
-
             ScheduleManager.Save(schedule);
-            PlayProgram(ledId, style);
+            PlaySchedule(schedule, style);
+            PlayLogManager.Add(new PlayLog
+            {
+                ClientId = clientId,
+                Content = program.Content,
+                PlayTime = schedule.BeginTime,
+            });
         }
 
         public Program GetCurrentProgram(int ledId)

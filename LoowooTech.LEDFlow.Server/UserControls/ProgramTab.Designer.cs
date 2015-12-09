@@ -107,7 +107,7 @@
             this.btnSchedule.ForeColor = System.Drawing.Color.Red;
             this.btnSchedule.Name = "btnSchedule";
             this.btnSchedule.Size = new System.Drawing.Size(69, 24);
-            this.btnSchedule.Text = "节目安排";
+            this.btnSchedule.Text = "播放节目";
             this.btnSchedule.Click += new System.EventHandler(this.btnSchedule_Click);
             // 
             // dataGridView1

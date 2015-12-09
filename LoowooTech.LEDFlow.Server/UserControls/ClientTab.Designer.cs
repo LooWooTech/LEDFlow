@@ -91,10 +91,9 @@
             // 
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.Control;
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ClientName});
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -106,13 +105,12 @@
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(619, 334);
-            this.dataGridView1.TabIndex = 14;
+            this.dataGridView1.TabIndex = 15;
             // 
             // ClientName
             // 
             this.ClientName.HeaderText = "客户端名称（唯一）";
             this.ClientName.Name = "ClientName";
-            this.ClientName.Width = 578;
             // 
             // ClientTab
             // 

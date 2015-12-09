@@ -15,18 +15,32 @@ namespace LoowooTech.LEDFlow.Model
 
         public int ID { get; set; }
 
-        /// <summary>
-        /// 客户端ID
-        /// </summary>
-        public string ClientID { get; set; }
+        [Newtonsoft.Json.JsonIgnore]
+        public string Content
+        {
+            get
+            {
+                var sb = new StringBuilder();
+                for (var i = 0; i < Messages.Count; i++)
+                {
+                    var msg = Messages[i];
+                    sb.Append("【" + (i + 1) + "】");
+                    sb.Append(msg.Content);
+                    sb.Append("  （" + msg.Duration + "s）");
+                    if (i + 1 < Messages.Count)
+                    {
+                        sb.Append("\r\n");
+                    }
+                }
+                return sb.ToString();
+            }
+        }
 
         public List<Message> Messages { get; set; }
 
         public DateTime CreateTime { get; set; }
 
         public bool Deleted { get; set; }
-
-        //public TextStyle Style { get; set; }
 
         public int GetPlayDuration(int playTimes)
         {

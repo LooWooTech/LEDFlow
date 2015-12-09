@@ -31,18 +31,7 @@ namespace LoowooTech.LEDFlow.Server.UserControls
             var rowIndex = dataGridView1.Rows.Add();
             var row = dataGridView1.Rows[rowIndex];
             row.Cells["ID"].Value = model.ID;
-            var content = string.Empty;
-            for (var i = 0; i < model.Messages.Count; i++)
-            {
-                var msg = model.Messages[i];
-                content += "【" + (i + 1) + "】" + msg.Content + "  （" + msg.Duration + "s）";
-                if (i + 1 < model.Messages.Count)
-                {
-                    content += "\r\n";
-                }
-            }
-
-            row.Cells["Content"].Value = content;
+            row.Cells["Content"].Value = model.Content;
         }
 
         private DataGridViewRow GetSelectedRow()
@@ -102,7 +91,7 @@ namespace LoowooTech.LEDFlow.Server.UserControls
             var id = GetSelectedProgramId();
             if (id == 0) return;
             var form = new EditScheduleForm();
-            form.BindData(0, id);
+            form.BindData(id);
             form.ShowDialog();
         }
 

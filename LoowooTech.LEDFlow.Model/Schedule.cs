@@ -44,7 +44,7 @@ namespace LoowooTech.LEDFlow.Model
         /// <summary>
         /// 结束时间
         /// </summary>
-        public DateTime EndTime { get; set; }
+        public DateTime? EndTime { get; set; }
         /// <summary>
         /// 播放次数，0为无限循环
         /// </summary>

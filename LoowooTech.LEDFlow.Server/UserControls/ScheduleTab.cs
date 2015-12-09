@@ -16,24 +16,13 @@ namespace LoowooTech.LEDFlow.Server.UserControls
             InitializeComponent();
         }
 
-        private int _pageIndex = 1;
-        private int _pageSize = 20;
-        private int _recordCount;
-
-        private int _pageCount
-        {
-            get
-            {
-                var count = _recordCount / _pageSize;
-                return count + (_recordCount % _pageSize > 0 ? 1 : 0);
-            }
-        }
-
+        private readonly Model.PageParameter Page = new Model.PageParameter();
+        
         public void BindData()
         {
             var programs = ProgramManager.GetList();
-            var list = ScheduleManager.GetList(_pageIndex, _pageSize, out _recordCount);
-            txtPage.Text = _pageIndex + "/" + _pageCount;
+            var list = ScheduleManager.GetList(Page);
+            txtPage.Text = Page.CurrentPage + "/" + Page.PageCount;
             dataGridView1.Rows.Clear();
             foreach (var item in list)
             {
@@ -53,25 +42,24 @@ namespace LoowooTech.LEDFlow.Server.UserControls
                 row.Cells["PlayMode"].Value = item.PlayMode.ToString();
                 row.Cells["PlayTimes"].Value = item.PlayTimes;
                 row.Cells["BeginTime"].Value = item.BeginTime;
-                row.Cells["Duration"].Value = item.PlayTimes > 0 ? null : (item.EndTime - item.BeginTime).TotalHours.ToString("f1");
                 ((DataGridViewCheckBoxCell)row.Cells["Played"]).Value = DateTime.Now > item.EndTime;
             }
         }
 
         private void btnPrev_Click(object sender, EventArgs e)
         {
-            if (_pageIndex <= 1) return;
-            _pageIndex--;
+            if (Page.CurrentPage <= 1) return;
+            Page.CurrentPage--;
             BindData();
         }
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            if (_pageIndex + 1 >= _pageCount)
+            if (Page.CurrentPage + 1 >= Page.PageCount)
             {
                 return;
             }
-            _pageIndex++;
+            Page.CurrentPage++;
             BindData();
         }
 
@@ -94,14 +82,6 @@ namespace LoowooTech.LEDFlow.Server.UserControls
                 ScheduleManager.Delete(id);
                 BindData();
             }
-        }
-
-        private void btnAdd_Click(object sender, EventArgs e)
-        {
-            var id = GetSelectedID();
-            if (id == 0) return;
-            var form = new EditScheduleForm();
-            form.BindData(id, 0);
         }
     }
 }

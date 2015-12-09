@@ -52,6 +52,7 @@
     <Compile Include="LEDManager.cs" />
     <Compile Include="LEDService.cs" />
     <Compile Include="MessageManager.cs" />
+    <Compile Include="PlayLogManager.cs" />
     <Compile Include="ScheduleManager.cs" />
     <Compile Include="ProgramManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

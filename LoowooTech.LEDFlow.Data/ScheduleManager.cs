@@ -47,10 +47,10 @@ insert into Schedule
             }
         }
 
-        public static List<Schedule> GetList(int pageIndex, int pageSize, out int recordCount)
+        public static List<Schedule> GetList(PageParameter page)
         {
-            recordCount = int.Parse(DbHelper.ExecuteScalar("select count(1) from Schedule").ToString());
-            var dt = DbHelper.GetDataTable(string.Format("select * from Schedule  order by id desc limit {0},{1}", pageIndex - 1, pageSize));
+            page.RecordCount = int.Parse(DbHelper.ExecuteScalar("select count(1) from Schedule").ToString());
+            var dt = DbHelper.GetDataTable(string.Format("select * from Schedule  order by id desc limit {0},{1}", page.CurrentPage - 1, page.PageSize));
             var list = new List<Schedule>();
             foreach (DataRow row in dt.Rows)
             {
@@ -78,8 +78,6 @@ insert into Schedule
             return list;
         }
 
-
-
         private static Schedule ConvertToModel(DataRow row)
         {
             return new Schedule
@@ -102,16 +100,15 @@ insert into Schedule
             for (var i = list.Count - 1; i >= 0; i--)
             {
                 var model = list[i];
-
-                //还没到时间或当前时间大于播放结束时间。
-                if (DateTime.Now < model.BeginTime || DateTime.Now > model.EndTime)
+                if (
+                    (DateTime.Now < model.BeginTime)
+                    ||(model.EndTime.HasValue && DateTime.Now > model.EndTime.Value)
+                    )
                 {
                     continue;
                 }
-                else
-                {
-                    return ProgramManager.GetModel(model.ProgramID);
-                }
+
+                return ProgramManager.GetModel(model.ProgramID);
             }
 
             return null;

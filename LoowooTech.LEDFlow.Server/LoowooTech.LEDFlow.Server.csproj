@@ -102,6 +102,12 @@
     <Compile Include="UserControls\LEDScreenTab.Designer.cs">
       <DependentUpon>LEDScreenTab.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\PlayLogTab.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\PlayLogTab.Designer.cs">
+      <DependentUpon>PlayLogTab.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\PlayTimeControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -158,6 +164,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\LEDScreenTab.resx">
       <DependentUpon>LEDScreenTab.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\PlayLogTab.resx">
+      <DependentUpon>PlayLogTab.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\PlayTimeControl.resx">
       <DependentUpon>PlayTimeControl.cs</DependentUpon>

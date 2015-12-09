@@ -1,6 +1,6 @@
 ﻿namespace LoowooTech.LEDFlow.Server.UserControls
 {
-    partial class ScheduleTab
+    partial class PlayLogTab
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,11 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-            this.btnAdd = new System.Windows.Forms.ToolStripButton();
-            this.btnDelete = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.btnPrev = new System.Windows.Forms.ToolStripButton();
             this.btnNext = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -40,51 +37,29 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Messages = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PlayTimes = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Duration = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PlayMode = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ClientId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BeginTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Played = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.EndTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStrip1
             // 
+            this.toolStrip1.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.toolStrip1.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnAdd,
-            this.btnDelete,
-            this.toolStripSeparator2,
             this.btnPrev,
             this.btnNext,
             this.toolStripSeparator3,
             this.txtPage});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Location = new System.Drawing.Point(0, 307);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(616, 27);
-            this.toolStrip1.TabIndex = 10;
+            this.toolStrip1.Size = new System.Drawing.Size(619, 27);
+            this.toolStrip1.TabIndex = 13;
             this.toolStrip1.Text = "toolStrip1";
-            // 
-            // btnAdd
-            // 
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(41, 24);
-            this.btnAdd.Text = "修改";
-            this.btnAdd.Visible = false;
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(41, 24);
-            this.btnDelete.Text = "删除";
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 27);
             // 
             // btnPrev
             // 
@@ -124,28 +99,26 @@
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ID,
             this.Messages,
-            this.PlayTimes,
-            this.Duration,
-            this.PlayMode,
+            this.ClientId,
             this.BeginTime,
-            this.Played});
+            this.EndTime});
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 27);
+            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(50);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.dataGridView1.RowHeadersVisible = false;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView1.RowTemplate.DefaultCellStyle.Padding = new System.Windows.Forms.Padding(2);
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(616, 393);
-            this.dataGridView1.TabIndex = 11;
+            this.dataGridView1.Size = new System.Drawing.Size(619, 307);
+            this.dataGridView1.TabIndex = 14;
             // 
             // ID
             // 
+            this.ID.FillWeight = 40F;
             this.ID.HeaderText = "ID";
             this.ID.Name = "ID";
             this.ID.ReadOnly = true;
@@ -154,30 +127,16 @@
             // Messages
             // 
             this.Messages.FillWeight = 303.4808F;
-            this.Messages.HeaderText = "播放节目";
+            this.Messages.HeaderText = "播放内容";
             this.Messages.Name = "Messages";
             this.Messages.ReadOnly = true;
             // 
-            // PlayTimes
+            // ClientId
             // 
-            this.PlayTimes.FillWeight = 101.1603F;
-            this.PlayTimes.HeaderText = "播放次数";
-            this.PlayTimes.Name = "PlayTimes";
-            this.PlayTimes.ReadOnly = true;
-            // 
-            // Duration
-            // 
-            this.Duration.FillWeight = 101.1603F;
-            this.Duration.HeaderText = "播放时长";
-            this.Duration.Name = "Duration";
-            this.Duration.ReadOnly = true;
-            // 
-            // PlayMode
-            // 
-            this.PlayMode.FillWeight = 101.1603F;
-            this.PlayMode.HeaderText = "播放方式";
-            this.PlayMode.Name = "PlayMode";
-            this.PlayMode.ReadOnly = true;
+            this.ClientId.FillWeight = 60F;
+            this.ClientId.HeaderText = "客户端";
+            this.ClientId.Name = "ClientId";
+            this.ClientId.ReadOnly = true;
             // 
             // BeginTime
             // 
@@ -186,23 +145,20 @@
             this.BeginTime.Name = "BeginTime";
             this.BeginTime.ReadOnly = true;
             // 
-            // Played
+            // EndTime
             // 
-            this.Played.FillWeight = 41.87817F;
-            this.Played.HeaderText = "已播";
-            this.Played.Name = "Played";
-            this.Played.ReadOnly = true;
-            this.Played.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Played.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.EndTime.HeaderText = "结束时间";
+            this.EndTime.Name = "EndTime";
+            this.EndTime.ReadOnly = true;
             // 
-            // ScheduleTab
+            // PlayLogTab
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.toolStrip1);
-            this.Name = "ScheduleTab";
-            this.Size = new System.Drawing.Size(616, 420);
+            this.Name = "PlayLogTab";
+            this.Size = new System.Drawing.Size(619, 334);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -214,22 +170,16 @@
         #endregion
 
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.ToolStripButton btnAdd;
-        private System.Windows.Forms.ToolStripButton btnDelete;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton btnPrev;
         private System.Windows.Forms.ToolStripButton btnNext;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripLabel txtPage;
+        private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Messages;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PlayTimes;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Duration;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PlayMode;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ClientId;
         private System.Windows.Forms.DataGridViewTextBoxColumn BeginTime;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Played;
-
+        private System.Windows.Forms.DataGridViewTextBoxColumn EndTime;
 
     }
 }
