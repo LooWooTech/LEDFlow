@@ -50,7 +50,7 @@ namespace LoowooTech.LEDFlow.Model
         /// </summary>
         public int PlayTimes { get; set; }
 
-        public string[] LedIds { get; set; }
+        public int[] LEDIDs { get; set; }
 
         public DateTime CreateTime { get; set; }
     }

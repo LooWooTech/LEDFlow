@@ -31,6 +31,8 @@
             System.Windows.Forms.GroupBox panel1;
             this.lstClient = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtID = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.txtHeight = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtWidth = new System.Windows.Forms.TextBox();
@@ -48,8 +50,6 @@
             this.label10 = new System.Windows.Forms.Label();
             this.cbxTextAnimation = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.txtID = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             panel1 = new System.Windows.Forms.GroupBox();
             panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -96,6 +96,23 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "LED设置";
             // 
+            // txtID
+            // 
+            this.txtID.Font = new System.Drawing.Font("Microsoft YaHei", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.txtID.Location = new System.Drawing.Point(61, 28);
+            this.txtID.Name = "txtID";
+            this.txtID.Size = new System.Drawing.Size(51, 26);
+            this.txtID.TabIndex = 1;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(20, 34);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(29, 12);
+            this.label4.TabIndex = 14;
+            this.label4.Text = "编号";
+            // 
             // txtHeight
             // 
             this.txtHeight.Font = new System.Drawing.Font("Microsoft YaHei", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -133,7 +150,7 @@
             // txtName
             // 
             this.txtName.Font = new System.Drawing.Font("Microsoft YaHei", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txtName.Location = new System.Drawing.Point(61, 68);
+            this.txtName.Location = new System.Drawing.Point(61, 67);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(121, 26);
             this.txtName.TabIndex = 9;
@@ -141,7 +158,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(20, 72);
+            this.label1.Location = new System.Drawing.Point(20, 71);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(29, 12);
             this.label1.TabIndex = 8;
@@ -258,23 +275,6 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "默认字体";
             // 
-            // txtID
-            // 
-            this.txtID.Font = new System.Drawing.Font("Microsoft YaHei", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.txtID.Location = new System.Drawing.Point(61, 28);
-            this.txtID.Name = "txtID";
-            this.txtID.Size = new System.Drawing.Size(51, 26);
-            this.txtID.TabIndex = 15;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(20, 34);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(29, 12);
-            this.label4.TabIndex = 14;
-            this.label4.Text = "编号";
-            // 
             // EditLEDScreenForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -287,6 +287,7 @@
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "EditLEDScreenForm";
+            this.ShowInTaskbar = false;
             this.Text = "LED屏幕设置";
             panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);

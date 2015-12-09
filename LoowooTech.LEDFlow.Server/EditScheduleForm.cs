@@ -71,16 +71,16 @@ namespace LoowooTech.LEDFlow.Server
                 endTime = beginTime.AddSeconds(duration);
             }
 
-            var ledIds = new List<string>();
+            var ledIds = new List<int>();
             foreach (DataGridViewRow row in lstLED.SelectedRows)
             {
-                ledIds.Add(row.Cells["ID"].Value.ToString());
+                ledIds.Add(int.Parse(row.Cells["ID"].Value.ToString()));
             }
 
             var model = new Schedule()
             {
                 ProgramID = ProgramID,
-                LedIds = ledIds.ToArray(),
+                LEDIDs = ledIds.ToArray(),
                 PlayMode = playMode,
                 BeginTime = beginTime,
                 EndTime = endTime,
@@ -88,11 +88,6 @@ namespace LoowooTech.LEDFlow.Server
             };
 
             ScheduleManager.Save(model);
-
-            if (model.PlayMode == PlayMode.立即开始)
-            {
-                LEDService.PlaySchedule(model);
-            }
 
             this.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.Close();

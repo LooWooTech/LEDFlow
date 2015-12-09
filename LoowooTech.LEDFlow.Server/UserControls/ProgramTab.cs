@@ -102,7 +102,6 @@ namespace LoowooTech.LEDFlow.Server.UserControls
             if (MessageBox.Show("你确定要删除该节目吗？\n同时会删除该节目的所有排期！", "提醒", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 ProgramManager.Delete(id);
-                MessageBox.Show("已删除");
                 BindData();
             }
         }

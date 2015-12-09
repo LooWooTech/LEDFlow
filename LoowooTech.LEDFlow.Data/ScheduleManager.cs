@@ -16,7 +16,6 @@ namespace LoowooTech.LEDFlow.Data
             {
                 DbHelper.ExecuteSql(@"
 update Schedule set
-LedIds = @LedIds,
 PlayMode = @PlayMode,
 BeginTime = @BeginTime,
 EndTime = @EndTime,
@@ -24,7 +23,6 @@ PlayTimes = @PlayTimes
 where ID = @ID
 ",
                     new SQLiteParameter("@ID", model.ID),
-                    new SQLiteParameter("@LedIds", "," + string.Join(",", model.LedIds) + ","),
                     new SQLiteParameter("@PlayMode", (int)model.PlayMode),
                     new SQLiteParameter("@BeginTime", model.BeginTime),
                     new SQLiteParameter("@EndTime", model.EndTime),
@@ -32,11 +30,11 @@ where ID = @ID
             }
             else
             {
-                DbHelper.ExecuteSql(@"
+                var newId = DbHelper.ExecuteScalar(@"
 insert into Schedule 
-(LedIds,ProgramID,CreateTime,PlayMode,BeginTime,EndTime,PlayTimes) values
-(@LedIds,@ProgramID,@CreateTime,@PlayMode,@BeginTime,@EndTime,@PlayTimes)",
-                    new SQLiteParameter("@LedIds", "," + string.Join(",", model.LedIds) + ","),
+(ProgramID,CreateTime,PlayMode,BeginTime,EndTime,PlayTimes) values
+(@ProgramID,@CreateTime,@PlayMode,@BeginTime,@EndTime,@PlayTimes);
+select last_insert_rowid();",
                     new SQLiteParameter("@ProgramID", model.ProgramID),
                     new SQLiteParameter("@CreateTime", model.CreateTime),
                     new SQLiteParameter("@PlayMode", (int)model.PlayMode),
@@ -44,6 +42,14 @@ insert into Schedule
                     new SQLiteParameter("@EndTime", model.EndTime),
                     new SQLiteParameter("@PlayTimes", model.PlayTimes)
                  );
+                model.ID = int.Parse(newId.ToString());
+            }
+            DbHelper.ExecuteSql("delete from ScheduleLED where ScheduleID = " + model.ID);
+            foreach (var ledId in model.LEDIDs)
+            {
+                DbHelper.ExecuteSql("insert into ScheduleLED(ScheduleID,LEDID)values(@Schedule,@LEDID)",
+                    new SQLiteParameter("@ScheduleID", model.ID),
+                    new SQLiteParameter("@LEDID", ledId));
             }
         }
 
@@ -60,7 +66,7 @@ insert into Schedule
         }
 
         /// <summary>
-        /// 获取该LED屏今天需要播的数据
+        /// 获取该LED屏今天需要播的数据，该列表不包含LEDIDs字段
         /// </summary>
         private static List<Schedule> GetLedList(int ledId)
         {
@@ -75,7 +81,42 @@ insert into Schedule
             {
                 list.Add(ConvertToModel(row));
             }
+            //GetLEDIDs(list);
             return list;
+        }
+
+        public static int[] GetLEDIDs(int scheduleId)
+        {
+            var list = new List<int>();
+            var dt = DbHelper.GetDataTable("select LEDID from ScheduleLED where ScheduleID=" + scheduleId);
+            foreach (DataRow dr in dt.Rows)
+            {
+                list.Add(int.Parse(dr["LEDID"].ToString()));
+            }
+            return list.ToArray();
+        }
+
+        private static void GetLEDIDs(List<Schedule> list)
+        {
+            var sb = new StringBuilder();
+            foreach (var item in list)
+            {
+                sb.Append(item.ID);
+                sb.Append(',');
+            }
+            var dt = DbHelper.GetDataTable("select LEDID from ScheduleLED where ScheduleID in (" + sb.ToString().TrimEnd(',') + ")");
+            foreach (var item in list)
+            {
+                var ledids = new List<int>();
+                foreach (DataRow dr in dt.Rows)
+                {
+                    if (dr["ScheduleID"].ToString() == item.ID.ToString())
+                    {
+                        ledids.Add(int.Parse(dr["LEDID"].ToString()));
+                    }
+                }
+                item.LEDIDs = ledids.ToArray();
+            }
         }
 
         private static Schedule ConvertToModel(DataRow row)
@@ -83,7 +124,6 @@ insert into Schedule
             return new Schedule
             {
                 ID = int.Parse(row["ID"].ToString()),
-                LedIds = row["LedIds"].ToString().Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries),
                 CreateTime = DateTime.Parse(row["CreateTime"].ToString()),
                 PlayMode = StringHelper.ToEnum<PlayMode>(row["PlayMode"].ToString()),
                 PlayTimes = int.Parse(row["PlayTimes"].ToString()),
@@ -93,13 +133,22 @@ insert into Schedule
             };
         }
 
-        public static Program GetCurrentProgram(int ledId)
+        public static Program GetCurrentProgram(LEDScreen led)
         {
-            var list = GetLedList(ledId);
-
-            for (var i = list.Count - 1; i >= 0; i--)
+            var dt = DbHelper.GetDataTable("select ScheduleID from ScheduleLED where LEDID=" + led.ID + " order by ID desc");
+            var ids = new List<int>();
+            foreach (DataRow dr in dt.Rows)
             {
-                var model = list[i];
+                ids.Add(int.Parse(dr["ScheduleID"].ToString()));
+            }
+
+            foreach (var scheduleId in ids)
+            {
+                var model = GetModel(scheduleId);
+                if (model == null)
+                {
+                    continue;
+                }
                 if (
                     (DateTime.Now < model.BeginTime)
                     || (model.EndTime.HasValue && DateTime.Now > model.EndTime.Value)
@@ -107,18 +156,28 @@ insert into Schedule
                 {
                     continue;
                 }
-
-                return ProgramManager.GetModel(model.ProgramID);
+                var program = ProgramManager.GetModel(model.ProgramID);
+                //如果屏幕当前有播放节目，并且和本次获取的节目相同，则判断该节目是否播放完一次，如果播放完成则返回program，如果没有，则返回null
+                if (led.CurrentProgram != null && led.CurrentProgram.ID == program.ID)
+                {
+                    if (((DateTime.Now - model.BeginTime).TotalSeconds / led.CurrentProgram.GetPlayDuration(1)) > 1)
+                    {
+                        return program;
+                    }
+                    return null;
+                }
+                else
+                {
+                    led.CurrentProgram = program;
+                    return program;
+                }
             }
-
             return null;
         }
 
         public static Schedule GetModel(int id)
         {
-            var dt = DbHelper.GetDataTable("select * from Schedule where ID=@ID",
-                new SQLiteParameter("@ID", id)
-                );
+            var dt = DbHelper.GetDataTable("select * from Schedule where ID=" + id);
             if (dt.Rows.Count == 0) return null;
             return ConvertToModel(dt.Rows[0]);
         }

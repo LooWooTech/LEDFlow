@@ -67,7 +67,7 @@ namespace LoowooTech.LEDFlow.Server
 
         private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Program.StopPlay();
+            AutoPlayService.Instance.Stop();
             Application.Exit();
         }
 

@@ -10,57 +10,105 @@ namespace LoowooTech.LEDFlow.Data
 {
     public class ProgramManager
     {
-        private static List<Program> _list = null;
+        private static Program ConvertToModel(DataRow row)
+        {
+            var model = new Program
+            {
+                ID = int.Parse(row["ID"].ToString()),
+                Deleted = bool.Parse(row["Deleted"].ToString()),
+                CreateTime = DateTime.Parse(row["CreateTime"].ToString()),
+                ClientID = row["ClientID"] == null ? null : row["ClientID"].ToString(),
+            };
+            var msgs = row["Messages"].ToString().Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var msg in msgs)
+            {
+                //最后一个冒号后是持续时间，如果没有，则使用默认时间
+                var index = msg.LastIndexOf(':');
+                if (index > 0)
+                {
+                    model.Messages.Add(new Message
+                    {
+                        Content = msg.Substring(0, index),
+                        Duration = StringHelper.ToInt(msg.Substring(index + 1))
+                    });
+                }
+                else
+                {
+                    model.Messages.Add(new Message
+                    {
+                        Content = msg,
+                        Duration = 0
+                    });
+                }
+            }
+            return model;
+        }
 
         public static Program GetModel(int id)
         {
-            if (id > 0)
+            var sql = "select * from Program where id = " + id + " and deleted=0 limit 0,1";
+            var dt = DbHelper.GetDataTable(sql);
+            if (dt.Rows.Count == 0)
             {
-                var list = GetList();
-                return list.Find(delegate(Program p) { return p.ID == id; });
+                return null;
             }
-            return null;
+            return ConvertToModel(dt.Rows[0]);
         }
 
         public static void Save(Program model)
         {
-            var list = GetList();
-            if (model.ID == 0)
+            var messages = new StringBuilder();
+            foreach (var msg in model.Messages)
             {
-                if (list.Count > 0)
-                {
-                    var last = list[list.Count - 1];
-                    model.ID = last.ID + 1;
-                }
-                else
-                {
-                    model.ID = 1;
-                }
-                list.Add(model);
+                messages.Append(msg.Content + ":" + msg.Duration);
+                messages.Append('\n');
+            }
+            if (model.ID > 0)
+            {
+                var sql = "update Program set Messages = @Messages Where ID = @ID";
+                DbHelper.ExecuteSql(sql, new SQLiteParameter("@Messages", messages), new SQLiteParameter("@ID", model.ID));
             }
             else
             {
-                var index = list.FindIndex(delegate(Program p) { return p.ID == model.ID; });
-                list[index] = model;
+                var sql = @"insert into Program(ClientID,CreateTime,Deleted,Messages)Values(@ClientID,@CreateTime,0,@Messages);
+select last_insert_rowid();";
+                var newId = DbHelper.ExecuteScalar(sql,
+                    new SQLiteParameter("@ClientID", model.ClientID),
+                    new SQLiteParameter("@CreateTime", model.CreateTime),
+                    new SQLiteParameter("@Messages", messages)
+                    );
+                model.ID = int.Parse(newId.ToString());
             }
-            DataManager.Instance.Save(list);
         }
 
         public static void Delete(int id)
         {
-            var list = GetList();
-            var index = list.FindIndex(delegate(Program p) { return p.ID == id; });
-            list.RemoveAt(index);
-            DataManager.Instance.Save(list);
+            //会删除相关的排期
+            var sql = @"
+update Program set Deleted=1 where ID =@ID;
+delete from Schedule where ProgramID = @ID;
+";
+            DbHelper.ExecuteSql(sql, new SQLiteParameter("@ID", id));
         }
 
-        public static List<Program> GetList()
+        public static List<Program> GetList(string clientId = null)
         {
-            if(_list == null)
+            var sql = "select * from Program where deleted=0 ";
+            if (!string.IsNullOrEmpty(clientId))
             {
-                _list = DataManager.Instance.GetList<Program>();
+                sql += " and clientId='" + clientId + "'";
             }
-            return _list;
+            else
+            {
+                sql += " and clientId is null";
+            }
+            var dt = DbHelper.GetDataTable(sql);
+            var list = new List<Program>();
+            foreach (DataRow dr in dt.Rows)
+            {
+                list.Add(ConvertToModel(dr));
+            }
+            return list;
         }
     }
 }

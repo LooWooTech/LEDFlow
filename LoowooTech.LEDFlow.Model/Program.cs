@@ -36,6 +36,8 @@ namespace LoowooTech.LEDFlow.Model
             }
         }
 
+        public string ClientID { get; set; }
+
         public List<Message> Messages { get; set; }
 
         public DateTime CreateTime { get; set; }

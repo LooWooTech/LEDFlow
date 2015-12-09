@@ -28,7 +28,7 @@ namespace LoowooTech.LEDFlow.Data
                 ID = int.Parse(dr["ID"].ToString()),
                 ClientId = dr["ClientId"] == null ? null : dr["ClientId"].ToString(),
                 Content = dr["Content"].ToString(),
-                EndTime = dr["EndTime"] == null ? default(DateTime?) : DateTime.Parse(dr["EndTime"].ToString()),
+                EndTime = (dr["EndTime"] == null || dr["EndTime"].ToString().Length == 0) ? default(DateTime?) : DateTime.Parse(dr["EndTime"].ToString()),
                 PlayTime = DateTime.Parse(dr["PlayTime"].ToString()),
                 LedIds = dr["LedIds"].ToString().Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
             };
@@ -38,7 +38,7 @@ namespace LoowooTech.LEDFlow.Data
         {
             var list = new List<PlayLog>();
 
-            var sql = string.Format("select * from PlayLog limit {0},{1}", page.CurrentPage - 1, page.PageSize);
+            var sql = string.Format("select * from PlayLog order by id desc limit {0},{1}", page.CurrentPage - 1, page.PageSize);
             var dt = DbHelper.GetDataTable(sql);
             foreach (DataRow dr in dt.Rows)
             {

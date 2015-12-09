@@ -1,14 +1,14 @@
 ﻿using LoowooTech.LEDFlow.Model;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
+using System.Threading;
 
 namespace LoowooTech.LEDFlow.Data
 {
     public class LEDService : MarshalByRefObject
     {
-        private static readonly LEDFlow.Driver.LEDAdapter LEDAdapter = new Driver.LEDAdapter();
-
         public List<LEDScreen> GetLEDs(string client)
         {
             var result = new List<LEDScreen>();
@@ -28,64 +28,87 @@ namespace LoowooTech.LEDFlow.Data
             return result;
         }
 
-        public static void OpenLED(LEDScreen led)
-        {
-            LEDAdapter.Open(led.ID);
-        }
+        //public static void OpenLED(LEDScreen led)
+        //{
+        //    LEDAdapter.Open(led.ID);
+        //}
 
-        public static void PlaySchedule(Schedule schedule, TextStyle style = null)
-        {
-            var program = ProgramManager.GetModel(schedule.ProgramID);
-            foreach (var id in schedule.LedIds)
-            {
-                var ledId = int.Parse(id);
-                var led = LEDManager.GetModel(ledId);
-                if (led.VirtualID == -1)
-                {
-                    led.VirtualID = LEDAdapter.CreateWindow(0, 0, led.Width, led.Height, led.ID);
-                }
+        //public static void AutoPlay()
+        //{
+        //    var leds = LEDManager.GetList();
+        //    foreach (var led in leds)
+        //    {
+        //        if (led == null)
+        //        {
+        //            return;
+        //        }
+        //        if (led.VirtualID == -1)
+        //        {
+        //            led.VirtualID = LEDAdapter.CreateWindow(0, 0, led.Width, led.Height, led.ID);
+        //            LEDAdapter.SetFont(new Font(led.Style.FontFamily.ToString(), led.Style.FontSize), (ContentAlignment)led.Style.TextAlignment, 0, led.VirtualID);
+        //        }
+        //        var program = ScheduleManager.GetCurrentProgram(led.ID);
+        //        if (program != null)
+        //        {
+        //            foreach (var msg in program.Messages)
+        //            {
+        //                LEDAdapter.SendContent(msg.Content, (int)led.Style.TextAnimation, msg.Duration, led.VirtualID);
+        //            }
+        //        }
+        //    }
+        //}
 
-                if (style == null)
-                {
-                    style = led.DefaultStyle;
-                }
-                foreach (var msg in program.Messages)
-                {
-                    LEDAdapter.SendContent(msg.Content, (int)style.TextAnimation, msg.Duration / 10, led.VirtualID);
-                }
-            }
+        //public static void PlaySchedule(Schedule schedule, TextStyle style = null)
+        //{
+        //    var program = ProgramManager.GetModel(schedule.ProgramID);
+        //    foreach (var LEDID in schedule.LEDIDs)
+        //    {
+        //        var led = LEDManager.GetModel(LEDID);
+        //        if (led.VirtualID == -1)
+        //        {
+        //            led.VirtualID = LEDAdapter.CreateWindow(0, 0, led.Width, led.Height, led.ID);
+        //        }
 
-            PlayLogManager.Add(new PlayLog
-            {
-                Content = program.Content,
-                PlayTime = schedule.BeginTime,
-                EndTime = schedule.EndTime,
-                LedIds = schedule.LedIds
-            });
-        }
+        //        if (style == null)
+        //        {
+        //            style = led.Style;
+        //        }
+        //        foreach (var msg in program.Messages)
+        //        {
+        //            LEDAdapter.SendContent(msg.Content, (int)style.TextAnimation, msg.Duration / 10, led.VirtualID);
+        //        }
+        //    }
+        //}
 
-        public void SendProgram(int ledId, string clientId, Program program, TextStyle style = null)
+        public void SendProgram(int ledId, Program program, TextStyle style = null)
         {
             //客户端发送的节目
-            if (program.ID == 0 && !string.IsNullOrEmpty(clientId))
+            if (program.ID == 0 && !string.IsNullOrEmpty(program.ClientID))
             {
                 ProgramManager.Save(program);
             }
+            //客户端发送的节目默认为无限次播放，没有截至时间
             var schedule = new Schedule
             {
-                LedIds = new string[] { ledId.ToString() },
+                LEDIDs = new int[] { ledId },
                 BeginTime = DateTime.Now,
-                PlayTimes = 1,
                 PlayMode = PlayMode.立即开始,
                 ProgramID = program.ID,
             };
             ScheduleManager.Save(schedule);
-            PlaySchedule(schedule, style);
+            
+            if (style != null)
+            {
+                var led= LEDManager.GetModel(ledId);
+                led.CustomStyle = style;
+                LEDManager.Save(led);
+            }
         }
 
         public Program GetCurrentProgram(int ledId)
         {
-            return ScheduleManager.GetCurrentProgram(ledId);
+            var led = LEDManager.GetModel(ledId);
+            return ScheduleManager.GetCurrentProgram(led);
         }
     }
 }

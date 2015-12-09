@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnPrev = new System.Windows.Forms.ToolStripButton();
             this.btnNext = new System.Windows.Forms.ToolStripButton();
@@ -36,9 +36,9 @@
             this.txtPage = new System.Windows.Forms.ToolStripLabel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Messages = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Content = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ClientId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BeginTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PlayTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EndTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -98,9 +98,9 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ID,
-            this.Messages,
+            this.Content,
             this.ClientId,
-            this.BeginTime,
+            this.PlayTime,
             this.EndTime});
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
@@ -108,8 +108,8 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.RowTemplate.DefaultCellStyle.Padding = new System.Windows.Forms.Padding(2);
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -124,12 +124,12 @@
             this.ID.ReadOnly = true;
             this.ID.Visible = false;
             // 
-            // Messages
+            // Content
             // 
-            this.Messages.FillWeight = 303.4808F;
-            this.Messages.HeaderText = "播放内容";
-            this.Messages.Name = "Messages";
-            this.Messages.ReadOnly = true;
+            this.Content.FillWeight = 303.4808F;
+            this.Content.HeaderText = "播放内容";
+            this.Content.Name = "Content";
+            this.Content.ReadOnly = true;
             // 
             // ClientId
             // 
@@ -138,12 +138,12 @@
             this.ClientId.Name = "ClientId";
             this.ClientId.ReadOnly = true;
             // 
-            // BeginTime
+            // PlayTime
             // 
-            this.BeginTime.FillWeight = 101.1603F;
-            this.BeginTime.HeaderText = "播放时间";
-            this.BeginTime.Name = "BeginTime";
-            this.BeginTime.ReadOnly = true;
+            this.PlayTime.FillWeight = 101.1603F;
+            this.PlayTime.HeaderText = "播放时间";
+            this.PlayTime.Name = "PlayTime";
+            this.PlayTime.ReadOnly = true;
             // 
             // EndTime
             // 
@@ -176,9 +176,9 @@
         private System.Windows.Forms.ToolStripLabel txtPage;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Messages;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Content;
         private System.Windows.Forms.DataGridViewTextBoxColumn ClientId;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BeginTime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PlayTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn EndTime;
 
     }

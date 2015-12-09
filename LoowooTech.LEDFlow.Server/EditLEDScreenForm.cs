@@ -42,10 +42,10 @@ namespace LoowooTech.LEDFlow.Server
             txtName.Text = model.Name;
             txtWidth.Text = model.Width.ToString();
             txtHeight.Text = model.Height.ToString();
-            cbxFontFamily.Text = model.DefaultStyle.FontFamily.ToString();
-            txtFontSize.Text = model.DefaultStyle.FontSize.ToString();
-            cbxTextAlignment.Text = model.DefaultStyle.TextAlignment.ToString();
-            cbxTextAnimation.Text = model.DefaultStyle.TextAnimation.ToString();
+            cbxFontFamily.Text = model.Style.FontFamily.ToString();
+            txtFontSize.Text = model.Style.FontSize.ToString();
+            cbxTextAlignment.Text = model.Style.TextAlignment.ToString();
+            cbxTextAnimation.Text = model.Style.TextAnimation.ToString();
             if (model.Clients != null)
             {
                 for (var i = 0; i < lstClient.Items.Count; i++)
@@ -67,6 +67,11 @@ namespace LoowooTech.LEDFlow.Server
         {
             var model = LEDManager.GetModel(_ledId) ?? new Model.LEDScreen();
             model.ID = StringHelper.ToInt(txtID.Text);
+            if (model.ID < 1)
+            {
+                MessageBox.Show("编号必须大于0");
+            }
+
             model.Name = txtName.Text;
             if (string.IsNullOrEmpty(model.Name))
             {
@@ -98,15 +103,15 @@ namespace LoowooTech.LEDFlow.Server
                 return;
             }
             model.Clients = clients.ToArray();
-            model.DefaultStyle.FontFamily = StringHelper.ToEnum<Model.FontFamily>(cbxFontFamily.Text);
-            model.DefaultStyle.FontSize = StringHelper.ToInt(txtFontSize.Text);
-            if (model.DefaultStyle.FontSize == 0)
+            model.Style.FontFamily = StringHelper.ToEnum<Model.FontFamily>(cbxFontFamily.Text);
+            model.Style.FontSize = StringHelper.ToInt(txtFontSize.Text);
+            if (model.Style.FontSize == 0)
             {
                 txtFontSize.Focus();
                 return;
             }
-            model.DefaultStyle.TextAlignment = StringHelper.ToEnum<Model.TextAlignment>(cbxTextAlignment.Text);
-            model.DefaultStyle.TextAnimation = StringHelper.ToEnum<Model.TextAnimation>(cbxTextAnimation.Text);
+            model.Style.TextAlignment = StringHelper.ToEnum<Model.TextAlignment>(cbxTextAlignment.Text);
+            model.Style.TextAnimation = StringHelper.ToEnum<Model.TextAnimation>(cbxTextAnimation.Text);
 
             LEDManager.Save(model);
 

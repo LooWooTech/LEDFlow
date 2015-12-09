@@ -236,6 +236,7 @@
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "EditScheduleForm";
+            this.ShowInTaskbar = false;
             this.Text = "选择需要播放的LED屏幕";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

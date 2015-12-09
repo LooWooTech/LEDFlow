@@ -143,7 +143,7 @@ namespace LoowooTech.LEDFlow.Client
             }
             btnSend.Text = "发送中";
             btnSend.Enabled = false;
-            var program = new Model.Program();
+            var program = new Model.Program { ClientID = ClientId };
             foreach (DataGridViewRow row in dataGridView1.SelectedRows)
             {
                 var content = row.Cells["Content"].Value;
@@ -165,7 +165,7 @@ namespace LoowooTech.LEDFlow.Client
                 {
                     var client = Program.GetServiceClient();
                     var ledId = GetSelectedLEDID();
-                    client.SendProgram(ledId, ClientId, program, FontSettingForm.GetTextStyle(ledId));
+                    client.SendProgram(ledId, program, FontSettingForm.GetTextStyle(ledId));
                     client.GetCurrentProgram(ledId);
                 }
                 catch (Exception ex)

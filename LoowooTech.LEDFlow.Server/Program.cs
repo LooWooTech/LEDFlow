@@ -25,45 +25,12 @@ namespace LoowooTech.LEDFlow.Server
         static void Main()
         {
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
-            AppDomain.CurrentDomain.ProcessExit += CurrentDomain_ProcessExit;
             OpenService();
-            OpenLEDs();
-            AutoPlay();
+            AutoPlayService.Instance.Start();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
             Application.Run(new LoginForm());
-        }
-
-        static void CurrentDomain_ProcessExit(object sender, EventArgs e)
-        {
-            StopPlay();
-        }
-
-        public static void StopPlay()
-        {
-            if (_playThread != null)
-            {
-                _playThread.Abort();
-                _playThread = null;
-            }
-        }
-
-        private static Thread _playThread;
-        /// <summary>
-        /// 自动播放只播放定时播放的节目，立即播放的节目会在创建后立即播放，每隔一分钟查询一次排期。
-        /// </summary>
-        private static void AutoPlay()
-        {
-            //_playThread = new Thread(() =>
-            //{
-            //    while (true)
-            //    {
-            //        LEDService.PlayAllLED();
-            //        Thread.Sleep(1000 * 60);
-            //    }
-            //});
-            //_playThread.Start();
         }
 
         private static void OpenService()
@@ -76,15 +43,6 @@ namespace LoowooTech.LEDFlow.Server
             var channel = new TcpServerChannel(servicePort);
             ChannelServices.RegisterChannel(channel, true);
             RemotingConfiguration.RegisterWellKnownServiceType(typeof(LEDService), "LEDService", WellKnownObjectMode.SingleCall);
-        }
-
-        private static void OpenLEDs()
-        {
-            var list = LEDManager.GetList();
-            foreach(var item in list)
-            {
-                LEDService.OpenLED(item);
-            }
         }
 
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)

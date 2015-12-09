@@ -9,13 +9,11 @@ namespace LoowooTech.LEDFlow.Model
     {
         public LEDScreen()
         {
-            DefaultStyle = new TextStyle();
+            Style = new TextStyle();
+            VirtualID = -1;
         }
 
         public int ID { get; set; }
-
-        [Newtonsoft.Json.JsonIgnore]
-        public int VirtualID { get; set; }
 
         public string Name { get; set; }
 
@@ -23,8 +21,33 @@ namespace LoowooTech.LEDFlow.Model
 
         public int Height { get; set; }
 
-        public TextStyle DefaultStyle { get; set; }
+        private TextStyle _defaultStyle;
+        public TextStyle Style
+        {
+            get
+            {
+                return CustomStyle == null ? _defaultStyle : CustomStyle;
+            }
+            set
+            {
+                _defaultStyle = value;
+            }
+        }
+
+        public TextStyle CustomStyle { get; set; }
 
         public string[] Clients { get; set; }
+
+        /// <summary>
+        /// 虚拟窗口的ID
+        /// </summary>
+        [Newtonsoft.Json.JsonIgnore]
+        public int VirtualID { get; set; }
+
+        /// <summary>
+        /// 当前正在播放的节目
+        /// </summary>
+        [Newtonsoft.Json.JsonIgnore]
+        public Program CurrentProgram { get; set; }
     }
 }

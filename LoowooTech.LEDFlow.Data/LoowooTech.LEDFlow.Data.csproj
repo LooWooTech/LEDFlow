@@ -42,6 +42,7 @@
       <HintPath>..\..\..\local\tmp\packages\System.Data.SQLite.Core.1.0.98.1\lib\net20\System.Data.SQLite.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -52,7 +53,6 @@
     <Compile Include="LEDManager.cs" />
     <Compile Include="LEDService.cs" />
     <Compile Include="MessageManager.cs" />
-    <Compile Include="PlayLogManager.cs" />
     <Compile Include="ScheduleManager.cs" />
     <Compile Include="ProgramManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

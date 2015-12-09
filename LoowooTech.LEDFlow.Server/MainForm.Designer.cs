@@ -42,7 +42,6 @@
             this.btnSchedule = new System.Windows.Forms.ToolStripButton();
             this.btnClient = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnPlayLog = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -113,7 +112,6 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnProgram,
             this.toolStripSeparator4,
-            this.btnPlayLog,
             this.btnSchedule,
             this.toolStripSeparator3,
             this.btnLED,
@@ -141,8 +139,7 @@
             this.btnSchedule.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnSchedule.Name = "btnSchedule";
             this.btnSchedule.Size = new System.Drawing.Size(69, 24);
-            this.btnSchedule.Text = "节目排期";
-            this.btnSchedule.Visible = false;
+            this.btnSchedule.Text = "播放列表";
             this.btnSchedule.Click += new System.EventHandler(this.btnSchedule_Click);
             // 
             // btnClient
@@ -159,16 +156,6 @@
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 27);
-            // 
-            // btnPlayLog
-            // 
-            this.btnPlayLog.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.btnPlayLog.Image = ((System.Drawing.Image)(resources.GetObject("btnPlayLog.Image")));
-            this.btnPlayLog.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnPlayLog.Name = "btnPlayLog";
-            this.btnPlayLog.Size = new System.Drawing.Size(69, 24);
-            this.btnPlayLog.Text = "播放记录";
-            this.btnPlayLog.Click += new System.EventHandler(this.btnPlayLog_Click);
             // 
             // MainForm
             // 
@@ -201,7 +188,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripButton btnSchedule;
-        private System.Windows.Forms.ToolStripButton btnPlayLog;
     }
 }
 

@@ -12,6 +12,11 @@ namespace LoowooTech.LEDFlow.Driver
     /// </summary>
     public class LEDAdapter : ILEDAdapter
     {
+        private LEDAdapter()
+        { }
+
+        public static readonly LEDAdapter Instance = new LEDAdapter();
+
         private readonly Dictionary<int, Window> windows = new Dictionary<int, Window>();
 
         private readonly object syncRoot = new object();
