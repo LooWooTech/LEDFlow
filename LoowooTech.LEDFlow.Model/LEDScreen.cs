@@ -14,6 +14,9 @@ namespace LoowooTech.LEDFlow.Model
 
         public int ID { get; set; }
 
+        [Newtonsoft.Json.JsonIgnore]
+        public int VirtualID { get; set; }
+
         public string Name { get; set; }
 
         public int Width { get; set; }

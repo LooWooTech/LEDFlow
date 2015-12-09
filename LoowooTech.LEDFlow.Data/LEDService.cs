@@ -31,60 +31,37 @@ namespace LoowooTech.LEDFlow.Data
         public static void OpenLED(LEDScreen led)
         {
             LEDAdapter.Open(led.ID);
-            LEDAdapter.Init(led.ID, led.Width, led.Height);
         }
-
-        //public static void PlayAllLED()
-        //{
-        //    var list = DataManager.Instance.GetList<LEDScreen>();
-        //    foreach (var led in list)
-        //    {
-        //        LEDService.PlayLED(led.ID);
-        //    }
-        //}
-
-        //public static void PlayLED(int ledId, TextStyle style = null)
-        //{
-        //    var led = LEDManager.GetModel(ledId);
-        //    if (led == null)
-        //    {
-        //        return;
-        //    }
-        //    if (style == null)
-        //    {
-        //        style = led.DefaultStyle;
-        //    }
-        //    var program = ScheduleManager.GetCurrentProgram(ledId);
-        //    if (program != null)
-        //    {
-        //        foreach (var msg in program.Messages)
-        //        {
-        //            LEDAdapter.SendContent(msg.Content, (int)style.TextAnimation, msg.Duration / 10, ledId);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        throw new Exception("没有找到可以播放的节目");
-        //    }
-        //}
 
         public static void PlaySchedule(Schedule schedule, TextStyle style = null)
         {
             var program = ProgramManager.GetModel(schedule.ProgramID);
-            var ledList = LEDManager.GetList();
             foreach (var id in schedule.LedIds)
             {
                 var ledId = int.Parse(id);
-                if(style == null)
+                var led = LEDManager.GetModel(ledId);
+                if (led.VirtualID == -1)
                 {
-                    var led = ledList.Find(delegate(LEDScreen e) { return e.ID == ledId; });
+                    led.VirtualID = LEDAdapter.CreateWindow(0, 0, led.Width, led.Height, led.ID);
+                }
+
+                if (style == null)
+                {
                     style = led.DefaultStyle;
                 }
                 foreach (var msg in program.Messages)
                 {
-                    LEDAdapter.SendContent(msg.Content, (int)style.TextAnimation, msg.Duration / 10, ledId);
+                    LEDAdapter.SendContent(msg.Content, (int)style.TextAnimation, msg.Duration / 10, led.VirtualID);
                 }
             }
+
+            PlayLogManager.Add(new PlayLog
+            {
+                Content = program.Content,
+                PlayTime = schedule.BeginTime,
+                EndTime = schedule.EndTime,
+                LedIds = schedule.LedIds
+            });
         }
 
         public void SendProgram(int ledId, string clientId, Program program, TextStyle style = null)
@@ -104,12 +81,6 @@ namespace LoowooTech.LEDFlow.Data
             };
             ScheduleManager.Save(schedule);
             PlaySchedule(schedule, style);
-            PlayLogManager.Add(new PlayLog
-            {
-                ClientId = clientId,
-                Content = program.Content,
-                PlayTime = schedule.BeginTime,
-            });
         }
 
         public Program GetCurrentProgram(int ledId)

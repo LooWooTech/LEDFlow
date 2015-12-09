@@ -55,6 +55,7 @@ namespace LoowooTech.LEDFlow.Server
                 return;
             }
 
+            var program = ProgramManager.GetModel(ProgramID);
             var playMode = StringHelper.ToEnum<Model.PlayMode>(cbxPlayMode.Text);
             var playTimes = StringHelper.ToInt(txtPlayTimes.Text);
             var duration = StringHelper.ToDouble(txtDuration.Text);
@@ -66,7 +67,6 @@ namespace LoowooTech.LEDFlow.Server
             }
             else if (playTimes > 0) //如果设置了播放次数，则不能设置播放时长
             {
-                var program = ProgramManager.GetModel(ProgramID);
                 duration = program.GetPlayDuration(playTimes);
                 endTime = beginTime.AddSeconds(duration);
             }
@@ -77,24 +77,23 @@ namespace LoowooTech.LEDFlow.Server
                 ledIds.Add(row.Cells["ID"].Value.ToString());
             }
 
-            new Thread(() =>
+            var model = new Schedule()
             {
-                var model = new Schedule()
-                {
-                    ProgramID = ProgramID,
-                    LedIds = ledIds.ToArray(),
-                    PlayMode = playMode,
-                    BeginTime = beginTime,
-                    EndTime = endTime,
-                    PlayTimes = playTimes,
-                };
+                ProgramID = ProgramID,
+                LedIds = ledIds.ToArray(),
+                PlayMode = playMode,
+                BeginTime = beginTime,
+                EndTime = endTime,
+                PlayTimes = playTimes,
+            };
 
-                ScheduleManager.Save(model);
-                if (model.PlayMode == PlayMode.立即开始)
-                {
-                    LEDService.PlaySchedule(model);
-                }
-            }).Start();
+            ScheduleManager.Save(model);
+
+            if (model.PlayMode == PlayMode.立即开始)
+            {
+                LEDService.PlaySchedule(model);
+            }
+
             this.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.Close();
         }

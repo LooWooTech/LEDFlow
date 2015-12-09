@@ -88,7 +88,7 @@ insert into Schedule
                 PlayMode = StringHelper.ToEnum<PlayMode>(row["PlayMode"].ToString()),
                 PlayTimes = int.Parse(row["PlayTimes"].ToString()),
                 BeginTime = DateTime.Parse(row["BeginTime"].ToString()),
-                EndTime = DateTime.Parse(row["EndTime"].ToString()),
+                EndTime = (row["EndTime"] == null || row["EndTime"].ToString().Length == 0) ? default(DateTime?) : DateTime.Parse(row["EndTime"].ToString()),
                 ProgramID = int.Parse(row["ProgramID"].ToString())
             };
         }
@@ -102,7 +102,7 @@ insert into Schedule
                 var model = list[i];
                 if (
                     (DateTime.Now < model.BeginTime)
-                    ||(model.EndTime.HasValue && DateTime.Now > model.EndTime.Value)
+                    || (model.EndTime.HasValue && DateTime.Now > model.EndTime.Value)
                     )
                 {
                     continue;

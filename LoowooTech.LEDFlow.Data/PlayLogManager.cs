@@ -11,12 +11,13 @@ namespace LoowooTech.LEDFlow.Data
     {
         public static void Add(PlayLog model)
         {
-            var sql = "insert into PlayLog(ClientId,Content,PlayTime,EndTime)values(@ClientId,@Content,@PlayTime,@EndTime)";
-            DbHelper.ExecuteSql(sql, 
+            var sql = "insert into PlayLog(ClientId,Content,PlayTime,EndTime,LedIds)values(@ClientId,@Content,@PlayTime,@EndTime,@LedIds)";
+            DbHelper.ExecuteSql(sql,
                 new SQLiteParameter("@ClientId", model.ClientId),
                 new SQLiteParameter("@Content", model.Content),
                 new SQLiteParameter("@PlayTime", model.PlayTime),
-                new SQLiteParameter("@EndTime", model.EndTime)
+                new SQLiteParameter("@EndTime", model.EndTime),
+                new SQLiteParameter("@LedIds", string.Join(",", model.LedIds))
             );
         }
 
@@ -28,7 +29,8 @@ namespace LoowooTech.LEDFlow.Data
                 ClientId = dr["ClientId"] == null ? null : dr["ClientId"].ToString(),
                 Content = dr["Content"].ToString(),
                 EndTime = dr["EndTime"] == null ? default(DateTime?) : DateTime.Parse(dr["EndTime"].ToString()),
-                PlayTime = DateTime.Parse(dr["PlayTime"].ToString())
+                PlayTime = DateTime.Parse(dr["PlayTime"].ToString()),
+                LedIds = dr["LedIds"].ToString().Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
             };
         }
 
@@ -36,7 +38,7 @@ namespace LoowooTech.LEDFlow.Data
         {
             var list = new List<PlayLog>();
 
-            var sql = string.Format("select * from PlayLog limit {0},{1}", page.CurrentPage-1, page.PageSize);
+            var sql = string.Format("select * from PlayLog limit {0},{1}", page.CurrentPage - 1, page.PageSize);
             var dt = DbHelper.GetDataTable(sql);
             foreach (DataRow dr in dt.Rows)
             {

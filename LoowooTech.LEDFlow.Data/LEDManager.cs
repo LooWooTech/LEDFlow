@@ -7,17 +7,20 @@ namespace LoowooTech.LEDFlow.Data
 {
     public class LEDManager
     {
+        private static List<LEDScreen> _list = null;
+
         public static LEDScreen GetModel(int ledId)
         {
-            var list = DataManager.Instance.GetList<LEDScreen>();
+            var list = GetList();
             return list.Find(delegate(LEDScreen e) { return e.ID == ledId; });
         }
 
         public static void Save(LEDScreen model)
         {
-            var list = DataManager.Instance.GetList<LEDScreen>();
+            var list = GetList();
             var index = list.FindIndex(delegate(LEDScreen e) { return e.ID == model.ID; });
-            if(index>-1)
+            model.VirtualID = -1;//编辑或新建LED，virtualId必须重置
+            if (index > -1)
             {
                 list[index] = model;
             }
@@ -30,7 +33,7 @@ namespace LoowooTech.LEDFlow.Data
 
         public static void Delete(int id)
         {
-            var list = DataManager.Instance.GetList<LEDScreen>();
+            var list = GetList();
             var index = list.FindIndex(delegate(LEDScreen p) { return p.ID == id; });
             list.RemoveAt(index);
             DataManager.Instance.Save(list);
@@ -38,7 +41,11 @@ namespace LoowooTech.LEDFlow.Data
 
         public static List<LEDScreen> GetList()
         {
-            return DataManager.Instance.GetList<LEDScreen>();
+            if (_list == null)
+            {
+                _list = DataManager.Instance.GetList<LEDScreen>();
+            }
+            return _list;
         }
     }
 }

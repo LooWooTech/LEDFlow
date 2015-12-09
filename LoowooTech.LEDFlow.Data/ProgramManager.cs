@@ -10,11 +10,13 @@ namespace LoowooTech.LEDFlow.Data
 {
     public class ProgramManager
     {
+        private static List<Program> _list = null;
+
         public static Program GetModel(int id)
         {
             if (id > 0)
             {
-                var list = DataManager.Instance.GetList<Program>();
+                var list = GetList();
                 return list.Find(delegate(Program p) { return p.ID == id; });
             }
             return null;
@@ -22,7 +24,7 @@ namespace LoowooTech.LEDFlow.Data
 
         public static void Save(Program model)
         {
-            var list = DataManager.Instance.GetList<Program>();
+            var list = GetList();
             if (model.ID == 0)
             {
                 if (list.Count > 0)
@@ -46,7 +48,7 @@ namespace LoowooTech.LEDFlow.Data
 
         public static void Delete(int id)
         {
-            var list = DataManager.Instance.GetList<Program>();
+            var list = GetList();
             var index = list.FindIndex(delegate(Program p) { return p.ID == id; });
             list.RemoveAt(index);
             DataManager.Instance.Save(list);
@@ -54,7 +56,11 @@ namespace LoowooTech.LEDFlow.Data
 
         public static List<Program> GetList()
         {
-            return DataManager.Instance.GetList<Program>();
+            if(_list == null)
+            {
+                _list = DataManager.Instance.GetList<Program>();
+            }
+            return _list;
         }
     }
 }

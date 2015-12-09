@@ -9,11 +9,14 @@ namespace LoowooTech.LEDFlow.Driver
 {
     public class Window
     {
-      
-        ///// <summary>
-        ///// 唯一编号
-        ///// </summary>
-        //public int Id { get; set; }
+        static int UniqueIdGenerator = 0;
+
+        static object StaticSyncRoot = new object();
+
+        /// <summary>
+        /// 唯一编号
+        /// </summary>
+        public int Id { get; set; }
 
         /// <summary>
         /// 液晶屏序号
@@ -72,6 +75,11 @@ namespace LoowooTech.LEDFlow.Driver
                     iFrameTime = 20
                 }
             };
+            lock (StaticSyncRoot)
+            {
+                w.Id = UniqueIdGenerator;
+                UniqueIdGenerator++;
+            }
             return w;
         }
     }

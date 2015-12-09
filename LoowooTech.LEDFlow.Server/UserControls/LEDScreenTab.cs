@@ -43,6 +43,7 @@ namespace LoowooTech.LEDFlow.Server.UserControls
                 var list = LEDManager.GetList();
                 var last = list[list.Count - 1];
                 AddControl(last);
+                //新建屏幕后，自动打开屏幕
                 LEDService.OpenLED(last);
             }
         }

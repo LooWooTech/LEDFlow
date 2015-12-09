@@ -12,6 +12,8 @@ namespace LoowooTech.LEDFlow.Model
 
         public string ClientId { get; set; }
 
+        public string[] LedIds { get; set; }
+
         public DateTime PlayTime { get; set; }
 
         public DateTime? EndTime { get; set; }
