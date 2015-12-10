@@ -40,11 +40,12 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Messages = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BeginTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EndTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ClientID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PlayTimes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Duration = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PlayMode = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BeginTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Played = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -124,11 +125,12 @@
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ID,
             this.Messages,
+            this.BeginTime,
+            this.EndTime,
+            this.ClientID,
             this.PlayTimes,
             this.Duration,
-            this.PlayMode,
-            this.BeginTime,
-            this.Played});
+            this.PlayMode});
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 27);
             this.dataGridView1.Margin = new System.Windows.Forms.Padding(50);
@@ -158,27 +160,6 @@
             this.Messages.Name = "Messages";
             this.Messages.ReadOnly = true;
             // 
-            // PlayTimes
-            // 
-            this.PlayTimes.FillWeight = 101.1603F;
-            this.PlayTimes.HeaderText = "播放次数";
-            this.PlayTimes.Name = "PlayTimes";
-            this.PlayTimes.ReadOnly = true;
-            // 
-            // Duration
-            // 
-            this.Duration.FillWeight = 101.1603F;
-            this.Duration.HeaderText = "播放时长";
-            this.Duration.Name = "Duration";
-            this.Duration.ReadOnly = true;
-            // 
-            // PlayMode
-            // 
-            this.PlayMode.FillWeight = 101.1603F;
-            this.PlayMode.HeaderText = "播放方式";
-            this.PlayMode.Name = "PlayMode";
-            this.PlayMode.ReadOnly = true;
-            // 
             // BeginTime
             // 
             this.BeginTime.FillWeight = 101.1603F;
@@ -186,14 +167,42 @@
             this.BeginTime.Name = "BeginTime";
             this.BeginTime.ReadOnly = true;
             // 
-            // Played
+            // EndTime
             // 
-            this.Played.FillWeight = 41.87817F;
-            this.Played.HeaderText = "已播";
-            this.Played.Name = "Played";
-            this.Played.ReadOnly = true;
-            this.Played.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Played.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.EndTime.HeaderText = "结束时间";
+            this.EndTime.Name = "EndTime";
+            this.EndTime.ReadOnly = true;
+            // 
+            // ClientID
+            // 
+            this.ClientID.FillWeight = 60F;
+            this.ClientID.HeaderText = "客户端";
+            this.ClientID.Name = "ClientID";
+            this.ClientID.ReadOnly = true;
+            // 
+            // PlayTimes
+            // 
+            this.PlayTimes.FillWeight = 101.1603F;
+            this.PlayTimes.HeaderText = "播放次数";
+            this.PlayTimes.Name = "PlayTimes";
+            this.PlayTimes.ReadOnly = true;
+            this.PlayTimes.Visible = false;
+            // 
+            // Duration
+            // 
+            this.Duration.FillWeight = 101.1603F;
+            this.Duration.HeaderText = "播放时长";
+            this.Duration.Name = "Duration";
+            this.Duration.ReadOnly = true;
+            this.Duration.Visible = false;
+            // 
+            // PlayMode
+            // 
+            this.PlayMode.FillWeight = 101.1603F;
+            this.PlayMode.HeaderText = "播放方式";
+            this.PlayMode.Name = "PlayMode";
+            this.PlayMode.ReadOnly = true;
+            this.PlayMode.Visible = false;
             // 
             // ScheduleTab
             // 
@@ -224,11 +233,12 @@
         private System.Windows.Forms.ToolStripLabel txtPage;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Messages;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BeginTime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn EndTime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ClientID;
         private System.Windows.Forms.DataGridViewTextBoxColumn PlayTimes;
         private System.Windows.Forms.DataGridViewTextBoxColumn Duration;
         private System.Windows.Forms.DataGridViewTextBoxColumn PlayMode;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BeginTime;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn Played;
 
 
     }

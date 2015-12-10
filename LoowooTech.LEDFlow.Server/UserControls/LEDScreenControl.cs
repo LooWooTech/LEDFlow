@@ -38,15 +38,7 @@ namespace LoowooTech.LEDFlow.Server.UserControls
             {
                 while (true)
                 {
-                    var program = ScheduleManager.GetCurrentProgram(model);
-                    if (program != null)
-                    {
-                        PlayProgram(program);
-                    }
-                    else
-                    {
-                        Thread.Sleep(1000);
-                    }
+                    PlayProgram(model.CurrentProgram);
                 }
             }));
             _playThread.Start();
@@ -72,6 +64,11 @@ namespace LoowooTech.LEDFlow.Server.UserControls
 
         private void PlayProgram(Model.Program program)
         {
+            if(program == null)
+            {
+                Thread.Sleep(1000);
+                return;
+            }
             foreach (var msg in program.Messages)
             {
                 txtMessage.Invoke(new Action(() =>

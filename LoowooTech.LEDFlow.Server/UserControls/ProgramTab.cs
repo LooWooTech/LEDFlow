@@ -19,7 +19,7 @@ namespace LoowooTech.LEDFlow.Server.UserControls
         public void BindData()
         {
             dataGridView1.Rows.Clear();
-            var list = ProgramManager.GetList();
+            var list = ProgramManager.GetServerList();
             foreach (var item in list)
             {
                 AddRow(item);

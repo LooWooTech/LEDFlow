@@ -35,25 +35,29 @@ namespace LoowooTech.LEDFlow.Client
                 while (true)
                 {
                     var program = client.GetCurrentProgram(LedID);
-                    if (program != null)
-                    {
-                        foreach (var msg in program.Messages)
-                        {
-                            txtMessage.Invoke(new Action(() =>
-                            {
-                                txtMessage.Text = msg.Content;
-                                txtUpdateTime.Text = DateTime.Now.ToString();
-                            }));
-                            Thread.Sleep(msg.Duration * 1000);
-                            txtMessage.Invoke(new Action(() =>
-                            {
-                                txtMessage.Text = null;
-                            }));
-                        }
-                    }
+                    PlayProgram(program);
                 }
             });
             _updater.Start();
+        }
+
+        private void PlayProgram(Model.Program program)
+        {
+            if (program == null)
+            {
+                Thread.Sleep(1000);
+                return;
+            }
+            foreach (var msg in program.Messages)
+            {
+                txtMessage.Invoke(new Action(() =>
+                {
+                    txtMessage.Text = msg.Content;
+                    txtUpdateTime.Text = DateTime.Now.ToString();
+                }));
+
+                Thread.Sleep(msg.Duration * 1000);
+            }
         }
 
         public bool Selected { get; private set; }

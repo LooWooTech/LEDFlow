@@ -91,18 +91,27 @@ delete from Schedule where ProgramID = @ID;
             DbHelper.ExecuteSql(sql, new SQLiteParameter("@ID", id));
         }
 
-        public static List<Program> GetList(string clientId = null)
+        public static List<Program> GetServerList()
         {
-            var sql = "select * from Program where deleted=0 ";
-            if (!string.IsNullOrEmpty(clientId))
-            {
-                sql += " and clientId='" + clientId + "'";
-            }
-            else
-            {
-                sql += " and clientId is null";
-            }
+            var sql = "select * from Program where deleted=0  and clientId is null";
             var dt = DbHelper.GetDataTable(sql);
+            var list = new List<Program>();
+            foreach (DataRow dr in dt.Rows)
+            {
+                list.Add(ConvertToModel(dr));
+            }
+            return list;
+        }
+
+        public static List<Program> GetScheduleList(IEnumerable<int> programIds)
+        {
+            var sb = new StringBuilder();
+            foreach(var id in programIds)
+            {
+                sb.Append(',');
+                sb.Append(id);
+            }
+            var dt = DbHelper.GetDataTable("select * from Program where Deleted=0 and ID in (" + sb.ToString().Trim(',') + ")");
             var list = new List<Program>();
             foreach (DataRow dr in dt.Rows)
             {

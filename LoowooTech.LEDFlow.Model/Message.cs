@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace LoowooTech.LEDFlow.Client
+namespace LoowooTech.LEDFlow.Model
 {
     [Serializable]
     public class Message

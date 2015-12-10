@@ -191,7 +191,7 @@ namespace LoowooTech.LEDFlow.Client
                 return;
             }
             var duration = StringHelper.ToInt(row.Cells["Duration"].Value == null ? null : row.Cells["Duration"].Value.ToString(), 10);
-            var model = new Message
+            var model = new Model.Message
             {
                 ID = id,
                 Content = content,

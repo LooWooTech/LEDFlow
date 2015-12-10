@@ -47,7 +47,7 @@ select last_insert_rowid();",
             DbHelper.ExecuteSql("delete from ScheduleLED where ScheduleID = " + model.ID);
             foreach (var ledId in model.LEDIDs)
             {
-                DbHelper.ExecuteSql("insert into ScheduleLED(ScheduleID,LEDID)values(@Schedule,@LEDID)",
+                DbHelper.ExecuteSql("insert into ScheduleLED(ScheduleID,LEDID)values(@ScheduleID,@LEDID)",
                     new SQLiteParameter("@ScheduleID", model.ID),
                     new SQLiteParameter("@LEDID", ledId));
             }
@@ -158,19 +158,12 @@ select last_insert_rowid();",
                 }
                 var program = ProgramManager.GetModel(model.ProgramID);
                 //如果屏幕当前有播放节目，并且和本次获取的节目相同，则判断该节目是否播放完一次，如果播放完成则返回program，如果没有，则返回null
-                if (led.CurrentProgram != null && led.CurrentProgram.ID == program.ID)
+                if (led.CurrentProgram != null && led.CurrentProgram.ID == program.ID && led.CurrentProgram.HasPlayedTimes >= 1)
                 {
-                    if (((DateTime.Now - model.BeginTime).TotalSeconds / led.CurrentProgram.GetPlayDuration(1)) > 1)
-                    {
-                        return program;
-                    }
                     return null;
                 }
-                else
-                {
-                    led.CurrentProgram = program;
-                    return program;
-                }
+                led.CurrentProgram = program;
+                return program;
             }
             return null;
         }

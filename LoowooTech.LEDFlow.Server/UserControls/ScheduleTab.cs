@@ -20,29 +20,28 @@ namespace LoowooTech.LEDFlow.Server.UserControls
         
         public void BindData()
         {
-            var programs = ProgramManager.GetList();
             var list = ScheduleManager.GetList(Page);
+            var programIds = new List<int>();
+            foreach(var item in list)
+            {
+                programIds.Add(item.ProgramID);
+            }
+            var programs = ProgramManager.GetScheduleList(programIds);
             txtPage.Text = Page.CurrentPage + "/" + Page.PageCount;
             dataGridView1.Rows.Clear();
             foreach (var item in list)
             {
                 var program = programs.Find(delegate(Model.Program p) { return p.ID == item.ProgramID; });
                 if (program == null) continue;
-                //var messages = new StringBuilder();
-                //foreach (var msg in program.Messages)
-                //{
-                //    messages.Append(msg.Content);
-                //    messages.Append("...");
-                //}
-
                 var index = dataGridView1.Rows.Add();
                 var row = dataGridView1.Rows[index];
-                row.Cells["Messages"].Value = program.Messages[0].Content + "...";
+                row.Cells["Messages"].Value = program.Content;
+                row.Cells["ClientID"].Value = program.ClientID;
                 row.Cells["ID"].Value = item.ID;
                 row.Cells["PlayMode"].Value = item.PlayMode.ToString();
                 row.Cells["PlayTimes"].Value = item.PlayTimes;
                 row.Cells["BeginTime"].Value = item.BeginTime;
-                ((DataGridViewCheckBoxCell)row.Cells["Played"]).Value = DateTime.Now > item.EndTime;
+                row.Cells["EndTime"].Value = item.EndTime;
             }
         }
 

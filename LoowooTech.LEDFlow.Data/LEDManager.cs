@@ -19,7 +19,8 @@ namespace LoowooTech.LEDFlow.Data
         {
             var list = GetList();
             var index = list.FindIndex(delegate(LEDScreen e) { return e.ID == model.ID; });
-            model.VirtualID = -1;//编辑或新建LED，virtualId必须重置
+            //客户端发送消息会更新CustomStyle，不能重置VirtualID，所以注释掉
+            //model.VirtualID = -1;//编辑或新建LED，virtualId必须重置
             if (index > -1)
             {
                 list[index] = model;

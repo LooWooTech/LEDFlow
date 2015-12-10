@@ -42,24 +42,36 @@ namespace LoowooTech.LEDFlow.Model
 
         public DateTime CreateTime { get; set; }
 
-        public bool Deleted { get; set; }
+        [Newtonsoft.Json.JsonIgnore]
+        public DateTime? PlayTime { get; set; }
 
-        public int GetPlayDuration(int playTimes)
+        /// <summary>
+        /// 已播放次数
+        /// </summary>
+        [Newtonsoft.Json.JsonIgnore]
+        public int HasPlayedTimes
         {
-            var result = 0;
-            foreach (var msg in Messages)
+            get
             {
-                result += msg.Duration;
+                if (PlayTime == null) return 0;
+                return (int)((DateTime.Now - PlayTime.Value).TotalSeconds / Duration) + 1;
             }
-            return result * playTimes;
         }
-    }
 
-    [Serializable]
-    public class Message
-    {
-        public string Content { get; set; }
+        [Newtonsoft.Json.JsonIgnore]
+        public int Duration
+        {
+            get
+            {
+                var result = 0;
+                foreach (var msg in Messages)
+                {
+                    result += msg.Duration;
+                }
+                return result;
+            }
+        }
 
-        public int Duration { get; set; }
+        public bool Deleted { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LoowooTech.LEDFlow.Model;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
@@ -8,14 +9,14 @@ namespace LoowooTech.LEDFlow.Data
 {
     public class MessageManager
     {
-        public static List<Client.Message> GetList()
+        public static List<Message> GetList()
         {
             var sql = "select * from Message where deleted=0 ";
             var dt = DbHelper.GetDataTable(sql);
-            var list = new List<Client.Message>();
+            var list = new List<Message>();
             foreach (DataRow row in dt.Rows)
             {
-                list.Add(new Client.Message
+                list.Add(new Message
                 {
                     Content = row["Content"].ToString(),
                     CreateTime = DateTime.Parse(row["CreateTime"].ToString()),
@@ -27,7 +28,7 @@ namespace LoowooTech.LEDFlow.Data
             return list;
         }
 
-        public static void Save(Client.Message model)
+        public static void Save(Message model)
         {
             if (model.ID > 0)
             {

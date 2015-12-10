@@ -67,7 +67,7 @@ namespace LoowooTech.LEDFlow.Server
             }
             else if (playTimes > 0) //如果设置了播放次数，则不能设置播放时长
             {
-                duration = program.GetPlayDuration(playTimes);
+                duration = program.Duration * playTimes;
                 endTime = beginTime.AddSeconds(duration);
             }
 
