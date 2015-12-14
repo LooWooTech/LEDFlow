@@ -55,6 +55,7 @@
             // 
             // toolStripSeparator5
             // 
+            this.toolStripSeparator5.ForeColor = System.Drawing.SystemColors.ControlText;
             this.toolStripSeparator5.Name = "toolStripSeparator5";
             this.toolStripSeparator5.Size = new System.Drawing.Size(6, 27);
             // 
@@ -77,6 +78,7 @@
             // 
             // toolStripSeparator1
             // 
+            this.toolStripSeparator1.ForeColor = System.Drawing.SystemColors.ControlText;
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
             // 
@@ -92,6 +94,7 @@
             // 
             // toolStripSeparator3
             // 
+            this.toolStripSeparator3.ForeColor = System.Drawing.Color.White;
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 27);
             // 
@@ -108,7 +111,7 @@
             // toolStrip1
             // 
             this.toolStrip1.Font = new System.Drawing.Font("Microsoft YaHei UI", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnProgram,
             this.toolStripSeparator4,
@@ -123,12 +126,13 @@
             this.btnLogout});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.ShowItemToolTips = false;
             this.toolStrip1.Size = new System.Drawing.Size(714, 27);
             this.toolStrip1.TabIndex = 2;
-            this.toolStrip1.Text = "toolStrip1";
             // 
             // toolStripSeparator4
             // 
+            this.toolStripSeparator4.ForeColor = System.Drawing.SystemColors.ControlText;
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             this.toolStripSeparator4.Size = new System.Drawing.Size(6, 27);
             // 
@@ -154,6 +158,7 @@
             // 
             // toolStripSeparator2
             // 
+            this.toolStripSeparator2.ForeColor = System.Drawing.SystemColors.ControlText;
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 27);
             // 

@@ -172,7 +172,9 @@
     <EmbeddedResource Include="UserControls\ScheduleTab.resx">
       <DependentUpon>ScheduleTab.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <Content Include="data.db">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

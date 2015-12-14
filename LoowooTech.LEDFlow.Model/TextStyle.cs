@@ -19,7 +19,7 @@ namespace LoowooTech.LEDFlow.Model
     public enum FontFamily
     {
         宋体 = 1,
-        黑体, 
+        黑体,
         楷体
     }
 
@@ -40,9 +40,14 @@ namespace LoowooTech.LEDFlow.Model
 
     public enum TextAnimation
     {
-        从右到左 = 1,
-        从左到右,
-        从上到下,
-        从下到上
+        立即显示 = 1,
+        左移 = 2,
+        右移 = 4,
+        上移 = 5,
+        下移 = 7,
+        左右对开 = 35,
+        上下对开 = 36,
+        左右闭合 = 37,
+        上下闭合 = 38
     }
 }

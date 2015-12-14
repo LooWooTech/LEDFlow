@@ -76,7 +76,7 @@ namespace LoowooTech.LEDFlow.Server
                 program.PlayTime = DateTime.Now;
                 foreach (var msg in program.Messages)
                 {
-                    LEDAdapter.SendContent(msg.Content, (int)led.Style.TextAnimation, msg.Duration, led.VirtualID);
+                    LEDAdapter.SendContent(msg.Content, (int)led.Style.TextAnimation, msg.Duration * 10, led.VirtualID);
                 }
             }
         }
