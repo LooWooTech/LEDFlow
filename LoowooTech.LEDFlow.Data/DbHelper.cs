@@ -8,7 +8,7 @@ namespace LoowooTech.LEDFlow.Data
 {
     public class DbHelper
     {
-        private readonly static string ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["DbConnection"].ConnectionString;
+        private readonly static string ConnectionString = "data.db";
 
         private static SQLiteConnection GetConn()
         {
