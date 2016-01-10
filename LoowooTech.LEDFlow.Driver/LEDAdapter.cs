@@ -178,8 +178,9 @@ namespace LoowooTech.LEDFlow.Driver
         /// <param name="content">文字内容</param>
         /// <param name="animationType">动画类型，0-50，常用值1（立即显示文字，没有动画）</param>
         /// <param name="holdTime">文字显示时间，时间到后被擦除，单位0.1秒</param>
+        /// <param name="animationSpeed">动画速度，1(最快)-20（最慢)</param>
         /// <param name="windowId">虚拟窗口id</param>
-        public void SendContent(string content, int animationType, int holdTime, int windowId)
+        public void SendContent(string content, int animationType, int animationSpeed, int holdTime, int windowId)
         {
             lock (syncRoot)
             {
@@ -188,6 +189,7 @@ namespace LoowooTech.LEDFlow.Driver
                     var win = windows[windowId];
                     var m = win.Movement;
                     m.iActionType = animationType;
+                    m.iActionSpeed = animationSpeed;
                     m.iHoldTime = holdTime;
                     win.Movement = m;
                     win.Text = content;
@@ -232,7 +234,6 @@ namespace LoowooTech.LEDFlow.Driver
             }
             LedAPI.User_SendToScreen(win.LedIndex);
         }
-
-
     }
 }
+  

@@ -59,9 +59,10 @@ namespace LoowooTech.LEDFlow.Driver
         /// </summary>
         /// <param name="content">文字内容</param>
         /// <param name="animationType">动画类型，0-50，常用值1（立即显示文字，没有动画）</param>
+        /// <param name="animationSpeed">动画速度，1(最快)-20（最慢)</param>
         /// <param name="holdTime">文字显示时间，时间到后被擦除，单位0.1秒</param>
         /// <param name="windowId">虚拟窗口id</param>
-        void SendContent(string content, int animationType, int holdTime, int windowId);
+        void SendContent(string content, int animationType, int animationSpeed, int holdTime, int windowId);
 
     }
 }

@@ -160,4 +160,4 @@ namespace EQ2008_DataStruct
         public User_PartInfo PartInfo;	//分区信息
         public User_MoveSet MoveSet;	//动作方式设置
     }
-}
+}                                                                                                                                                                                                              
