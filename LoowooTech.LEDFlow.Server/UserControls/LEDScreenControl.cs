@@ -38,7 +38,11 @@ namespace LoowooTech.LEDFlow.Server.UserControls
             {
                 while (true)
                 {
-                    PlayProgram(model.CurrentProgram);
+                    try
+                    {
+                        PlayProgram(model.CurrentProgram);
+                    }
+                    catch { }
                 }
             }));
             _playThread.Start();

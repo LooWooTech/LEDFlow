@@ -62,23 +62,21 @@ namespace LoowooTech.LEDFlow.Server.UserControls
             BindData();
         }
 
-        private int GetSelectedID()
+        private void btnDelete_Click(object sender, EventArgs e)
         {
             if (dataGridView1.SelectedRows.Count == 0)
             {
                 MessageBox.Show("请先选择一行数据");
-                return 0;
+                return;
             }
-            return (int)(dataGridView1.SelectedRows[0].Cells["ID"].Value);
-        }
 
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-            var id = GetSelectedID();
-            if (id == 0) return;
-            if (MessageBox.Show("你确定要删除这个节目安排吗？", "提醒", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show("你确定要删除选中的节目安排吗？", "提醒", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                ScheduleManager.Delete(id);
+                foreach (DataGridViewRow row in dataGridView1.SelectedRows)
+                {
+                    var id = (int)row.Cells["ID"].Value;
+                    ScheduleManager.Delete(id);
+                }
                 BindData();
             }
         }

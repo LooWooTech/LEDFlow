@@ -158,7 +158,7 @@ select last_insert_rowid();",
                 }
                 var program = ProgramManager.GetModel(model.ProgramID);
                 //如果屏幕当前有播放节目，并且和本次获取的节目相同，则判断该节目是否播放完一次，如果播放完成则返回program，如果没有，则返回null
-                if (led.CurrentProgram != null && led.CurrentProgram.ID == program.ID && led.CurrentProgram.HasPlayedTimes >= 1)
+                if (led.CurrentProgram != null && led.CurrentProgram.ID == program.ID && led.CurrentProgram.HasPlayedTimes < 1)
                 {
                     return null;
                 }

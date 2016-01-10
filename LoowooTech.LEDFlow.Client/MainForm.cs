@@ -17,6 +17,9 @@ namespace LoowooTech.LEDFlow.Client
             InitializeComponent();
         }
 
+        private int ledCount = 0;
+        private int ledWidth = 0;
+
         protected override void OnShown(EventArgs e)
         {
             base.OnShown(e);
@@ -77,18 +80,28 @@ namespace LoowooTech.LEDFlow.Client
             {
                 c.Stop();
             }
+
             flowLayoutPanel1.Controls.Clear();
-            this.Width = flowLayoutPanel1.Width * leds.Count;
             foreach (var led in leds)
             {
                 flowLayoutPanel1.Controls.Add(new LEDScreenControl(led)
                 {
-                    //Height = flowLayoutPanel1.Height + 10,
-                    Width = flowLayoutPanel1.Width / leds.Count - 10,
                     Margin = new Padding(3)
                 });
             }
-            ((LEDScreenControl)flowLayoutPanel1.Controls[0]).Select();
+            var firstControl = ((LEDScreenControl)flowLayoutPanel1.Controls[0]);
+            firstControl.Select();
+            ledCount = leds.Count;
+            ledWidth = firstControl.Width;
+            AdjustFormWidth();
+        }
+
+        private void AdjustFormWidth()
+        {
+            if (flowLayoutPanel1.Width > 0)
+            {
+                this.Width = flowLayoutPanel1.Width = ledCount * (ledWidth + 20);
+            }
         }
 
         private int GetSelectedLEDID()
@@ -122,7 +135,9 @@ namespace LoowooTech.LEDFlow.Client
             if (dataGridView1.SelectedRows.Count == 0)
             {
                 MessageBox.Show("请先选中需要删除的信息行");
+                return;
             }
+
             if (MessageBox.Show("你确定要删除选中的信息吗？", "提醒", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
             {
                 foreach (DataGridViewRow row in dataGridView1.SelectedRows)
@@ -131,7 +146,7 @@ namespace LoowooTech.LEDFlow.Client
                     if (id == null) continue;
                     MessageManager.Delete(int.Parse(id.ToString()));
                 }
-                BindData();
+                BindGrid();
             }
         }
 
@@ -211,6 +226,11 @@ namespace LoowooTech.LEDFlow.Client
             {
 
             }
+        }
+
+        private void MainForm_SizeChanged(object sender, EventArgs e)
+        {
+            AdjustFormWidth();
         }
     }
 }
