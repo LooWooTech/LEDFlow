@@ -13,7 +13,8 @@ namespace LoowooTech.LEDFlow.Server
     {
         private AutoPlayService()
         {
-            Interval = StringHelper.ToInt(System.Configuration.ConfigurationManager.AppSettings["Interval"], 15);
+            Interval = StringHelper.ToInt(System.Configuration.ConfigurationManager.AppSettings["Interval"], 30);
+            AnimationSpeed = StringHelper.ToInt(System.Configuration.ConfigurationManager.AppSettings["AnimationSpeed"], 5);
         }
 
         public static readonly AutoPlayService Instance = new AutoPlayService();
@@ -24,6 +25,7 @@ namespace LoowooTech.LEDFlow.Server
         private static readonly Dictionary<int, Thread> PlayThreadPool = new Dictionary<int, Thread>();
 
         private static int Interval = 30;
+        private static int AnimationSpeed = 5;
 
         private static object lockObj = new object();
 
@@ -88,7 +90,12 @@ namespace LoowooTech.LEDFlow.Server
                 {
                     foreach (var msg in program.Messages)
                     {
-                        LEDAdapter.SendContent(msg.Content, (int)led.Style.TextAnimation, msg.Duration * 10, led.VirtualID);
+                        var holdTime = 0;
+                        if(led.Style.TextAnimation != TextAnimation.连续左移)
+                        {
+                            holdTime = msg.Duration * 10;
+                        }
+                        LEDAdapter.SendContent(msg.Content, (int)led.Style.TextAnimation, AnimationSpeed, holdTime, led.VirtualID);
                         Thread.Sleep(msg.Duration * 1000);
                     }
                 });
@@ -135,7 +142,7 @@ namespace LoowooTech.LEDFlow.Server
                     }
                 }
 
-                foreach(var kv in PlayThreadPool)
+                foreach (var kv in PlayThreadPool)
                 {
                     var thread = PlayThreadPool[kv.Key];
                     if (thread != null)
