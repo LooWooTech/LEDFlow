@@ -83,6 +83,7 @@ namespace LoowooTech.LEDFlow.Server
                     if (led.Style.TextAnimation != TextAnimation.连续左移)
                     {
                         holdTime = msg.Duration * 10;
+                    }
                 }
 
                 playThread = new Thread(() =>
@@ -96,6 +97,7 @@ namespace LoowooTech.LEDFlow.Server
                         
                         Thread.Sleep(msg.Duration * 1000);
                     }
+                });
             }
         }
 
