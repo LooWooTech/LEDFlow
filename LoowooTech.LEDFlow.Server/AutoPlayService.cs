@@ -88,7 +88,11 @@ namespace LoowooTech.LEDFlow.Server
                 {
                     foreach (var msg in program.Messages)
                     {
-                        LEDAdapter.SendContent(msg.Content, (int)led.Style.TextAnimation, msg.Duration * 10, led.VirtualID);
+                        LEDAdapter.SendContent(msg.Content, (int)led.Style.TextAnimation,
+                            int.Parse(ConfigurationManager.AppSettings["AnimationSpeed"]), 
+                            int.Parse(ConfigurationManager.AppSettings["FrameTime"]),
+                            ((int)led.Style.TextAnimation == 3)?0:msg.Duration*10, led.VirtualID);
+                        
                         Thread.Sleep(msg.Duration * 1000);
                     }
                 });
