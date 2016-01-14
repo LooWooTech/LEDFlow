@@ -26,6 +26,11 @@ namespace LoowooTech.LEDFlow.Server
             return StringHelper.ToInt(System.Configuration.ConfigurationManager.AppSettings["AnimationSpeed"], 5);
         }
 
+        private int GetFrameTime()
+        {
+            return StringHelper.ToInt(System.Configuration.ConfigurationManager.AppSettings["FrameTime"], 20);
+        }
+
         private static object lockObj = new object();
 
         public void Start()
@@ -84,20 +89,9 @@ namespace LoowooTech.LEDFlow.Server
                     {
                         holdTime = msg.Duration * 10;
                     }
+                    LEDAdapter.SendContent(msg.Content, (int)led.Style.TextAnimation, GetAnimationSpeed(), GetFrameTime(), holdTime, led.VirtualID);
+                    Thread.Sleep(msg.Duration * 1000);
                 }
-
-                playThread = new Thread(() =>
-                {
-                    foreach (var msg in program.Messages)
-                    {
-                        LEDAdapter.SendContent(msg.Content, (int)led.Style.TextAnimation,
-                            int.Parse(ConfigurationManager.AppSettings["AnimationSpeed"]), 
-                            int.Parse(ConfigurationManager.AppSettings["FrameTime"]),
-                            ((int)led.Style.TextAnimation == 3)?0:msg.Duration*10, led.VirtualID);
-                        
-                        Thread.Sleep(msg.Duration * 1000);
-                    }
-                });
             }
         }
 
