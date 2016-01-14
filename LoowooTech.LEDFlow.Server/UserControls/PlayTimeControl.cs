@@ -6,6 +6,7 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 using LoowooTech.LEDFlow.Model;
+using LoowooTech.LEDFlow.Common;
 
 namespace LoowooTech.LEDFlow.Server.UserControls
 {
@@ -40,8 +41,8 @@ namespace LoowooTech.LEDFlow.Server.UserControls
 
         void cbxMonth_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var year = int.Parse(cbxYear.Text);
-            var month = int.Parse(cbxMonth.Text);
+            var year = StringHelper.ToInt(cbxYear.Text);
+            var month = StringHelper.ToInt(cbxMonth.Text);
             var maxDay = 30;
             switch (month)
             {
@@ -82,11 +83,11 @@ namespace LoowooTech.LEDFlow.Server.UserControls
 
         public DateTime GetValue()
         {
-            var year = int.Parse(cbxYear.Text);
-            var month = int.Parse(cbxMonth.Text);
-            var day = int.Parse(cbxDay.Text);
-            var hour = int.Parse(cbxHour.Text);
-            var minute = int.Parse(cbxMinute.Text);
+            var year = StringHelper.ToInt(cbxYear.Text);
+            var month = StringHelper.ToInt(cbxMonth.Text);
+            var day = StringHelper.ToInt(cbxDay.Text, 1);
+            var hour = StringHelper.ToInt(cbxHour.Text);
+            var minute = StringHelper.ToInt(cbxMinute.Text);
 
             switch (_playMode)
             {

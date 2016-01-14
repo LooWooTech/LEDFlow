@@ -33,7 +33,7 @@ namespace LoowooTech.LEDFlow.Model
         中 = 32,
         右 = 64,
 
-        左下 = 128,
+        左下 = 256,
         下 = 512,
         右下 = 1024
     }

@@ -13,7 +13,6 @@ namespace LoowooTech.LEDFlow.Server
     {
         private AutoPlayService()
         {
-            Interval = StringHelper.ToInt(System.Configuration.ConfigurationManager.AppSettings["Interval"], 15);
         }
 
         public static readonly AutoPlayService Instance = new AutoPlayService();
@@ -21,9 +20,11 @@ namespace LoowooTech.LEDFlow.Server
         private Driver.LEDAdapter LEDAdapter = Driver.LEDAdapter.Instance;
 
         private static readonly Dictionary<int, Thread> LEDThreadPool = new Dictionary<int, Thread>();
-        private static readonly Dictionary<int, Thread> PlayThreadPool = new Dictionary<int, Thread>();
 
-        private static int Interval = 30;
+        private int GetAnimationSpeed()
+        {
+            return StringHelper.ToInt(System.Configuration.ConfigurationManager.AppSettings["AnimationSpeed"], 5);
+        }
 
         private static object lockObj = new object();
 
@@ -61,7 +62,7 @@ namespace LoowooTech.LEDFlow.Server
                     while (true)
                     {
                         Play(led);
-                        Thread.Sleep(1000 * Interval);
+                        Thread.Sleep(1000);
                     }
                 }));
                 LEDThreadPool[led.ID].Start();
@@ -76,12 +77,12 @@ namespace LoowooTech.LEDFlow.Server
             {
                 program.PlayTime = DateTime.Now;
 
-                Thread playThread = null;
-                if (PlayThreadPool.ContainsKey(led.ID))
+                foreach (var msg in program.Messages)
                 {
-                    playThread = PlayThreadPool[led.ID];
-                    playThread.Abort();
-                    PlayThreadPool.Remove(led.ID);
+                    var holdTime = 0;
+                    if (led.Style.TextAnimation != TextAnimation.连续左移)
+                    {
+                        holdTime = msg.Duration * 10;
                 }
 
                 playThread = new Thread(() =>
@@ -95,9 +96,6 @@ namespace LoowooTech.LEDFlow.Server
                         
                         Thread.Sleep(msg.Duration * 1000);
                     }
-                });
-                playThread.Start();
-                PlayThreadPool.Add(led.ID, playThread);
             }
         }
 
@@ -139,17 +137,7 @@ namespace LoowooTech.LEDFlow.Server
                     }
                 }
 
-                foreach(var kv in PlayThreadPool)
-                {
-                    var thread = PlayThreadPool[kv.Key];
-                    if (thread != null)
-                    {
-                        thread.Abort();
-                        thread = null;
-                    }
-                }
                 LEDThreadPool.Clear();
-                PlayThreadPool.Clear();
             }
         }
     }
