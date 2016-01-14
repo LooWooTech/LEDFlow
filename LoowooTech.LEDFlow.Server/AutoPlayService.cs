@@ -13,8 +13,6 @@ namespace LoowooTech.LEDFlow.Server
     {
         private AutoPlayService()
         {
-            Interval = StringHelper.ToInt(System.Configuration.ConfigurationManager.AppSettings["Interval"], 30);
-            AnimationSpeed = StringHelper.ToInt(System.Configuration.ConfigurationManager.AppSettings["AnimationSpeed"], 5);
         }
 
         public static readonly AutoPlayService Instance = new AutoPlayService();
@@ -22,10 +20,11 @@ namespace LoowooTech.LEDFlow.Server
         private Driver.LEDAdapter LEDAdapter = Driver.LEDAdapter.Instance;
 
         private static readonly Dictionary<int, Thread> LEDThreadPool = new Dictionary<int, Thread>();
-        private static readonly Dictionary<int, Thread> PlayThreadPool = new Dictionary<int, Thread>();
 
-        private static int Interval = 30;
-        private static int AnimationSpeed = 5;
+        private int GetAnimationSpeed()
+        {
+            return StringHelper.ToInt(System.Configuration.ConfigurationManager.AppSettings["AnimationSpeed"], 5);
+        }
 
         private static object lockObj = new object();
 
@@ -63,7 +62,7 @@ namespace LoowooTech.LEDFlow.Server
                     while (true)
                     {
                         Play(led);
-                        Thread.Sleep(1000 * Interval);
+                        Thread.Sleep(1000);
                     }
                 }));
                 LEDThreadPool[led.ID].Start();
@@ -78,29 +77,16 @@ namespace LoowooTech.LEDFlow.Server
             {
                 program.PlayTime = DateTime.Now;
 
-                Thread playThread = null;
-                if (PlayThreadPool.ContainsKey(led.ID))
+                foreach (var msg in program.Messages)
                 {
-                    playThread = PlayThreadPool[led.ID];
-                    playThread.Abort();
-                    PlayThreadPool.Remove(led.ID);
-                }
-
-                playThread = new Thread(() =>
-                {
-                    foreach (var msg in program.Messages)
+                    var holdTime = 0;
+                    if (led.Style.TextAnimation != TextAnimation.连续左移)
                     {
-                        var holdTime = 0;
-                        if(led.Style.TextAnimation != TextAnimation.连续左移)
-                        {
-                            holdTime = msg.Duration * 10;
-                        }
-                        LEDAdapter.SendContent(msg.Content, (int)led.Style.TextAnimation, AnimationSpeed, holdTime, led.VirtualID);
-                        Thread.Sleep(msg.Duration * 1000);
+                        holdTime = msg.Duration * 10;
                     }
-                });
-                playThread.Start();
-                PlayThreadPool.Add(led.ID, playThread);
+                    LEDAdapter.SendContent(msg.Content, (int)led.Style.TextAnimation, GetAnimationSpeed(), holdTime, led.VirtualID);
+                    Thread.Sleep(msg.Duration * 1000);
+                }
             }
         }
 
@@ -142,17 +128,7 @@ namespace LoowooTech.LEDFlow.Server
                     }
                 }
 
-                foreach (var kv in PlayThreadPool)
-                {
-                    var thread = PlayThreadPool[kv.Key];
-                    if (thread != null)
-                    {
-                        thread.Abort();
-                        thread = null;
-                    }
-                }
                 LEDThreadPool.Clear();
-                PlayThreadPool.Clear();
             }
         }
     }
