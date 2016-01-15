@@ -65,8 +65,12 @@ namespace LoowooTech.LEDFlow.Data
             }
             if (model.ID > 0)
             {
-                var sql = "update Program set Messages = @Messages Where ID = @ID";
-                DbHelper.ExecuteSql(sql, new SQLiteParameter("@Messages", messages), new SQLiteParameter("@ID", model.ID));
+                var sql = "update Program set Messages = @Messages,UpdateTime=@UpdateTime Where ID = @ID";
+                DbHelper.ExecuteSql(sql, 
+                    new SQLiteParameter("@Messages", messages), 
+                    new SQLiteParameter("@UpdateTime", DateTime.Now),
+                    new SQLiteParameter("@ID", model.ID)
+                    );
             }
             else
             {
@@ -106,7 +110,7 @@ delete from Schedule where ProgramID = @ID;
         public static List<Program> GetScheduleList(IEnumerable<int> programIds)
         {
             var sb = new StringBuilder();
-            foreach(var id in programIds)
+            foreach (var id in programIds)
             {
                 sb.Append(',');
                 sb.Append(id);

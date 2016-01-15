@@ -97,6 +97,7 @@
             this.Duration.FillWeight = 47.71573F;
             this.Duration.HeaderText = "持续时间(秒)";
             this.Duration.Name = "Duration";
+            this.Duration.Visible = false;
             // 
             // EditProgramForm
             // 
@@ -126,7 +127,5 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Content;
         private System.Windows.Forms.DataGridViewTextBoxColumn Duration;
-
-
     }
 }

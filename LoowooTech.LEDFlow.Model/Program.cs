@@ -24,9 +24,8 @@ namespace LoowooTech.LEDFlow.Model
                 for (var i = 0; i < Messages.Count; i++)
                 {
                     var msg = Messages[i];
-                    sb.Append("【" + (i + 1) + "】");
+                    sb.Append("[" + (i + 1) + "] ");
                     sb.Append(msg.Content);
-                    sb.Append("  （" + msg.Duration + "s）");
                     if (i + 1 < Messages.Count)
                     {
                         sb.Append("\r\n");
@@ -42,8 +41,11 @@ namespace LoowooTech.LEDFlow.Model
 
         public DateTime CreateTime { get; set; }
 
+        public DateTime? UpdateTime { get; set; }
+
         [Newtonsoft.Json.JsonIgnore]
         public DateTime? PlayTime { get; set; }
+
 
         /// <summary>
         /// 已播放次数
