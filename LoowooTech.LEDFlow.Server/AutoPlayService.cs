@@ -80,21 +80,22 @@ namespace LoowooTech.LEDFlow.Server
             if (program != null)
             {
                 program.PlayTime = DateTime.Now;
-
+                var holdTime = 0;
+                switch (led.Style.TextAnimation)
+                {
+                    case TextAnimation.上移:
+                    case TextAnimation.下移:
+                    case TextAnimation.立即显示:
+                    case TextAnimation.连续上移:
+                        holdTime = HoldTime * 10;
+                        break;
+                }
+                var sendContents = new List<string>();
                 foreach (var msg in program.Messages)
                 {
-                    var holdTime = 0;
-                    switch (led.Style.TextAnimation)
-                    {
-                        case TextAnimation.上移:
-                        case TextAnimation.下移:
-                        case TextAnimation.立即显示:
-                        case TextAnimation.连续上移:
-                            holdTime = HoldTime * 10;
-                            break;
-                    }
-                    LEDAdapter.SendContent(msg.Content, (int)led.Style.TextAnimation, AnimationSpeed, FrameTime, holdTime, led.VirtualID);
+                    sendContents.Add(msg.Content);
                 }
+                LEDAdapter.SendContent(sendContents, (int)led.Style.TextAnimation, AnimationSpeed, FrameTime, holdTime, led.VirtualID);
             }
         }
 

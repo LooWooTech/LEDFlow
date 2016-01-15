@@ -36,7 +36,7 @@ namespace LoowooTech.LEDFlow.Driver
         /// <summary>
         /// 显示的文字
         /// </summary>
-        public string Text { get; set; }
+        public List<string> Text { get; set; }
 
         /// <summary>
         /// 移动方式
@@ -82,5 +82,6 @@ namespace LoowooTech.LEDFlow.Driver
             }
             return w;
         }
+
     }
 }

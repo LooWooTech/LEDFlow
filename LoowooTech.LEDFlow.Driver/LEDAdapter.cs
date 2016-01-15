@@ -181,7 +181,7 @@ namespace LoowooTech.LEDFlow.Driver
         /// <param name="animationSpeed">动画速度，1(最快)-20（最慢)</param>
         /// <param name="frameTime">动画速度2, 20(最快)-200(最慢)</param>
         /// <param name="windowId">虚拟窗口id</param>
-        public void SendContent(string content, int animationType, int animationSpeed, int frameTime, int holdTime, int windowId)
+        public void SendContent(IEnumerable<string> contents, int animationType, int animationSpeed, int frameTime, int holdTime, int windowId)
         {
             lock (syncRoot)
             {
@@ -194,7 +194,7 @@ namespace LoowooTech.LEDFlow.Driver
                     m.iHoldTime = holdTime;
                     m.iFrameTime = frameTime;
                     win.Movement = m;
-                    win.Text = content;
+                    win.Text = new List<string>(contents);
                     RefreshWholeScreen(windowId);
                 }
                 else
@@ -225,7 +225,7 @@ namespace LoowooTech.LEDFlow.Driver
             foreach (var w in wins)
             {
                 var text = new User_Text();
-                text.chContent = w.Text;
+                text.chContent = string.Join("\r\n", w.Text.ToArray());
                 text.FontInfo = w.Font;
                 text.MoveSet = w.Movement;
 
@@ -238,4 +238,3 @@ namespace LoowooTech.LEDFlow.Driver
         }
     }
 }
-  

@@ -63,7 +63,6 @@ namespace LoowooTech.LEDFlow.Driver
         /// <param name="frameTime">动画速度2, 20(最快)-200(最慢)</param>
         /// <param name="holdTime">文字显示时间，时间到后被擦除，单位0.1秒</param>
         /// <param name="windowId">虚拟窗口id</param>
-        void SendContent(string content, int animationType, int animationSpeed, int frameTime, int holdTime, int windowId);
-        
+        void SendContent(IEnumerable<string> contents, int animationType, int animationSpeed, int frameTime, int holdTime, int windowId);
     }
 }
