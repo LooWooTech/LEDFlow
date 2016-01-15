@@ -30,15 +30,15 @@
         {
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.btnSend = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnFont = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnDelete = new System.Windows.Forms.ToolStripButton();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Content = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Duration = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnSend = new System.Windows.Forms.ToolStripButton();
-            this.btnFont = new System.Windows.Forms.ToolStripButton();
-            this.btnDelete = new System.Windows.Forms.ToolStripButton();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -66,10 +66,43 @@
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
+            // btnSend
+            // 
+            this.btnSend.Image = global::LoowooTech.LEDFlow.Client.Properties.Resources.play;
+            this.btnSend.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSend.Name = "btnSend";
+            this.btnSend.Size = new System.Drawing.Size(84, 28);
+            this.btnSend.Text = "发送消息";
+            this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
+            // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 31);
+            // 
+            // btnFont
+            // 
+            this.btnFont.Image = global::LoowooTech.LEDFlow.Client.Properties.Resources.setting;
+            this.btnFont.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnFont.Name = "btnFont";
+            this.btnFont.Size = new System.Drawing.Size(84, 28);
+            this.btnFont.Text = "字体设置";
+            this.btnFont.Click += new System.EventHandler(this.btnFont_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 31);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Image = global::LoowooTech.LEDFlow.Client.Properties.Resources.delete;
+            this.btnDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(84, 28);
+            this.btnDelete.Text = "删除消息";
+            this.btnDelete.ToolTipText = "删除消息";
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // dataGridView1
             // 
@@ -111,39 +144,7 @@
             this.Duration.FillWeight = 60F;
             this.Duration.HeaderText = "播放时长";
             this.Duration.Name = "Duration";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 31);
-            // 
-            // btnSend
-            // 
-            this.btnSend.Image = global::LoowooTech.LEDFlow.Client.Properties.Resources.play;
-            this.btnSend.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSend.Name = "btnSend";
-            this.btnSend.Size = new System.Drawing.Size(84, 28);
-            this.btnSend.Text = "发送消息";
-            this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
-            // 
-            // btnFont
-            // 
-            this.btnFont.Image = global::LoowooTech.LEDFlow.Client.Properties.Resources.setting;
-            this.btnFont.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnFont.Name = "btnFont";
-            this.btnFont.Size = new System.Drawing.Size(84, 28);
-            this.btnFont.Text = "字体设置";
-            this.btnFont.Click += new System.EventHandler(this.btnFont_Click);
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.Image = global::LoowooTech.LEDFlow.Client.Properties.Resources.delete;
-            this.btnDelete.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(84, 28);
-            this.btnDelete.Text = "删除消息";
-            this.btnDelete.ToolTipText = "删除消息";
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            this.Duration.Visible = false;
             // 
             // MainForm
             // 
@@ -172,13 +173,11 @@
         private System.Windows.Forms.ToolStripButton btnSend;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton btnFont;
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn Content;
         private System.Windows.Forms.DataGridViewTextBoxColumn Duration;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripButton btnFont;
-
-
     }
 }
 

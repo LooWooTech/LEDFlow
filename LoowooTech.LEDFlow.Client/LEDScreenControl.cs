@@ -56,8 +56,18 @@ namespace LoowooTech.LEDFlow.Client
                     txtUpdateTime.Text = DateTime.Now.ToString();
                 }));
 
-                Thread.Sleep(msg.Duration * 1000);
+                Thread.Sleep(GetHoldTime() * 1000);
             }
+        }
+
+        private int GetHoldTime()
+        {
+            var holdTime = 0;
+            if (int.TryParse(System.Configuration.ConfigurationManager.AppSettings["HoldTime"], out holdTime))
+            {
+                return holdTime;
+            }
+            return 5;
         }
 
         public bool Selected { get; private set; }

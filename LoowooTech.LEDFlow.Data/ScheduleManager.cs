@@ -161,7 +161,7 @@ select last_insert_rowid();",
                 {
                     if (program.UpdateTime > led.CurrentProgram.UpdateTime)
                     {
-                        return program;
+                        return led.CurrentProgram = program;
                     }
                     return null;
                 }

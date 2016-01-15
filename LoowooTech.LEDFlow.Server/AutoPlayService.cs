@@ -13,10 +13,6 @@ namespace LoowooTech.LEDFlow.Server
     {
         private AutoPlayService()
         {
-            AnimationSpeed = StringHelper.ToInt(System.Configuration.ConfigurationManager.AppSettings["AnimationSpeed"], 5);
-            HoldTime = StringHelper.ToInt(System.Configuration.ConfigurationManager.AppSettings["HoldTime"], 5);
-            FrameTime = StringHelper.ToInt(System.Configuration.ConfigurationManager.AppSettings["FrameTime"], 20);
-            Interval = StringHelper.ToInt(System.Configuration.ConfigurationManager.AppSettings["Interval"], 10);
         }
 
         public static readonly AutoPlayService Instance = new AutoPlayService();
@@ -25,12 +21,27 @@ namespace LoowooTech.LEDFlow.Server
 
         private static readonly Dictionary<int, Thread> LEDThreadPool = new Dictionary<int, Thread>();
 
-        private static int AnimationSpeed = 5;
-        private static int HoldTime = 5;
-        private static int FrameTime = 20;
-        private static int Interval = 10;
-
         private static object lockObj = new object();
+        private int GetAnimationSpeed()
+        {
+            return StringHelper.ToInt(System.Configuration.ConfigurationManager.AppSettings["AnimationSpeed"], 5);
+        }
+
+        private int GetFrameTime()
+        {
+            return StringHelper.ToInt(System.Configuration.ConfigurationManager.AppSettings["FrameTime"], 20);
+        }
+
+        private int GetHoldTime()
+        {
+            return StringHelper.ToInt(System.Configuration.ConfigurationManager.AppSettings["HoldTime"], 5);
+        }
+
+        private int GetInterval()
+        {
+            return StringHelper.ToInt(System.Configuration.ConfigurationManager.AppSettings["Interval"], 10);
+        }
+
 
         public void Start()
         {
@@ -66,7 +77,7 @@ namespace LoowooTech.LEDFlow.Server
                     while (true)
                     {
                         Play(led);
-                        Thread.Sleep(1000 * Interval);
+                        Thread.Sleep(1000 * GetInterval());
                     }
                 }));
                 LEDThreadPool[led.ID].Start();
@@ -87,7 +98,7 @@ namespace LoowooTech.LEDFlow.Server
                     case TextAnimation.下移:
                     case TextAnimation.立即显示:
                     case TextAnimation.连续上移:
-                        holdTime = HoldTime * 10;
+                        holdTime = GetHoldTime() * 10;
                         break;
                 }
                 var sendContents = new List<string>();
@@ -95,7 +106,7 @@ namespace LoowooTech.LEDFlow.Server
                 {
                     sendContents.Add(msg.Content);
                 }
-                LEDAdapter.SendContent(sendContents, (int)led.Style.TextAnimation, AnimationSpeed, FrameTime, holdTime, led.VirtualID);
+                LEDAdapter.SendContent(sendContents, (int)led.Style.TextAnimation, GetAnimationSpeed(), GetFrameTime(), holdTime, led.VirtualID);
             }
         }
 

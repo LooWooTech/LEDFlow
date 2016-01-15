@@ -171,9 +171,13 @@ namespace LoowooTech.LEDFlow.Client
                 program.Messages.Add(new Model.Message
                 {
                     Content = content.ToString(),
-                    Duration = duration == null ? 10 : int.Parse(duration.ToString())
+                    Duration = duration == null ? 0 : int.Parse(duration.ToString())
                 });
             }
+
+            program.Messages.Reverse();
+
+
             new Thread(() =>
             {
                 try

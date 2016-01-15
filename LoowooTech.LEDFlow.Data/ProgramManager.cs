@@ -17,7 +17,8 @@ namespace LoowooTech.LEDFlow.Data
                 ID = int.Parse(row["ID"].ToString()),
                 Deleted = bool.Parse(row["Deleted"].ToString()),
                 CreateTime = DateTime.Parse(row["CreateTime"].ToString()),
-                ClientID = row["ClientID"] == null ? null : row["ClientID"].ToString(),
+                ClientID = string.IsNullOrEmpty(row["ClientID"].ToString()) ? null : row["ClientID"].ToString(),
+                UpdateTime = string.IsNullOrEmpty(row["UpdateTime"].ToString()) ? default(DateTime?) : DateTime.Parse(row["UpdateTime"].ToString())
             };
             var msgs = row["Messages"].ToString().Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
             foreach (var msg in msgs)
@@ -66,8 +67,8 @@ namespace LoowooTech.LEDFlow.Data
             if (model.ID > 0)
             {
                 var sql = "update Program set Messages = @Messages,UpdateTime=@UpdateTime Where ID = @ID";
-                DbHelper.ExecuteSql(sql, 
-                    new SQLiteParameter("@Messages", messages), 
+                DbHelper.ExecuteSql(sql,
+                    new SQLiteParameter("@Messages", messages),
                     new SQLiteParameter("@UpdateTime", DateTime.Now),
                     new SQLiteParameter("@ID", model.ID)
                     );

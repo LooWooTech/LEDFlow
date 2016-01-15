@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using LoowooTech.LEDFlow.Data;
 using System.Threading;
+using LoowooTech.LEDFlow.Common;
 
 namespace LoowooTech.LEDFlow.Server.UserControls
 {
@@ -66,6 +67,11 @@ namespace LoowooTech.LEDFlow.Server.UserControls
             this.Hide();
         }
 
+        private int GetHoldTime()
+        {
+            return StringHelper.ToInt(System.Configuration.ConfigurationManager.AppSettings["HoldTime"], 5);
+        }
+
         private void PlayProgram(Model.Program program)
         {
             if(program == null)
@@ -81,7 +87,7 @@ namespace LoowooTech.LEDFlow.Server.UserControls
                     txtUpdateTime.Text = DateTime.Now.ToString();
                 }));
 
-                Thread.Sleep(msg.Duration * 1000);
+                Thread.Sleep(GetHoldTime() * 1000);
             }
         }
     }
