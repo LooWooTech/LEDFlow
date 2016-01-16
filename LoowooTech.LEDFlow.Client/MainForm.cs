@@ -184,7 +184,8 @@ namespace LoowooTech.LEDFlow.Client
                 {
                     var client = Program.GetServiceClient();
                     var ledId = GetSelectedLEDID();
-                    client.SendProgram(ledId, program, FontSettingForm.GetTextStyle(ledId));
+                    var style = FontSettingForm.GetTextStyle(ledId);
+                    client.SendProgram(ledId, program, style);
                     client.GetCurrentProgram(ledId);
                 }
                 catch (Exception ex)

@@ -117,7 +117,7 @@ namespace LoowooTech.LEDFlow.Driver
                 {
                     var win = windows[windowId];
                     var f = win.Font;
-                    f.strFontName = "宋体";
+                    f.strFontName = font.FontFamily.Name;
                     f.bFontBold = font.Bold;
                     f.bFontItaic = font.Italic;
                     f.bFontUnderline = font.Underline;

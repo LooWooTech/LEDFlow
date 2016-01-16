@@ -11,6 +11,23 @@ namespace LoowooTech.LEDFlow.Model
 
         public int FontSize { get; set; }
 
+        private bool _isHold;
+        /// <summary>
+        /// 是否暂停一会
+        /// </summary>
+        public bool IsHold
+        {
+            get
+            {
+                if (TextAnimation == Model.TextAnimation.连续左移)
+                {
+                    return false;
+                }
+                return _isHold;
+            }
+            set { _isHold = value; }
+        }
+
         public TextAlignment TextAlignment { get; set; }
 
         public TextAnimation TextAnimation { get; set; }
@@ -25,17 +42,9 @@ namespace LoowooTech.LEDFlow.Model
 
     public enum TextAlignment
     {
-        左上 = 1,
-        上 = 2,
-        右上 = 4,
-
         左 = 16,
         中 = 32,
-        右 = 64,
-
-        左下 = 256,
-        下 = 512,
-        右下 = 1024
+        右 = 64
     }
 
     public enum TextAnimation
@@ -45,7 +54,6 @@ namespace LoowooTech.LEDFlow.Model
         连续左移 = 3,
         右移 = 4,
         上移 = 5,
-        连续上移 = 6,
         下移 = 7
     }
 }

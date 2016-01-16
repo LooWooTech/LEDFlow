@@ -94,11 +94,17 @@ namespace LoowooTech.LEDFlow.Server
                 var holdTime = 0;
                 switch (led.Style.TextAnimation)
                 {
+                    case TextAnimation.立即显示:
+                        holdTime = GetHoldTime() * 10;
+                        break;
                     case TextAnimation.上移:
                     case TextAnimation.下移:
-                    case TextAnimation.立即显示:
-                    case TextAnimation.连续上移:
-                        holdTime = GetHoldTime() * 10;
+                    case TextAnimation.左移:
+                    case TextAnimation.右移:
+                        if (led.Style.IsHold)
+                        {
+                            holdTime = GetHoldTime() * 10;
+                        }
                         break;
                 }
                 var sendContents = new List<string>();

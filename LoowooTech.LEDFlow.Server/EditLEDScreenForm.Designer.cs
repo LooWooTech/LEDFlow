@@ -50,6 +50,9 @@
             this.label10 = new System.Windows.Forms.Label();
             this.cbxTextAnimation = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cbxIsHold = new System.Windows.Forms.CheckBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             panel1 = new System.Windows.Forms.GroupBox();
             panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -166,7 +169,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(374, 336);
+            this.btnCancel.Location = new System.Drawing.Point(372, 348);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 17;
@@ -176,7 +179,7 @@
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(279, 336);
+            this.btnOK.Location = new System.Drawing.Point(277, 348);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 16;
@@ -223,7 +226,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(226, 27);
+            this.label9.Location = new System.Drawing.Point(217, 66);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(53, 12);
             this.label9.TabIndex = 21;
@@ -234,7 +237,7 @@
             this.cbxTextAlignment.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxTextAlignment.Font = new System.Drawing.Font("Microsoft YaHei", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cbxTextAlignment.FormattingEnabled = true;
-            this.cbxTextAlignment.Location = new System.Drawing.Point(288, 23);
+            this.cbxTextAlignment.Location = new System.Drawing.Point(279, 62);
             this.cbxTextAlignment.Name = "cbxTextAlignment";
             this.cbxTextAlignment.Size = new System.Drawing.Size(121, 28);
             this.cbxTextAlignment.TabIndex = 22;
@@ -242,7 +245,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(226, 59);
+            this.label10.Location = new System.Drawing.Point(217, 26);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(53, 12);
             this.label10.TabIndex = 23;
@@ -253,33 +256,67 @@
             this.cbxTextAnimation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxTextAnimation.Font = new System.Drawing.Font("Microsoft YaHei", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.cbxTextAnimation.FormattingEnabled = true;
-            this.cbxTextAnimation.Location = new System.Drawing.Point(288, 57);
+            this.cbxTextAnimation.Location = new System.Drawing.Point(279, 24);
             this.cbxTextAnimation.Name = "cbxTextAnimation";
             this.cbxTextAnimation.Size = new System.Drawing.Size(121, 28);
             this.cbxTextAnimation.TabIndex = 24;
+            this.cbxTextAnimation.SelectedIndexChanged += new System.EventHandler(this.cbxTextAnimation_SelectedIndexChanged);
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label6);
+            this.groupBox2.Controls.Add(this.cbxIsHold);
+            this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.cbxTextAnimation);
-            this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.cbxTextAlignment);
+            this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.txtFontSize);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.cbxFontFamily);
             this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Location = new System.Drawing.Point(22, 223);
+            this.groupBox2.Location = new System.Drawing.Point(22, 218);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(427, 107);
+            this.groupBox2.Size = new System.Drawing.Size(427, 124);
             this.groupBox2.TabIndex = 13;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "默认字体";
+            // 
+            // cbxIsHold
+            // 
+            this.cbxIsHold.AutoSize = true;
+            this.cbxIsHold.Location = new System.Drawing.Point(81, 96);
+            this.cbxIsHold.Name = "cbxIsHold";
+            this.cbxIsHold.Size = new System.Drawing.Size(36, 16);
+            this.cbxIsHold.TabIndex = 36;
+            this.cbxIsHold.Text = "是";
+            this.cbxIsHold.UseVisualStyleBackColor = true;
+            this.cbxIsHold.CheckedChanged += new System.EventHandler(this.cbxIsHold_CheckedChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(17, 98);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(53, 12);
+            this.label5.TabIndex = 35;
+            this.label5.Text = "是否停顿";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.label6.Location = new System.Drawing.Point(123, 98);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(269, 12);
+            this.label6.TabIndex = 37;
+            this.label6.Text = "选择停顿时，左右移动动画效果可以选择对齐方式";
             // 
             // EditLEDScreenForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(457, 371);
+            this.ClientSize = new System.Drawing.Size(463, 383);
             this.Controls.Add(panel1);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
@@ -321,5 +358,8 @@
         private System.Windows.Forms.ListBox lstClient;
         private System.Windows.Forms.TextBox txtID;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.CheckBox cbxIsHold;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
     }
 }

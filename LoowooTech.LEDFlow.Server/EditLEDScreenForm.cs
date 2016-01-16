@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using LoowooTech.LEDFlow.Model;
 
 namespace LoowooTech.LEDFlow.Server
 {
@@ -46,6 +47,8 @@ namespace LoowooTech.LEDFlow.Server
             txtFontSize.Text = model.Style.FontSize.ToString();
             cbxTextAlignment.Text = model.Style.TextAlignment.ToString();
             cbxTextAnimation.Text = model.Style.TextAnimation.ToString();
+            cbxIsHold.Checked = model.Style.IsHold;
+
             if (model.Clients != null)
             {
                 for (var i = 0; i < lstClient.Items.Count; i++)
@@ -105,6 +108,8 @@ namespace LoowooTech.LEDFlow.Server
             model.Clients = clients.ToArray();
             model.Style.FontFamily = StringHelper.ToEnum<Model.FontFamily>(cbxFontFamily.Text);
             model.Style.FontSize = StringHelper.ToInt(txtFontSize.Text);
+            model.Style.IsHold = cbxIsHold.Checked;
+
             if (model.Style.FontSize == 0)
             {
                 txtFontSize.Focus();
@@ -123,6 +128,39 @@ namespace LoowooTech.LEDFlow.Server
         {
             this.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.Close();
+        }
+
+        private void SetControlEnable()
+        {
+            var animation = StringHelper.ToEnum<TextAnimation>(cbxTextAnimation.Text);
+            switch (animation)
+            {
+                case TextAnimation.立即显示:
+                case TextAnimation.上移:
+                case TextAnimation.下移:
+                    cbxTextAlignment.Enabled = true;
+                    cbxIsHold.Enabled = true;
+                    return;
+                case TextAnimation.左移:
+                case TextAnimation.右移:
+                    cbxTextAlignment.Enabled = cbxIsHold.Checked;
+                    cbxIsHold.Enabled = true;
+                    break;
+                case TextAnimation.连续左移:
+                    cbxTextAlignment.Enabled = false;
+                    cbxIsHold.Enabled = false;
+                    break;
+            }
+        }
+
+        private void cbxTextAnimation_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SetControlEnable();
+        }
+
+        private void cbxIsHold_CheckedChanged(object sender, EventArgs e)
+        {
+            SetControlEnable();
         }
     }
 }
