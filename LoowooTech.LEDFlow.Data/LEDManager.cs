@@ -29,6 +29,7 @@ namespace LoowooTech.LEDFlow.Data
             {
                 list.Add(model);
             }
+            model.CurrentProgram = null;//重置LED屏幕的当前播放节目
             DataManager.Instance.Save(list);
         }
 

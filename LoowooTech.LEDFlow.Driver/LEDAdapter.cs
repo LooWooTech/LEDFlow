@@ -1,8 +1,8 @@
 ﻿using EQ2008_DataStruct;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Drawing;
-
 using System.Text;
 
 namespace LoowooTech.LEDFlow.Driver
@@ -229,7 +229,23 @@ namespace LoowooTech.LEDFlow.Driver
                 text.FontInfo = w.Font;
                 text.MoveSet = w.Movement;
 
-                if (w.Id != activeWindowId) text.MoveSet.iActionType = 1; // 除了当前窗，其他窗的文字都马上出现
+                if (w.Id != activeWindowId)
+                {
+                    text.MoveSet.iActionType = 1; // 除了当前窗，其他窗的文字都马上出现
+                }
+                else
+                {
+                    if (text.MoveSet.iActionSpeed == 3)
+                    {
+                        var list = new List<string>();
+                        var count = int.Parse(ConfigurationManager.AppSettings["SpaceCount"]);
+                        for (var i = 0; i < count; i++)
+                        {
+                            list.Add("　");
+                        }
+                        text.chContent = string.Join(string.Join(string.Empty, list.ToArray()), w.Text.ToArray());
+                    }
+                }
 
                 text.PartInfo = w.Frame;
                 LedAPI.User_AddText(win.LedIndex, ref text, programId);

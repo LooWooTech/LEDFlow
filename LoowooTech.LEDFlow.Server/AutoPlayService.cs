@@ -58,7 +58,6 @@ namespace LoowooTech.LEDFlow.Server
             if (led.VirtualID == -1)
             {
                 led.VirtualID = LEDAdapter.CreateWindow(0, 0, led.Width, led.Height, led.ID);
-                LEDAdapter.SetFont(new Font(led.Style.FontFamily.ToString(), led.Style.FontSize), (ContentAlignment)led.Style.TextAlignment, 1, led.VirtualID);
             }
         }
 
@@ -112,6 +111,7 @@ namespace LoowooTech.LEDFlow.Server
                 {
                     sendContents.Add(msg.Content);
                 }
+                LEDAdapter.SetFont(new Font(led.Style.FontFamily.ToString(), led.Style.FontSize), (ContentAlignment)led.Style.TextAlignment, 1, led.VirtualID);
                 LEDAdapter.SendContent(sendContents, (int)led.Style.TextAnimation, GetAnimationSpeed(), GetFrameTime(), holdTime, led.VirtualID);
             }
         }
