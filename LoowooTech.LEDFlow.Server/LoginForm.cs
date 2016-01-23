@@ -69,6 +69,7 @@ namespace LoowooTech.LEDFlow.Server
         {
             AutoPlayService.Instance.Stop();
             Application.Exit();
+            Environment.Exit(0);
         }
 
         private void notifyIcon1_Click(object sender, EventArgs e)

@@ -1,4 +1,5 @@
-﻿using LoowooTech.LEDFlow.Data;
+﻿using LoowooTech.LEDFlow.Common;
+using LoowooTech.LEDFlow.Data;
 using LoowooTech.LEDFlow.Model;
 using System;
 using System.Collections.Generic;
@@ -41,22 +42,15 @@ namespace LoowooTech.LEDFlow.Server
                 servicePort = 8080;
             }
             var channel = new TcpServerChannel(servicePort);
-            ChannelServices.RegisterChannel(channel, true);
+            ChannelServices.RegisterChannel(channel, false);
             RemotingConfiguration.RegisterWellKnownServiceType(typeof(LEDService), "LEDService", WellKnownObjectMode.SingleCall);
         }
 
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            var ex = e.ExceptionObject as Exception;
-            var logPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs");
-            if (!Directory.Exists(logPath))
-            {
-                Directory.CreateDirectory(logPath);
-            }
-            var content = new StringBuilder();
-            content.AppendLine(ex.Message);
-            content.AppendLine(ex.StackTrace);
-            File.WriteAllText(Path.Combine(logPath, ex.GetType().Name + DateTime.Now.Ticks.ToString() + ".txt"), content.ToString());
+            var ex = (Exception)e.ExceptionObject;
+            LogHelper.WriteLog(ex);
+            MessageBox.Show("程序出错\n" + ex.Message);
         }
 
     }

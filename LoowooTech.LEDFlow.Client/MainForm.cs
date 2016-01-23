@@ -64,6 +64,8 @@ namespace LoowooTech.LEDFlow.Client
             {
                 c.Stop();
             }
+            Application.Exit();
+            Environment.Exit(0);
         }
 
         public void BindData()
