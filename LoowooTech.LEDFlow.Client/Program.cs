@@ -27,9 +27,7 @@ namespace LoowooTech.LEDFlow.Client
 
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            var ex = (Exception)e.ExceptionObject;
-            LogHelper.WriteLog(ex);
-            MessageBox.Show("程序出错\n" + ex.Message);
+            LogHelper.WriteLog((Exception)e.ExceptionObject);
         }
 
         public static LEDService GetServiceClient()

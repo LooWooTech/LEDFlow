@@ -111,8 +111,20 @@ namespace LoowooTech.LEDFlow.Server
                 {
                     sendContents.Add(msg.Content);
                 }
-                LEDAdapter.SetFont(new Font(led.Style.FontFamily.ToString(), led.Style.FontSize), (ContentAlignment)led.Style.TextAlignment, 1, led.VirtualID);
-                LEDAdapter.SendContent(sendContents, (int)led.Style.TextAnimation, GetAnimationSpeed(), GetFrameTime(), holdTime, led.VirtualID);
+                try
+                {
+                    LEDAdapter.SetFont(new Font(led.Style.FontFamily.ToString(), led.Style.FontSize), (ContentAlignment)led.Style.TextAlignment, 1, led.VirtualID);
+                    LEDAdapter.SendContent(sendContents, (int)led.Style.TextAnimation, GetAnimationSpeed(), GetFrameTime(), holdTime, led.VirtualID);
+                }
+                catch (KeyNotFoundException ex)
+                {
+                    //System.Windows.Forms.MessageBox.Show(ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    LogHelper.WriteLog(ex);
+                    //System.Windows.Forms.MessageBox.Show(led.Name + "节目播放失败", "驱动异常", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                }
             }
         }
 
