@@ -16,6 +16,7 @@ namespace LoowooTech.LEDFlow.Server
         public MainForm()
         {
             InitializeComponent();
+            this.Text += "-" + Program.License.NetName;
         }
 
         protected override void OnLoad(EventArgs e)

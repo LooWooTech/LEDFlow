@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.container = new System.Windows.Forms.Panel();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.btnLogout = new System.Windows.Forms.ToolStripButton();
@@ -82,7 +83,7 @@
             // 
             // toolStrip1
             // 
-            this.toolStrip1.BackColor = System.Drawing.Color.SteelBlue;
+            this.toolStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(58)))), ((int)(((byte)(86)))));
             this.toolStrip1.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.toolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
@@ -179,6 +180,7 @@
             this.ClientSize = new System.Drawing.Size(714, 419);
             this.Controls.Add(this.container);
             this.Controls.Add(this.toolStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Text = "LED主控系统";
             this.toolStrip1.ResumeLayout(false);

@@ -25,12 +25,41 @@ namespace LoowooTech.LEDFlow.Server
         [STAThread]
         static void Main()
         {
+            var license = GetLicense();
+            if (license == null)
+            {
+                MessageBox.Show("没有找到授权证书");
+                return;
+            }
+            if(license.ExpireDay <= DateTime.Now)
+            {
+                MessageBox.Show("授权已过期，请更换证书");
+                return;
+            }
+
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             OpenService();
             AutoPlayService.Instance.Start();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new LoginForm());
+        }
+
+        public static LicenseInfo License { get; private set; }
+
+        private static LicenseInfo GetLicense()
+        {
+            LicenseManager.CreateSnFile();
+#if TEST
+            License = new LicenseInfo
+            {
+                ExpireDay = DateTime.MaxValue,
+                NetName = "测试版(未授权)"
+            };
+#else
+            License = LicenseManager.GetLicenseInfo();
+#endif
+            return License;
         }
 
         private static void OpenService()

@@ -57,10 +57,16 @@ namespace LoowooTech.LEDFlow.Server
 
         private void OpenLED(LEDScreen led)
         {
-            if (led.VirtualID == -1)
+            try
             {
                 LEDAdapter.Open(led.ID);
-                led.VirtualID = LEDAdapter.CreateWindow(0, 0, led.Width, led.Height, led.ID);
+                if (led.VirtualID == -1)
+                {
+                    led.VirtualID = LEDAdapter.CreateWindow(0, 0, led.Width, led.Height, led.ID);
+                }
+            }
+            catch
+            {
             }
         }
 

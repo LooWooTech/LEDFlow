@@ -35,17 +35,26 @@ namespace LoowooTech.LEDFlow.Server.UserControls
             LEDID = model.ID;
             txtName.Text = model.Name;
 
-            _playThread = new Thread(new ParameterizedThreadStart(delegate
+            _playThread = new Thread(() =>
             {
                 while (true)
                 {
                     try
                     {
+                        if (model.VirtualID == -1)
+                        {
+                            txtMessage.Invoke(new Action(() =>
+                            {
+                                txtMessage.Text = "关闭中";
+                                model = LEDManager.GetModel(model.ID);
+                            }));
+                            Thread.Sleep(1000);
+                        }
                         PlayProgram(model.CurrentProgram);
                     }
                     catch { }
                 }
-            }));
+            });
             _playThread.Start();
         }
 
@@ -74,7 +83,7 @@ namespace LoowooTech.LEDFlow.Server.UserControls
 
         private void PlayProgram(Model.Program program)
         {
-            if(program == null)
+            if (program == null)
             {
                 Thread.Sleep(1000);
                 return;

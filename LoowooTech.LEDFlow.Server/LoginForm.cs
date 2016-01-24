@@ -16,6 +16,7 @@ namespace LoowooTech.LEDFlow.Server
         public LoginForm()
         {
             InitializeComponent();
+            this.Text += "-" + Program.License.NetName;
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
