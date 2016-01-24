@@ -30,7 +30,6 @@ namespace LoowooTech.LEDFlow.Server
             AutoPlayService.Instance.Start();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
             Application.Run(new LoginForm());
         }
 
@@ -50,7 +49,6 @@ namespace LoowooTech.LEDFlow.Server
         {
             var ex = (Exception)e.ExceptionObject;
             LogHelper.WriteLog(ex);
-            MessageBox.Show("程序出错\n" + ex.Message);
         }
 
     }

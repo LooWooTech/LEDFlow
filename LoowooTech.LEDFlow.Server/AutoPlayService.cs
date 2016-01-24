@@ -45,18 +45,21 @@ namespace LoowooTech.LEDFlow.Server
 
         public void Start()
         {
-            var list = LEDManager.GetList();
-            foreach (var item in list)
+            new Thread(() =>
             {
-                AddLED(item);
-            }
+                var list = LEDManager.GetList();
+                foreach (var item in list)
+                {
+                    AddLED(item);
+                }
+            }).Start();
         }
 
         private void OpenLED(LEDScreen led)
         {
-            LEDAdapter.Open(led.ID);
             if (led.VirtualID == -1)
             {
+                LEDAdapter.Open(led.ID);
                 led.VirtualID = LEDAdapter.CreateWindow(0, 0, led.Width, led.Height, led.ID);
             }
         }
@@ -70,7 +73,6 @@ namespace LoowooTech.LEDFlow.Server
             {
                 RemoveLED(led);
                 OpenLED(led);
-
                 LEDThreadPool.Add(led.ID, new Thread(() =>
                 {
                     while (true)
@@ -118,10 +120,12 @@ namespace LoowooTech.LEDFlow.Server
                 }
                 catch (KeyNotFoundException ex)
                 {
+                    led.CurrentProgram = null;
                     //System.Windows.Forms.MessageBox.Show(ex.Message);
                 }
                 catch (Exception ex)
                 {
+                    led.CurrentProgram = null;
                     LogHelper.WriteLog(ex);
                     //System.Windows.Forms.MessageBox.Show(led.Name + "节目播放失败", "驱动异常", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
                 }

@@ -9,7 +9,7 @@ namespace LoowooTech.LEDFlow.Model
     {
         public LEDScreen()
         {
-            Style = new TextStyle();
+            Style = new TextStyle { FontSize = 12, FontFamily = FontFamily.宋体 };
             VirtualID = -1;
         }
 
