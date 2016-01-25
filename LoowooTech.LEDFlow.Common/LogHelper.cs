@@ -19,6 +19,7 @@ namespace LoowooTech.LEDFlow.Common
                 var content = new StringBuilder();
                 content.AppendLine(ex.Message);
                 content.AppendLine(ex.StackTrace);
+                content.AppendLine(ex.Source);
                 File.WriteAllText(Path.Combine(logPath, ex.GetType().Name + DateTime.Now.Ticks.ToString() + ".txt"), content.ToString());
             }
             catch

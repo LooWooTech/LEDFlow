@@ -161,10 +161,12 @@ select last_insert_rowid();",
                 {
                     if (program.UpdateTime > led.CurrentProgram.UpdateTime)
                     {
+                        led.LastUpdateTime = model.CreateTime;
                         return led.CurrentProgram = program;
                     }
                     return null;
                 }
+                led.LastUpdateTime = model.CreateTime;
                 return led.CurrentProgram = program;
 
                 ////如果屏幕当前有播放节目，并且和本次获取的节目相同，则判断该节目是否播放完一次，如果播放完成则返回program，如果没有，则返回null

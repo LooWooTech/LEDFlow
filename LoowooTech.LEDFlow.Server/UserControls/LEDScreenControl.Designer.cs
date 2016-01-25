@@ -32,13 +32,13 @@
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.txtName = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.panelBottom = new System.Windows.Forms.Panel();
             this.txtUpdateTime = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.txtMessage = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
+            this.panelBottom.SuspendLayout();
             this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -88,15 +88,15 @@
             this.txtName.TabIndex = 0;
             this.txtName.Text = "LED屏幕编号";
             // 
-            // panel2
+            // panelBottom
             // 
-            this.panel2.Controls.Add(this.txtUpdateTime);
-            this.panel2.Controls.Add(this.label2);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 100);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(296, 32);
-            this.panel2.TabIndex = 1;
+            this.panelBottom.Controls.Add(this.txtUpdateTime);
+            this.panelBottom.Controls.Add(this.label2);
+            this.panelBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelBottom.Location = new System.Drawing.Point(0, 100);
+            this.panelBottom.Name = "panelBottom";
+            this.panelBottom.Size = new System.Drawing.Size(296, 32);
+            this.panelBottom.TabIndex = 1;
             // 
             // txtUpdateTime
             // 
@@ -143,14 +143,14 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panel3);
-            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panelBottom);
             this.Controls.Add(this.panel1);
             this.Name = "LEDScreenControl";
             this.Size = new System.Drawing.Size(296, 132);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
+            this.panelBottom.ResumeLayout(false);
+            this.panelBottom.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -160,7 +160,7 @@
 
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label txtName;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panelBottom;
         private System.Windows.Forms.Label txtUpdateTime;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel3;

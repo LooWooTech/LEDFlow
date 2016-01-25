@@ -44,10 +44,25 @@ namespace LoowooTech.LEDFlow.Model
         [Newtonsoft.Json.JsonIgnore]
         public int VirtualID { get; set; }
 
+        private Program _currentProgram;
         /// <summary>
         /// 当前正在播放的节目
         /// </summary>
         [Newtonsoft.Json.JsonIgnore]
         public Program CurrentProgram { get; set; }
+        //{
+        //    get { return _currentProgram; }
+        //    set
+        //    {
+        //        _currentProgram = value;
+        //        LastUpdateTime = DateTime.Now;
+        //    }
+        //}
+
+        /// <summary>
+        /// 最后一次屏幕的更新时间，在更换播放节目时更新该值
+        /// </summary>
+        [Newtonsoft.Json.JsonIgnore]
+        public DateTime? LastUpdateTime { get; set; }
     }
 }

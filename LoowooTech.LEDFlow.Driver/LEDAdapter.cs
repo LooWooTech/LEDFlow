@@ -195,7 +195,15 @@ namespace LoowooTech.LEDFlow.Driver
                     m.iFrameTime = frameTime;
                     win.Movement = m;
                     win.Text = new List<string>(contents);
-                    RefreshWholeScreen(windowId);
+                    try
+                    {
+                        RefreshWholeScreen(windowId);
+                    }
+                    catch(Exception ex)
+                    {
+                        ex.Source = Newtonsoft.Json.JsonConvert.SerializeObject(win);
+                        throw ex;
+                    }
                 }
                 else
                 {

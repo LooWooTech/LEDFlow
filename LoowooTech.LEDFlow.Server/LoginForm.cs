@@ -34,6 +34,7 @@ namespace LoowooTech.LEDFlow.Server
                 txtPassword.Focus();
                 return;
             }
+            btnLogin.Enabled = false;
             new Thread(() =>
             {
                 btnLogin.Invoke(new Action(() =>
@@ -51,6 +52,7 @@ namespace LoowooTech.LEDFlow.Server
                     {
                         MessageBox.Show("找不到该账号，请检查用户名或密码");
                     }
+                    btnLogin.Enabled = true;
                 }));
 
             }).Start();

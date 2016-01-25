@@ -32,7 +32,11 @@ namespace LoowooTech.LEDFlow.Server.UserControls
         {
             if (LED.VirtualID == -1)
             {
-                txtMessage.Text = "关闭中";
+                LED = LEDManager.GetModel(LED.ID);
+                if (LED.VirtualID == -1)
+                {
+                    txtMessage.Text = "关闭中";
+                }
             }
             else
             {
@@ -53,6 +57,7 @@ namespace LoowooTech.LEDFlow.Server.UserControls
                                 _lastIndex -= LED.CurrentProgram.Messages.Count;
                             }
                             txtMessage.Text = LED.CurrentProgram.Messages[_lastIndex].Content;
+                            txtUpdateTime.Text = LED.LastUpdateTime.HasValue ? LED.LastUpdateTime.Value.ToString() : string.Empty;
                         }
                     }
                     else
