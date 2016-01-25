@@ -48,9 +48,9 @@ namespace LoowooTech.LEDFlow.Server
             new Thread(() =>
             {
                 var list = LEDManager.GetList();
-                foreach (var item in list)
+                for (var i = 0; i < list.Count; i++)
                 {
-                    AddLED(item);
+                    AddLED(list[i]);
                 }
             }).Start();
         }

@@ -225,7 +225,14 @@ namespace LoowooTech.LEDFlow.Driver
             foreach (var w in wins)
             {
                 var text = new User_Text();
-                text.chContent = string.Join("\r\n", w.Text.ToArray());
+                if (w.Text == null)
+                {
+                    text.chContent = null;
+                }
+                else
+                {
+                    text.chContent = string.Join("\r\n", w.Text.ToArray());
+                }
                 text.FontInfo = w.Font;
                 text.MoveSet = w.Movement;
 

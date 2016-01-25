@@ -13,91 +13,73 @@ namespace LoowooTech.LEDFlow.Server.UserControls
 {
     public partial class LEDScreenControl : UserControl
     {
-        private Thread _playThread;
         public LEDScreenControl()
         {
             InitializeComponent();
         }
 
-        public int LEDID { get; private set; }
-
-        public void Stop()
-        {
-            if (_playThread != null)
-            {
-                _playThread.Abort();
-                _playThread = null;
-            }
-        }
+        private Model.LEDScreen LED;
 
         public void BindData(Model.LEDScreen model)
         {
-            LEDID = model.ID;
+            LED = model;
             txtName.Text = model.Name;
+        }
 
-            _playThread = new Thread(() =>
+        private Model.Program _lastProgram = null;
+        private int _lastIndex = -1;
+        public void PlayProgram()
+        {
+            if (LED.VirtualID == -1)
             {
-                while (true)
+                txtMessage.Text = "关闭中";
+            }
+            else
+            {
+                if (LED.CurrentProgram == null)
                 {
-                    try
-                    {
-                        if (model.VirtualID == -1)
-                        {
-                            txtMessage.Invoke(new Action(() =>
-                            {
-                                txtMessage.Text = "关闭中";
-                                model = LEDManager.GetModel(model.ID);
-                            }));
-                            Thread.Sleep(1000);
-                        }
-                        PlayProgram(model.CurrentProgram);
-                    }
-                    catch { }
+                    txtMessage.Text = "没有节目";
                 }
-            });
-            _playThread.Start();
+                else
+                {
+                    if (_lastProgram != null)
+                    {
+                        if (LED.CurrentProgram.ID == _lastProgram.ID)
+                        {
+                            _lastIndex++;
+
+                            if(_lastIndex >= LED.CurrentProgram.Messages.Count)
+                            {
+                                _lastIndex -= LED.CurrentProgram.Messages.Count;
+                            }
+                            txtMessage.Text = LED.CurrentProgram.Messages[_lastIndex].Content;
+                        }
+                    }
+                    else
+                    {
+                        _lastProgram = LED.CurrentProgram;
+                        _lastIndex = 0;
+                        txtMessage.Text = LED.CurrentProgram.Messages[_lastIndex].Content;
+                    }
+                }
+            }
         }
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
             var form = new EditLEDScreenForm();
-            form.BindData(LEDID);
+            form.BindData(LED.ID);
             if (form.ShowDialog() == DialogResult.OK)
             {
-                this.Stop();
-                var model = LEDManager.GetModel(LEDID);
+                var model = LEDManager.GetModel(LED.ID);
                 BindData(model);
             }
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            LEDManager.Delete(LEDID);
+            LEDManager.Delete(LED.ID);
             this.Hide();
-        }
-
-        private int GetHoldTime()
-        {
-            return StringHelper.ToInt(System.Configuration.ConfigurationManager.AppSettings["HoldTime"], 5);
-        }
-
-        private void PlayProgram(Model.Program program)
-        {
-            if (program == null)
-            {
-                Thread.Sleep(1000);
-                return;
-            }
-            foreach (var msg in program.Messages)
-            {
-                txtMessage.Invoke(new Action(() =>
-                {
-                    txtMessage.Text = msg.Content;
-                    txtUpdateTime.Text = DateTime.Now.ToString();
-                }));
-
-                Thread.Sleep(GetHoldTime() * 1000);
-            }
         }
     }
 }

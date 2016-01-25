@@ -6,15 +6,20 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 using LoowooTech.LEDFlow.Data;
+using System.Threading;
+using LoowooTech.LEDFlow.Common;
 
 namespace LoowooTech.LEDFlow.Server.UserControls
 {
     public partial class LEDScreenTab : UserControl, ITabControl
     {
+        private Thread _playThread;
+
         public LEDScreenTab()
         {
             InitializeComponent();
         }
+
 
         public void BindData()
         {
@@ -23,6 +28,21 @@ namespace LoowooTech.LEDFlow.Server.UserControls
             {
                 AddControl(model);
             }
+            _playThread = new Thread(() =>
+            {
+                while (true)
+                {
+                    Invoke(new Action(() =>
+                    {
+                        foreach (LEDScreenControl control in flowLayoutPanel1.Controls)
+                        {
+                            control.PlayProgram();
+                        }
+                    }));
+                    Thread.Sleep(StringHelper.ToInt(System.Configuration.ConfigurationManager.AppSettings["HoldTime"], 5) * 1000);
+                }
+            });
+            _playThread.Start();
         }
 
         private void AddControl(Model.LEDScreen data)
@@ -49,9 +69,10 @@ namespace LoowooTech.LEDFlow.Server.UserControls
 
         private void LEDScreenTab_ParentChanged(object sender, EventArgs e)
         {
-            foreach (LEDScreenControl control in flowLayoutPanel1.Controls)
+            if (_playThread != null)
             {
-                control.Stop();
+                _playThread.Abort();
+                _playThread = null;
             }
         }
     }
